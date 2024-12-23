@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/useing/MainMenu.unity
+    guid: 92abad76dbff6ab4c9817f33c246ae52
+  - enabled: 1
+    path: Assets/Scenes/useing/CharacterCreationScene.unity
+    guid: 614aa0f68df69c742871a13bd89b0896
+  - enabled: 1
+    path: Assets/Scenes/useing/clothshop.unity
+    guid: 53622abecd30933419d0e31528c3ad34
+  - enabled: 1
+    path: Assets/Scenes/useing/fristscenes.unity
+    guid: 7091d030fcc1dda45a78115adf2f4c6f
+  - enabled: 0
+    path: Assets/Scenes/useing/LV1(old).unity
+    guid: 58dd21d702914c34198c53bcb3d9febf
+  - enabled: 0
+    path: Assets/Scenes/useing/X.unity
+    guid: d8579fbcac56ccf4aa1475d21b8cdc93
+  - enabled: 0
+    path: Assets/Scenes/useing/LV3(Wrong).unity
+    guid: 1d0dfbba507e09d489ee33dea7424ef1
+  - enabled: 1
+    path: Assets/Scenes/useing/motoshop.unity
+    guid: ec6bb1877485a5f4591f885ae1b12b6e
+  - enabled: 1
+    path: Assets/Scenes/useing/LV1.unity
+    guid: 3847fabefccdfbf4e8c0a4ccb4f0c4d8
+  - enabled: 1
+    path: Assets/Scenes/useing/LV2.unity
+    guid: 7116c107e21e95d4dbbcf7562bd01e4b
+  - enabled: 1
+    path: Assets/Scenes/useing/LV3.unity
+    guid: 382fa2295165425449c0d829b8cc8331
+  - enabled: 1
+    path: Assets/Scenes/useing/LV4.unity
+    guid: a6f4f4615ee3b804eaf8b9a5066c6405
+  - enabled: 1
+    path: Assets/Scenes/useing/LV5.unity
+    guid: ed2b84cf82a79174aa1261ca3464f882
+  - enabled: 1
+    path: Assets/Scenes/useing/LV6.unity
+    guid: d9d20ac2525922f4689791f2d0c5c865
+  m_configObjects: {}
