@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class AdaptiveSpawner : MonoBehaviour
 {
-    public GameObject prefab; // ÒªÉú³ÉµÄ prefab
-    public Transform centerPoint; // ÖĞĞÄüc
-    public int numberOfPrefabs = 3; // Éú³ÉµÄ prefab ”µÁ¿£¨1-5£©
+    public GameObject prefab; // è¦ç”Ÿæˆçš„ prefab
+    public Transform centerPoint; // ä¸­å¿ƒé»
+    public int numberOfPrefabs = 3; // ç”Ÿæˆçš„ prefab æ•¸é‡ï¼ˆ1-5ï¼‰
     [Range(1f, 10f)]
-    public float spacing = 2f; // prefab égµÄ¾àëx£¨¿ÉÕ{£©
+    public float spacing = 2f; // prefab é–“çš„è·é›¢ï¼ˆå¯èª¿ï¼‰
 
     void Start()
     {
@@ -17,49 +17,49 @@ public class AdaptiveSpawner : MonoBehaviour
 
     public void GeneratePrefabs()
     {
-        // ´_±£Éú³É”µÁ¿ÔÚ 1 µ½ 5 Ö®ég
+        // ç¢ºä¿ç”Ÿæˆæ•¸é‡åœ¨ 1 åˆ° 5 ä¹‹é–“
         numberOfPrefabs = Mathf.Clamp(numberOfPrefabs, 1, 5);
 
-        // Ó‹Ëã¿‚¿ç¶È£¬´_±£ËùÓĞ prefab ÒÔÖĞĞÄücéŒ¦·QÎ»ÖÃ
+        // è¨ˆç®—ç¸½è·¨åº¦ï¼Œç¢ºä¿æ‰€æœ‰ prefab ä»¥ä¸­å¿ƒé»ç‚ºå°ç¨±ä½ç½®
         float totalWidth = (numberOfPrefabs - 1) * spacing;
         float startX = centerPoint.position.x - totalWidth / 2;
 
         for (int i = 0; i < numberOfPrefabs; i++)
         {
-            // Ó‹ËãÃ¿‚€ prefab µÄÎ»ÖÃ
+            // è¨ˆç®—æ¯å€‹ prefab çš„ä½ç½®
             Vector3 position = new Vector3(startX + i * spacing, centerPoint.position.y, centerPoint.position.z);
 
-            // Éú³É prefab KÔOÖÃéÖĞĞÄücµÄ×ÓÎï¼ş£¨¿Éßx£©
+            // ç”Ÿæˆ prefab ä¸¦è¨­ç½®ç‚ºä¸­å¿ƒé»çš„å­ç‰©ä»¶ï¼ˆå¯é¸ï¼‰
             GameObject spawnedPrefab = Instantiate(prefab, position, Quaternion.identity);
             spawnedPrefab.transform.SetParent(centerPoint, true);
         }
     }
     public void CloseAllOtherUIByLayer()
     {
-        // «@È¡®”Ç°Îï¼şËùÔÚµÄ Layer
+        // ç²å–ç•¶å‰ç‰©ä»¶æ‰€åœ¨çš„ Layer
         int uiLayer = LayerMask.NameToLayer("UI");
 
-        // ±éšvˆö¾°ÖĞËùÓĞ¼¤»îµÄÎï¼ş
+        // éæ­·å ´æ™¯ä¸­æ‰€æœ‰æ¿€æ´»çš„ç‰©ä»¶
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
 
         foreach (GameObject obj in allObjects)
         {
-            // ™z²éÎï¼şÊÇ·ñÔÚ UI ŒÓKÇÒ²»ÊÇ®”Ç°Îï¼ş
+            // æª¢æŸ¥ç‰©ä»¶æ˜¯å¦åœ¨ UI å±¤ä¸¦ä¸”ä¸æ˜¯ç•¶å‰ç‰©ä»¶
             if (obj.layer == uiLayer && obj != this.gameObject && obj.activeSelf)
             {
-                obj.SetActive(false); // êPé]ÆäËû UI
+                obj.SetActive(false); // é—œé–‰å…¶ä»– UI
             }
         }
     }
 
     public void CloseAllOtherUI()
     {
-        // ÕÒµ½ˆö¾°ÖĞËùÓĞ†¢ÓÃÖĞµÄ Canvas »òÆäËû UI Ôª¼ş
+        // æ‰¾åˆ°å ´æ™¯ä¸­æ‰€æœ‰å•Ÿç”¨ä¸­çš„ Canvas æˆ–å…¶ä»– UI å…ƒä»¶
         Canvas[] canvases = FindObjectsOfType<Canvas>();
 
         foreach (Canvas canvas in canvases)
         {
-            // Èç¹û²»ÊÇ®”Ç°Îï¼ş£¬„t½ûÓÃ
+            // å¦‚æœä¸æ˜¯ç•¶å‰ç‰©ä»¶ï¼Œå‰‡ç¦ç”¨
             if (canvas.gameObject != this.gameObject && canvas.gameObject.activeSelf)
             {
                 canvas.gameObject.SetActive(false);
@@ -69,17 +69,17 @@ public class AdaptiveSpawner : MonoBehaviour
 
     public void UpdatePrefabs(int newCount, float newSpacing)
     {
-        // Çå¿ÕÅfµÄ prefab
+        // æ¸…ç©ºèˆŠçš„ prefab
         foreach (Transform child in centerPoint)
         {
             Destroy(child.gameObject);
         }
 
-        // ¸üĞÂÉú³É”µÁ¿ºÍég¾à
+        // æ›´æ–°ç”Ÿæˆæ•¸é‡å’Œé–“è·
         numberOfPrefabs = Mathf.Clamp(newCount, 1, 5);
         spacing = newSpacing;
 
-        // ÖØĞÂÉú³É
+        // é‡æ–°ç”Ÿæˆ
         GeneratePrefabs();
     }
 }

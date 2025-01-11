@@ -5,45 +5,45 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
-    public float moveSpeed = 5f;          // ÒÆ„ÓËÙ¶È
-    public float rotationSpeed = 10f;    // ĞıŞDËÙ¶È
-    public Animator playerAnimator;      // Íæ¼Ò„Ó®‹¿ØÖÆÆ÷
+    public float moveSpeed = 5f;          // ç§»å‹•é€Ÿåº¦
+    public float rotationSpeed = 10f;    // æ—‹è½‰é€Ÿåº¦
+    public Animator playerAnimator;      // ç©å®¶å‹•ç•«æ§åˆ¶å™¨
 
     [Header("Camera Settings")]
-    public Transform cameraTransform;     // ”zÓ°™CµÄ Transform
-    public float mouseSensitivity = 100f; // »¬Êóì`Ãô¶È
-    public float cameraDistance = 3f;     // ³õÊ¼”zÓ°™C¾àëx
-    public float cameraHeight = 1f;     // ”zÓ°™C¸ß¶È
-    public float cameraSmoothTime = 0.1f; // ”zÓ°™CÆ½»¬ß^¶É•rég
-    public float autoResetDelay = 2f;     // Ÿo¿ØÖÆ•r×Ô„ÓÖØÖÃÒ•½ÇµÄÑÓßt•rég
+    public Transform cameraTransform;     // æ”å½±æ©Ÿçš„ Transform
+    public float mouseSensitivity = 100f; // æ»‘é¼ éˆæ•åº¦
+    public float cameraDistance = 3f;     // åˆå§‹æ”å½±æ©Ÿè·é›¢
+    public float cameraHeight = 1f;     // æ”å½±æ©Ÿé«˜åº¦
+    public float cameraSmoothTime = 0.1f; // æ”å½±æ©Ÿå¹³æ»‘éæ¸¡æ™‚é–“
+    public float autoResetDelay = 2f;     // ç„¡æ§åˆ¶æ™‚è‡ªå‹•é‡ç½®è¦–è§’çš„å»¶é²æ™‚é–“
 
     [Header("Camera Distance Settings")]
-    public float minCameraDistance = 1.5f; // ”zÓ°™C×îĞ¡¾àëx
-    public float maxCameraDistance = 6f;   // ”zÓ°™C×î´ó¾àëx
-    public float zoomSpeed = 2f;           // Lİ†Õ{Õû¾àëxËÙ¶È
+    public float minCameraDistance = 1.5f; // æ”å½±æ©Ÿæœ€å°è·é›¢
+    public float maxCameraDistance = 6f;   // æ”å½±æ©Ÿæœ€å¤§è·é›¢
+    public float zoomSpeed = 2f;           // æ»¾è¼ªèª¿æ•´è·é›¢é€Ÿåº¦
 
-    private Vector3 cameraOffset;         // ”zÓ°™CÏàŒ¦Íæ¼ÒµÄÆ«ÒÆ
-    private float autoResetTimer = 0f;    // ×Ô„ÓÖØÖÃÒ•½ÇµÄÓ‹•rÆ÷
-    private float mouseX, mouseY;         // »¬Êóİ”Èë
+    private Vector3 cameraOffset;         // æ”å½±æ©Ÿç›¸å°ç©å®¶çš„åç§»
+    private float autoResetTimer = 0f;    // è‡ªå‹•é‡ç½®è¦–è§’çš„è¨ˆæ™‚å™¨
+    private float mouseX, mouseY;         // æ»‘é¼ è¼¸å…¥
 
 
 
-    public GameObject seat;               // ×ùÎ»µÄ¿ÕÎï¼ş (×÷éÄ¦ÍĞ?µÄ¸¸Îï¼ş)
-    public Camera playerCamera;          // Íæ¼ÒµÚÒ»ÈË·Q”zÓ°™C
-    public Camera bikeCamera;            // ™C?”zÓ°™C
-    public GameObject player;             // Íæ¼ÒÎï¼ş
-    static public bool isRiding = false;       // ÅĞ”àÊÇ·ñÕıÔÚòT³Ë
+    public GameObject seat;               // åº§ä½çš„ç©ºç‰©ä»¶ (ä½œç‚ºæ‘©æ‰˜?çš„çˆ¶ç‰©ä»¶)
+    public Camera playerCamera;          // ç©å®¶ç¬¬ä¸€äººç¨±æ”å½±æ©Ÿ
+    public Camera bikeCamera;            // æ©Ÿ?æ”å½±æ©Ÿ
+    public GameObject player;             // ç©å®¶ç‰©ä»¶
+    static public bool isRiding = false;       // åˆ¤æ–·æ˜¯å¦æ­£åœ¨é¨ä¹˜
     public GameObject BIKEObject;
     private Rigidbody rb;
     public GameObject BikeUI;
     public Animator PlayerAnimator;
-    public Rigidbody bikeRigidbody;      // Ä¦ÍĞÜ‡„‚ów (ĞÂÔöµÄß[‘òÎï¼ş)
+    public Rigidbody bikeRigidbody;      // æ‘©æ‰˜è»Šå‰›é«” (æ–°å¢çš„éŠæˆ²ç‰©ä»¶)
     private void Start()
     {
         BIKEObject.GetComponent<BIKE>().enabled = false;
         rb = GetComponent<Rigidbody>();
         bikeRigidbody.isKinematic = true;
-        //Cursor.lockState = CursorLockMode.Locked; // ë[²Ø»¬ÊóKæi¶¨
+        //Cursor.lockState = CursorLockMode.Locked; // éš±è—æ»‘é¼ ä¸¦é–å®š
         cameraOffset = new Vector3(0, cameraHeight, -cameraDistance);
     }
     
@@ -55,19 +55,19 @@ public class PlayerController : MonoBehaviour
             {
                 //AudioManager.Instance.StopMotoSound();
 
-                DismountBike(); // ÏÂÜ‡
+                DismountBike(); // ä¸‹è»Š
 
                 BikeUI.SetActive(true);
             }
             else
             {
-                // ™zœyÊÇ·ñ¿¿½üÄ¦ÍĞÜ‡
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1f); // °ë½2µÄ¹ ‡ú™zœy
+                // æª¢æ¸¬æ˜¯å¦é è¿‘æ‘©æ‰˜è»Š
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1f); // åŠå¾‘2çš„ç¯„åœæª¢æ¸¬
                 foreach (var hitCollider in hitColliders)
                 {
                     if (hitCollider.CompareTag("Bike"))
                     {
-                        MountBike(); // ÉÏÜ‡
+                        MountBike(); // ä¸Šè»Š
                         //AudioManager.Instance.PlayMotoSound();
 
                         BikeUI.SetActive(false);
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
     //    if (other.CompareTag("Bike") && Input.GetKeyDown(KeyCode.F) && !isRiding)
     //    {
     //        rb.isKinematic = false;
-    //        MountBike();  // ÉÏ?
+    //        MountBike();  // ä¸Š?
     //        BikeUI.SetActive(false);
     //    }
     //}
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
         playerAnimator.SetBool("isRiding", true);
 
-        bikeRigidbody.isKinematic = false; // ½â³ıÄ¦ÍĞÜ‡µÄìoÖ¹ î‘B
+        bikeRigidbody.isKinematic = false; // è§£é™¤æ‘©æ‰˜è»Šçš„éœæ­¢ç‹€æ…‹
         rb.isKinematic = true;
         Collider collider = GetComponent<Collider>();
         collider.enabled = false;
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
         player.transform.SetParent(seat.transform);
 
-        // Œ¢Íæ¼ÒÎ»ÖÃºÍĞıŞDÔOÖÃé×ùÎ»µÄ³õÊ¼Î»ÖÃÅcĞıŞD
+        // å°‡ç©å®¶ä½ç½®å’Œæ—‹è½‰è¨­ç½®ç‚ºåº§ä½çš„åˆå§‹ä½ç½®èˆ‡æ—‹è½‰
         player.transform.localPosition = Vector3.zero;
         player.transform.localRotation = Quaternion.identity;
         player.transform.localPosition=seat.transform.localPosition;
@@ -129,14 +129,14 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetBool("isRiding",false);
         isRiding = false;
 
-        bikeRigidbody.isKinematic = true; // Ä¦ÍĞÜ‡ìoÖ¹ î‘B
-        rb.isKinematic = false; // »ÖÍÍæ¼ÒµÄÎïÀí î‘B
-        // È¡ÏûÍæ¼ÒµÄ¸¸×ÓêP‚S
+        bikeRigidbody.isKinematic = true; // æ‘©æ‰˜è»Šéœæ­¢ç‹€æ…‹
+        rb.isKinematic = false; // æ¢å¾©ç©å®¶çš„ç‰©ç†ç‹€æ…‹
+        // å–æ¶ˆç©å®¶çš„çˆ¶å­é—œä¿‚
         player.transform.SetParent(null);
         Collider collider = GetComponent<Collider>();
         collider.enabled = true;
 
-        // ÇĞ“Q”zÓ°™C£ºé_†¢µÚÒ»ÈË·Q£¬êPé]™C?”zÓ°™C
+        // åˆ‡æ›æ”å½±æ©Ÿï¼šé–‹å•Ÿç¬¬ä¸€äººç¨±ï¼Œé—œé–‰æ©Ÿ?æ”å½±æ©Ÿ
         playerCamera.gameObject.SetActive(true);
         bikeCamera.gameObject.SetActive(false);
 
@@ -147,26 +147,26 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement()
     {
-        float moveX = Input.GetAxis("Horizontal"); // ×óÓÒÒÆ„Ó
-        float moveZ = Input.GetAxis("Vertical");   // Ç°ááÒÆ„Ó
+        float moveX = Input.GetAxis("Horizontal"); // å·¦å³ç§»å‹•
+        float moveZ = Input.GetAxis("Vertical");   // å‰å¾Œç§»å‹•
 
         Vector3 moveDirection = new Vector3(moveX, 0f, moveZ).normalized;
 
         if (moveDirection.magnitude >= 0.1f)
         {
-            // Ó‹ËãÄ¿˜ËĞıŞD½Ç¶È
+            // è¨ˆç®—ç›®æ¨™æ—‹è½‰è§’åº¦
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
 
-            // Æ½»¬ĞıŞDÍæ¼Ò
+            // å¹³æ»‘æ—‹è½‰ç©å®¶
             float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, 0.1f);
             transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
 
-            // ÒÆ„ÓÍæ¼Ò
+            // ç§»å‹•ç©å®¶
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
 
             playerAnimator.SetBool("isMoved", true);
-            autoResetTimer = 0f; // Íæ¼ÒÓĞ²Ù×÷£¬ÖØÖÃÓ‹•rÆ÷
+            autoResetTimer = 0f; // ç©å®¶æœ‰æ“ä½œï¼Œé‡ç½®è¨ˆæ™‚å™¨
         }
         else
         {
@@ -176,29 +176,29 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCameraControl()
     {
-        // »¬Êóİ”Èë¿ØÖÆÒ•½Ç
+        // æ»‘é¼ è¼¸å…¥æ§åˆ¶è¦–è§’
         mouseX += Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         mouseY -= Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-        mouseY = Mathf.Clamp(mouseY, -35f, 60f); // ÏŞÖÆ´¹Ö±Ò•½Ç
+        mouseY = Mathf.Clamp(mouseY, -35f, 60f); // é™åˆ¶å‚ç›´è¦–è§’
 
-        // „Ó‘B¸üĞÂ”zÓ°™CÆ«ÒÆ
+        // å‹•æ…‹æ›´æ–°æ”å½±æ©Ÿåç§»
         cameraOffset = new Vector3(0,- cameraHeight, -cameraDistance);
 
         Vector3 desiredPosition = transform.position + Quaternion.Euler(0, mouseX, 0) * cameraOffset;
         desiredPosition.y = transform.position.y + cameraHeight;
         cameraTransform.position = Vector3.Lerp(cameraTransform.position, desiredPosition, cameraSmoothTime);
 
-        cameraTransform.LookAt(transform.position + Vector3.up * 1.5f); // æi¶¨”zÓ°™C×¢Ò•Íæ¼Òî^²¿
+        cameraTransform.LookAt(transform.position + Vector3.up * 1.5f); // é–å®šæ”å½±æ©Ÿæ³¨è¦–ç©å®¶é ­éƒ¨
     }
 
     private void HandleCameraZoom()
     {
-        // Ê¹ÓÃLİ†Õ{Õû”zÓ°™C¾àëx
+        // ä½¿ç”¨æ»¾è¼ªèª¿æ•´æ”å½±æ©Ÿè·é›¢
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         if (scrollInput != 0f)
         {
             cameraDistance -= scrollInput * zoomSpeed;
-            cameraDistance = Mathf.Clamp(cameraDistance, minCameraDistance, maxCameraDistance); // ÏŞÖÆ¾àëx¹ ‡ú
+            cameraDistance = Mathf.Clamp(cameraDistance, minCameraDistance, maxCameraDistance); // é™åˆ¶è·é›¢ç¯„åœ
         }
     }
 }
