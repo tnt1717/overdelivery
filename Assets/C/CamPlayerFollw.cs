@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class CamPlayerFollw : MonoBehaviour
 {
-    public Transform target;           // Íæ¼Ò½ÇÉ«µÄ Transform
-    public float distance = 5.0f;      // çRî^Åc½ÇÉ«µÄ¾àëx
-    public float height = 2.0f;        // çRî^Åc½ÇÉ«µÄ¸ß¶È²î
-    public float smoothSpeed = 0.1f;   // Æ½»¬¸úëSËÙ¶È
-    public float rotationSpeed = 5.0f; // çRî^ĞıŞDµÄËÙ¶È
+    public Transform target;           // ç©å®¶è§’è‰²çš„ Transform
+    public float distance = 5.0f;      // é¡é ­èˆ‡è§’è‰²çš„è·é›¢
+    public float height = 2.0f;        // é¡é ­èˆ‡è§’è‰²çš„é«˜åº¦å·®
+    public float smoothSpeed = 0.1f;   // å¹³æ»‘è·Ÿéš¨é€Ÿåº¦
+    public float rotationSpeed = 5.0f; // é¡é ­æ—‹è½‰çš„é€Ÿåº¦
 
     private Vector3 currentVelocity = Vector3.zero;
 
     void LateUpdate()
     {
-        // «@È¡½ÇÉ«µÄáá·½Î»ÖÃ
+        // ç²å–è§’è‰²çš„å¾Œæ–¹ä½ç½®
         Vector3 desiredPosition = target.position - target.forward * distance + Vector3.up * height;
 
-        // Æ½»¬ÒÆ„Óµ½Ä¿˜ËÎ»ÖÃ
+        // å¹³æ»‘ç§»å‹•åˆ°ç›®æ¨™ä½ç½®
         Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref currentVelocity, smoothSpeed);
 
-        // ¸üĞÂçRî^Î»ÖÃ
+        // æ›´æ–°é¡é ­ä½ç½®
         transform.position = smoothedPosition;
 
-        // ×ŒçRî^¾ÂıŒ¦ıR½ÇÉ«µÄĞıŞD
+        // è®“é¡é ­ç·©æ…¢å°é½Šè§’è‰²çš„æ—‹è½‰
         Quaternion desiredRotation = Quaternion.LookRotation(target.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotationSpeed * Time.deltaTime);
     }
