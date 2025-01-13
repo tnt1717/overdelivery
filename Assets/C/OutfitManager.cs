@@ -7,17 +7,17 @@ public class OutfitManager : MonoBehaviour
     [System.Serializable]
     public class Outfit
     {
-        public string outfitName;     // ·şÑbÃû·Q
-        public Mesh outfitMesh;       // ·şÑbµÄ Mesh
-        public Material material;     // ·şÑbµÄ²ÄÙ|£¨á˜Œ¦ Element1£©
+        public string outfitName;     // æœè£åç¨±
+        public Mesh outfitMesh;       // æœè£çš„ Mesh
+        public Material material;     // æœè£çš„æè³ªï¼ˆé‡å° Element1ï¼‰
     }
 
-    public Outfit[] outfits;            // ËùÓĞ·şÑbÙYÁÏ
-    //public MeshFilter bodyMeshFilter;   // Íæ¼Ò·şÑbµÄ MeshFilter
+    public Outfit[] outfits;            // æ‰€æœ‰æœè£è³‡æ–™
+    //public MeshFilter bodyMeshFilter;   // ç©å®¶æœè£çš„ MeshFilter
     public SkinnedMeshRenderer skinnedMeshRenderer;
-    public GameObject bodyMaterialMain; // Íæ¼Ò·şÑbµÄ²ÄÙ|¹ÜÀíÎï¼ş
+    public GameObject bodyMaterialMain; // ç©å®¶æœè£çš„æè³ªç®¡ç†ç‰©ä»¶
 
-    private PlayerManager playerManager; // ßB½Y PlayerManager ÓÃì¶´æÈ¡ PlayerData
+    private PlayerManager playerManager; // é€£çµ PlayerManager ç”¨æ–¼å­˜å– PlayerData
 
     private void Start()
     {
@@ -27,13 +27,13 @@ public class OutfitManager : MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
 
@@ -48,7 +48,7 @@ public class OutfitManager : MonoBehaviour
     {
         string currentOutfitName = playerManager.playerData.currentClothing;
 
-        // ÕÒµ½Œ¦‘ªµÄ·şÑbÙYÁÏ
+        // æ‰¾åˆ°å°æ‡‰çš„æœè£è³‡æ–™
         Outfit selectedOutfit = null;
         foreach (var outfit in outfits)
         {
@@ -61,47 +61,47 @@ public class OutfitManager : MonoBehaviour
 
         if (selectedOutfit != null)
         {
-            // ¼Óİd·şÑb Mesh ºÍ²ÄÙ|
+            // åŠ è¼‰æœè£ Mesh å’Œæè³ª
             LoadOutfit(selectedOutfit);
-            Debug.Log($"ÒÑ³õÊ¼»¯·şÑb£º{selectedOutfit.outfitName}");
+            Debug.Log($"å·²åˆå§‹åŒ–æœè£ï¼š{selectedOutfit.outfitName}");
         }
         else
         {
-            Debug.Log($"Î´ÕÒµ½Ãû·Qé {currentOutfitName} µÄ·şÑb£¡Õˆ´_ÕJÙYÁÏÊÇ·ñÕı´_¡£");
+            Debug.Log($"æœªæ‰¾åˆ°åç¨±ç‚º {currentOutfitName} çš„æœè£ï¼è«‹ç¢ºèªè³‡æ–™æ˜¯å¦æ­£ç¢ºã€‚");
         }
     }
 
     private void LoadOutfit(Outfit outfit)
     {
-        // ¸üĞÂ MeshFilter µÄ mesh
+        // æ›´æ–° MeshFilter çš„ mesh
         skinnedMeshRenderer.sharedMesh = outfit.outfitMesh;
 
 
-        // ¸üĞÂ²ÄÙ|µÄ Element1
+        // æ›´æ–°æè³ªçš„ Element1
         Renderer renderer = bodyMaterialMain.GetComponent<Renderer>();
         Material[] materials = renderer.materials;
 
         if (materials.Length > 1)
         {
-            materials[0] = outfit.material; // ¸ü“Q Element1
+            materials[0] = outfit.material; // æ›´æ› Element1
             renderer.materials = materials;
-            Debug.Log($"·şÑb²ÄÙ| Element1 ÒÑ¸ü“Qé£º{outfit.material.name}");
+            Debug.Log($"æœè£æè³ª Element1 å·²æ›´æ›ç‚ºï¼š{outfit.material.name}");
         }
         else
         {
-            Debug.Log("Î´ÕÒµ½²ÄÙ| Element1£¬Õˆ´_ÕJ²ÄÙ|”µÁ¿ÊÇ·ñÕı´_£¡");
+            Debug.Log("æœªæ‰¾åˆ°æè³ª Element1ï¼Œè«‹ç¢ºèªæè³ªæ•¸é‡æ˜¯å¦æ­£ç¢ºï¼");
         }
     }
 
     public void UpdateOutfit(string newOutfitName)
     {
-        // ¸üĞÂ PlayerData µÄ·şÑbÃû·Q
+        // æ›´æ–° PlayerData çš„æœè£åç¨±
         playerManager.playerData.currentClothing = newOutfitName;
 
-        // ÔÙ´ÎÕÒµ½K¼ÓİdŒ¦‘ªµÄ·şÑbÙYÁÏ
+        // å†æ¬¡æ‰¾åˆ°ä¸¦åŠ è¼‰å°æ‡‰çš„æœè£è³‡æ–™
         InitializeOutfit();
 
-        // ±£´æ”µ“ş£¨¼ÙÔOÓĞ±£´æ¹¦ÄÜ£©
+        // ä¿å­˜æ•¸æ“šï¼ˆå‡è¨­æœ‰ä¿å­˜åŠŸèƒ½ï¼‰
         SavePlayerData();
     }
 
@@ -109,6 +109,6 @@ public class OutfitManager : MonoBehaviour
     {
         PlayerPrefs.SetString("currentOutfit", playerManager.playerData.currentClothing);
         PlayerPrefs.Save();
-        Debug.Log("Íæ¼Ò·şÑb”µ“şÒÑ±£´æ£¡");
+        Debug.Log("ç©å®¶æœè£æ•¸æ“šå·²ä¿å­˜ï¼");
     }
 }

@@ -8,12 +8,12 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [System.Serializable]
-    // êP¿¨—l¼şµÄÙYÁÏ½Y˜‹£¬°üº¬Ó††ÎĞèÇó¡¢åeÕ`ÂÊÏŞÖÆ¡¢•régÏŞÖÆ
+    // é—œå¡æ¢ä»¶çš„è³‡æ–™çµæ§‹ï¼ŒåŒ…å«è¨‚å–®éœ€æ±‚ã€éŒ¯èª¤ç‡é™åˆ¶ã€æ™‚é–“é™åˆ¶
     public class LevelConditions
     {
-        public int requiredOrders;  // ±ØíšÍê³ÉµÄÓ††Î”µ
-        public int maxErrors;       // ÔÊÔSµÄ×î´óåeÕ`”µ
-        public int timeLimit;       // •régÏŞÖÆ
+        public int requiredOrders;  // å¿…é ˆå®Œæˆçš„è¨‚å–®æ•¸
+        public int maxErrors;       // å…è¨±çš„æœ€å¤§éŒ¯èª¤æ•¸
+        public int timeLimit;       // æ™‚é–“é™åˆ¶
 
         public LevelConditions(int requiredOrders, int maxErrors, int timeLimit)
         {
@@ -23,40 +23,40 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public Dictionary<string, LevelConditions> levelConditions; // ƒ¦´æËùÓĞêP¿¨µÄ—l¼ş
-    public Text orderCountText;      // ï@Ê¾Ó††ÎÍê³É”µµÄÎÄ×Ö
-    public Text errorRateText;       // ï@Ê¾åeÕ`ÂÊµÄÎÄ×Ö
+    public Dictionary<string, LevelConditions> levelConditions; // å„²å­˜æ‰€æœ‰é—œå¡çš„æ¢ä»¶
+    public Text orderCountText;      // é¡¯ç¤ºè¨‚å–®å®Œæˆæ•¸çš„æ–‡å­—
+    public Text errorRateText;       // é¡¯ç¤ºéŒ¯èª¤ç‡çš„æ–‡å­—
     public Text timeLimitText;
-    public Text orderCountTextW;      // ï@Ê¾Ó††ÎÍê³É”µµÄÎÄ×Ö
-    public Text errorRateTextW;       // ï@Ê¾åeÕ`ÂÊµÄÎÄ×Ö
-    public Text timeLimitTextW;       // ï@Ê¾•régÏŞÖÆµÄÎÄ×Ö
+    public Text orderCountTextW;      // é¡¯ç¤ºè¨‚å–®å®Œæˆæ•¸çš„æ–‡å­—
+    public Text errorRateTextW;       // é¡¯ç¤ºéŒ¯èª¤ç‡çš„æ–‡å­—
+    public Text timeLimitTextW;       // é¡¯ç¤ºæ™‚é–“é™åˆ¶çš„æ–‡å­—
 
     public int totalOrders;
     public int totalErrors;
 
 
-    //½YËã…^
+    //çµç®—å€
 
-    public Text totalOrdersText;                   // ï@Ê¾¿‚Ó††Î”µÁ¿
-    public Text totalErrorsText;                   // ï@Ê¾¿‚åeÕ`”µÁ¿
+    public Text totalOrdersText;                   // é¡¯ç¤ºç¸½è¨‚å–®æ•¸é‡
+    public Text totalErrorsText;                   // é¡¯ç¤ºç¸½éŒ¯èª¤æ•¸é‡
 
-    public Text totalEarningsText;                 // ï@Ê¾«@µÃ½ğî~
+    public Text totalEarningsText;                 // é¡¯ç¤ºç²å¾—é‡‘é¡
 
-    private float currentTime; // ®”Ç°Ê£ğN•rég
-    private bool isTimerRunning = true; // ÊÇ·ñÓ‹•rÆ÷ÕıÔÚß\ĞĞ
+    private float currentTime; // ç•¶å‰å‰©é¤˜æ™‚é–“
+    private bool isTimerRunning = true; // æ˜¯å¦è¨ˆæ™‚å™¨æ­£åœ¨é‹è¡Œ
 
     private LevelConditions currentLevelConditions;
     private MoneyManager moneyManager;
 
     private void Start()
     {
-        InitializeLevelConditions(); // ³õÊ¼»¯êP¿¨—l¼ş
+        InitializeLevelConditions(); // åˆå§‹åŒ–é—œå¡æ¢ä»¶
         LoadLevel(SceneManager.GetActiveScene().name);  
         moneyManager=FindObjectOfType<MoneyManager>();
 
     }
 
-    // ³õÊ¼»¯ËùÓĞêP¿¨—l¼ş
+    // åˆå§‹åŒ–æ‰€æœ‰é—œå¡æ¢ä»¶
     private void InitializeLevelConditions()
     {
         levelConditions = new Dictionary<string, LevelConditions>
@@ -72,17 +72,17 @@ public class LevelManager : MonoBehaviour
         };
     }
 
-    // İdÈëÌØ¶¨êP¿¨µÄ—l¼ş
+    // è¼‰å…¥ç‰¹å®šé—œå¡çš„æ¢ä»¶
     public void LoadLevel(string levelName)
     {
         if (levelConditions.TryGetValue(levelName, out currentLevelConditions))
         {
-            Debug.Log($"İdÈë {levelName}£ºÓ††Î”µÁ¿ĞèÇó: {currentLevelConditions.requiredOrders}£¬×î´óåeÕ`”µ: {currentLevelConditions.maxErrors}£¬•régÏŞÖÆ: {currentLevelConditions.timeLimit}Ãë");
+            Debug.Log($"è¼‰å…¥ {levelName}ï¼šè¨‚å–®æ•¸é‡éœ€æ±‚: {currentLevelConditions.requiredOrders}ï¼Œæœ€å¤§éŒ¯èª¤æ•¸: {currentLevelConditions.maxErrors}ï¼Œæ™‚é–“é™åˆ¶: {currentLevelConditions.timeLimit}ç§’");
             currentTime = currentLevelConditions.timeLimit;
         }
         else
         {
-            Debug.LogWarning($"Î´ÕÒµ½êP¿¨ {levelName} µÄÙYÁÏ¡£");
+            Debug.LogWarning($"æœªæ‰¾åˆ°é—œå¡ {levelName} çš„è³‡æ–™ã€‚");
         }
     }
 
@@ -91,35 +91,35 @@ public class LevelManager : MonoBehaviour
         UpdateUI();
         if (isTimerRunning)
         {
-            currentTime -= Time.deltaTime; // œpÉÙ•rég
+            currentTime -= Time.deltaTime; // æ¸›å°‘æ™‚é–“
 
-            // ®”•régµ½ß_ 0 •rÓ|°l½YËã
+            // ç•¶æ™‚é–“åˆ°é” 0 æ™‚è§¸ç™¼çµç®—
             if (currentTime <= 0f)
             {
-                currentTime = 0f; // ·ÀÖ¹•rég×ƒéØ“Öµ
-                Time.timeScale = 0.9f; // •ºÍ£ß[‘ò
-                isTimerRunning = false; // Í£Ö¹Ó‹•rÆ÷
+                currentTime = 0f; // é˜²æ­¢æ™‚é–“è®Šç‚ºè² å€¼
+                Time.timeScale = 0.9f; // æš«åœéŠæˆ²
+                isTimerRunning = false; // åœæ­¢è¨ˆæ™‚å™¨
                 moneyManager.CalculateFinalEarnings();
             }
         }
     }
 
-    // ¸üĞÂ UI ï@Ê¾
+    // æ›´æ–° UI é¡¯ç¤º
     private void UpdateUI()
     {
 
-        orderCountText.text = $"Ó††Î: {totalOrders}/{currentLevelConditions.requiredOrders}";
-        errorRateText.text = $"åeÕ`: {totalErrors}/{currentLevelConditions.maxErrors}";
-        //timeLimitText.text = $": {order_manager.orderTimer.ToString("f0")} / {currentLevelConditions.timeLimit} Ãë";
+        orderCountText.text = $"è¨‚å–®: {totalOrders}/{currentLevelConditions.requiredOrders}";
+        errorRateText.text = $"éŒ¯èª¤: {totalErrors}/{currentLevelConditions.maxErrors}";
+        //timeLimitText.text = $": {order_manager.orderTimer.ToString("f0")} / {currentLevelConditions.timeLimit} ç§’";
         //customerNameText.text = " ";
-        timeLimitText.text = $"•rÏŞ:{Mathf.RoundToInt(currentTime)}/{currentLevelConditions.timeLimit}";
+        timeLimitText.text = $"æ™‚é™:{Mathf.RoundToInt(currentTime)}/{currentLevelConditions.timeLimit}";
 
-        orderCountTextW.text = $"Ó††Î: {totalOrders}/{currentLevelConditions.requiredOrders}";
-        errorRateTextW.text = $"åeÕ`: {totalErrors}/{currentLevelConditions.maxErrors}";
-        timeLimitTextW.text = $"•rÏŞ:{Mathf.RoundToInt(currentTime)}/{currentLevelConditions.timeLimit}";
+        orderCountTextW.text = $"è¨‚å–®: {totalOrders}/{currentLevelConditions.requiredOrders}";
+        errorRateTextW.text = $"éŒ¯èª¤: {totalErrors}/{currentLevelConditions.maxErrors}";
+        timeLimitTextW.text = $"æ™‚é™:{Mathf.RoundToInt(currentTime)}/{currentLevelConditions.timeLimit}";
     }
 
-    // ï@Ê¾½YËãUI
+    // é¡¯ç¤ºçµç®—UI
     public void ShowResultUI(string completedOrders, string errors, string timeSpent, int earnings)
     {
 ;

@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; // ÓÃì¶™zœyˆö¾°Ãû·Q
+using UnityEngine.SceneManagement; // ç”¨æ–¼æª¢æ¸¬å ´æ™¯åç¨±
 
 [RequireComponent(typeof(Rigidbody))]
 public class SpeedCalculator : MonoBehaviour
 {
-    [Header("ËÙ¶Èï@Ê¾")]
-    private Rigidbody rb;        // Îï¼şµÄ Rigidbody
-    public float speed;          // ®”Ç°ËÙ¶È£¨Ã×/Ãë£©
-    public float speedKmH;       // ®”Ç°ËÙ¶È£¨¹«Àï/Ğ¡•r£©
-    public Text speedText;       // ËÙ¶Èï@Ê¾ÎÄ±¾
+    [Header("é€Ÿåº¦é¡¯ç¤º")]
+    private Rigidbody rb;        // ç‰©ä»¶çš„ Rigidbody
+    public float speed;          // ç•¶å‰é€Ÿåº¦ï¼ˆç±³/ç§’ï¼‰
+    public float speedKmH;       // ç•¶å‰é€Ÿåº¦ï¼ˆå…¬é‡Œ/å°æ™‚ï¼‰
+    public Text speedText;       // é€Ÿåº¦é¡¯ç¤ºæ–‡æœ¬
 
-    [Header("ÓÍºÄÔO¶¨")]
-    public Image fuelBar;        // ÓÍÁ¿ï@Ê¾—l£¨Image Ôª¼ş£©
-    public float fuelPercentage = 1.0f;  // ®”Ç°ÓÍÁ¿°Ù·Ö±È (1.0 = 100%)
-    public float fuelConsumptionRate = 0.2f; // Ã¿°Ù¹«ÀïÏûºÄµÄÓÍÁ¿ (20%)
-    public float distanceTraveled = 0f;  // ÀÛÓ‹ĞĞñ‚¾àëx£¨Ã×£©
+    [Header("æ²¹è€—è¨­å®š")]
+    public Image fuelBar;        // æ²¹é‡é¡¯ç¤ºæ¢ï¼ˆImage å…ƒä»¶ï¼‰
+    public float fuelPercentage = 1.0f;  // ç•¶å‰æ²¹é‡ç™¾åˆ†æ¯” (1.0 = 100%)
+    public float fuelConsumptionRate = 0.2f; // æ¯ç™¾å…¬é‡Œæ¶ˆè€—çš„æ²¹é‡ (20%)
+    public float distanceTraveled = 0f;  // ç´¯è¨ˆè¡Œé§›è·é›¢ï¼ˆç±³ï¼‰
 
     private string currentSceneName;
 
-    static public bool isNearGasStation = false;  // ÊÇ·ñÔÚ¼ÓÓÍÕ¾¹ ‡úƒÈ
+    static public bool isNearGasStation = false;  // æ˜¯å¦åœ¨åŠ æ²¹ç«™ç¯„åœå…§
 
-    private PlayerManager playerManager;     // Íæ¼Ò¹ÜÀíÆ÷ÒıÓÃ
+    private PlayerManager playerManager;     // ç©å®¶ç®¡ç†å™¨å¼•ç”¨
     public GameObject Gas_ui;
     public Text Coins;
 
@@ -37,32 +37,32 @@ public class SpeedCalculator : MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
         rb = GetComponent<Rigidbody>();
-        currentSceneName = SceneManager.GetActiveScene().name; // «@È¡®”Ç°ˆö¾°Ãû·Q
+        currentSceneName = SceneManager.GetActiveScene().name; // ç²å–ç•¶å‰å ´æ™¯åç¨±
     }
 
     void Update()
     {
-        // Ó‹ËãËÙ¶È
+        // è¨ˆç®—é€Ÿåº¦
         speed = rb.velocity.magnitude;
         speedKmH = speed * 3.6f;
         int speedKmHInt = Mathf.RoundToInt(speedKmH);
 
-        // ¸üĞÂËÙ¶Èï@Ê¾ÎÄ±¾
+        // æ›´æ–°é€Ÿåº¦é¡¯ç¤ºæ–‡æœ¬
         speedText.text = speedKmHInt + " km/h";
 
         if (Input.GetKey(KeyCode.F10)) f10();
 
-        // Ó‹ËãÓÍÁ¿ÏûºÄ
+        // è¨ˆç®—æ²¹é‡æ¶ˆè€—
         UpdateFuel();
         if (isNearGasStation && Input.GetKeyDown(KeyCode.F))
         {
@@ -74,30 +74,30 @@ public class SpeedCalculator : MonoBehaviour
     {
         
        
-        //// "LV1" ˆö¾°²»ÏûºÄÓÍÁ¿
+        //// "LV1" å ´æ™¯ä¸æ¶ˆè€—æ²¹é‡
         //if (currentSceneName == "LV1")
         //    return;
 
-        // ÀÛÓ‹ĞĞñ‚¾àëx
+        // ç´¯è¨ˆè¡Œé§›è·é›¢
         distanceTraveled += speed * Time.deltaTime;
 
-        // Ã¿ĞĞñ‚ 100 ¹«Àï£¨100,000 Ã×£©£¬ÏûºÄ fuelConsumptionRate µÄÓÍÁ¿
+        // æ¯è¡Œé§› 100 å…¬é‡Œï¼ˆ100,000 ç±³ï¼‰ï¼Œæ¶ˆè€— fuelConsumptionRate çš„æ²¹é‡
         if (distanceTraveled >= 100f)
         {
-            fuelPercentage -= fuelConsumptionRate; // œpÉÙÓÍÁ¿
-            distanceTraveled = 0f;                 // ÖØÖÃÀÛÓ‹¾àëx
+            fuelPercentage -= fuelConsumptionRate; // æ¸›å°‘æ²¹é‡
+            distanceTraveled = 0f;                 // é‡ç½®ç´¯è¨ˆè·é›¢
         }
 
-        // ´_±£ÓÍÁ¿ÔÚ 0% - 100% ¹ ‡úƒÈ
+        // ç¢ºä¿æ²¹é‡åœ¨ 0% - 100% ç¯„åœå…§
         fuelPercentage = Mathf.Clamp(fuelPercentage, 0f, 1f);
 
-        // ¸üĞÂÓÍÁ¿ï@Ê¾—l
+        // æ›´æ–°æ²¹é‡é¡¯ç¤ºæ¢
         if (fuelBar != null)
         {
             fuelBar.fillAmount = fuelPercentage;
         }
 
-        // Èç¹ûÓÍÁ¿šwÁã£¬Ó|°lî~ÍâĞĞé£¨ÈçÍ£Ö¹ÒÆ„Ó»òÖØĞÂ¼ÓÓÍ£©
+        // å¦‚æœæ²¹é‡æ­¸é›¶ï¼Œè§¸ç™¼é¡å¤–è¡Œç‚ºï¼ˆå¦‚åœæ­¢ç§»å‹•æˆ–é‡æ–°åŠ æ²¹ï¼‰
         if (fuelPercentage <= 0f)
         {
             OnFuelEmpty();
@@ -106,20 +106,20 @@ public class SpeedCalculator : MonoBehaviour
 
     void OnFuelEmpty()
     {
-        // ®”ÓÍÁ¿šwÁã•rˆÌĞĞµÄĞĞé
+        // ç•¶æ²¹é‡æ­¸é›¶æ™‚åŸ·è¡Œçš„è¡Œç‚º
         Debug.Log("Fuel is empty! Vehicle cannot move.");
-        rb.velocity = Vector3.zero; // Í£Ö¹Îï¼şÒÆ„Ó
+        rb.velocity = Vector3.zero; // åœæ­¢ç‰©ä»¶ç§»å‹•
     }
     void Refuel()
     {
-        // ™z²éÍæ¼Ò½ğÅÊÇ·ñ×ã‰ò
+        // æª¢æŸ¥ç©å®¶é‡‘å¹£æ˜¯å¦è¶³å¤ 
         if (playerManager != null && playerManager.playerData.coins >= 200)
         {
-            // ÏûºÄ½ğÅKŒ¢ÓÍÁ¿¼ÓM
+            // æ¶ˆè€—é‡‘å¹£ä¸¦å°‡æ²¹é‡åŠ æ»¿
             playerManager.playerData.coins -= 200;
             fuelPercentage = 1.0f;
 
-            // ¸üĞÂ UI
+            // æ›´æ–° UI
             if (fuelBar != null)
             {
                 fuelBar.fillAmount = fuelPercentage;

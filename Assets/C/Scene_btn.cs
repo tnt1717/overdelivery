@@ -22,7 +22,7 @@ public class Scene_btn : MonoBehaviour
         SceneTransitionManager transitionManager = FindObjectOfType<SceneTransitionManager>();
         transitionManager.StartSceneTransition();
         AudioManager.Instance.PlaySound("tap2");
-        // ±£´æÍæ¼ÒÙYÁÏ
+        // ä¿å­˜ç©å®¶è³‡æ–™
         SaveSystem.SavePlayerData(PlayerManager.instance.playerData);
 
 
@@ -69,11 +69,11 @@ public class Scene_btn : MonoBehaviour
         if (coinSysObject != null && coinSysObject.activeInHierarchy) coinSysObject.SetActive(false);
 
         AudioManager.Instance.PlaySound("tap2");
-        // ±£´æÍæ¼ÒÙYÁÏ
+        // ä¿å­˜ç©å®¶è³‡æ–™
         SaveSystem.SavePlayerData(PlayerManager.instance.playerData);
         Debug.Log("Player data saved.");
 
-        // ÍË³öß[‘ò
+        // é€€å‡ºéŠæˆ²
         Application.Quit();
 
 

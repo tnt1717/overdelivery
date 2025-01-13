@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class OutlineController : MonoBehaviour
 {
-    public Color outlineColor = Color.green; // Íâİ†ÀªîÉ«
-    public float outlineWidth = 0.01f;       // Íâİ†ÀªŒ’¶È
+    public Color outlineColor = Color.green; // å¤–è¼ªå»“é¡è‰²
+    public float outlineWidth = 0.01f;       // å¤–è¼ªå»“å¯¬åº¦
 
-    private Transform lastHighlighted;       // ÉÏÒ»‚€¸ßÁÁµÄÎï¼ş
-    private Material originalMaterial;       // Ô­Ê¼²ÄÙ|
-    private Material outlineMaterial;        // Íâİ†Àª²ÄÙ|
+    private Transform lastHighlighted;       // ä¸Šä¸€å€‹é«˜äº®çš„ç‰©ä»¶
+    private Material originalMaterial;       // åŸå§‹æè³ª
+    private Material outlineMaterial;        // å¤–è¼ªå»“æè³ª
 
     void Start()
     {

@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class VehiclePatrol : MonoBehaviour
 {
-    public Transform[] corners; // ËÄ‚€½ÇÂäµÄÎ»ÖÃ
-    public GameObject[] vehiclePrefabs; // Ü‡İvµÄîAÑuówê‡ÁĞ
-    public Transform vehicleParent; // Ü‡İvµÄÄ¸Îï¼ş
-    public Transform player; // Íæ¼Ò
-    public float spawnInterval = 7f; // Ü‡İvÉú³Éég¸ô
-    public float deleteDistance = 25f; // Ü‡İv„h³ıµÄ¾àëx
+    public Transform[] corners; // å››å€‹è§’è½çš„ä½ç½®
+    public GameObject[] vehiclePrefabs; // è»Šè¼›çš„é è£½é«”é™£åˆ—
+    public Transform vehicleParent; // è»Šè¼›çš„æ¯ç‰©ä»¶
+    public Transform player; // ç©å®¶
+    public float spawnInterval = 7f; // è»Šè¼›ç”Ÿæˆé–“éš”
+    public float deleteDistance = 25f; // è»Šè¼›åˆªé™¤çš„è·é›¢
 
-    private List<GameObject> activeVehicles = new List<GameObject>(); // ®”Ç°´æÔÚµÄÜ‡İv
+    private List<GameObject> activeVehicles = new List<GameObject>(); // ç•¶å‰å­˜åœ¨çš„è»Šè¼›
     public int cars = 0;
 
     void Start()
@@ -38,22 +38,22 @@ public class VehiclePatrol : MonoBehaviour
 
     void SpawnVehicle()
     {
-        // ëS™Cßx“ñÒ»—lß…
+        // éš¨æ©Ÿé¸æ“‡ä¸€æ¢é‚Š
         int edgeIndex = Random.Range(0, 4);
         Transform startCorner = corners[edgeIndex];
         Transform endCorner = corners[(edgeIndex + 1) % 4];
 
-        // ÔÚÔ“ß…ÉÏëS™Cßx“ñÒ»‚€Î»ÖÃ
+        // åœ¨è©²é‚Šä¸Šéš¨æ©Ÿé¸æ“‡ä¸€å€‹ä½ç½®
         float t = Random.Range(0f, 1f);
         Vector3 spawnPosition = Vector3.Lerp(startCorner.position, endCorner.position, t);
 
-        // ëS™Cßx“ñÒ»‚€Ü‡İvÄ£ĞÍ
+        // éš¨æ©Ÿé¸æ“‡ä¸€å€‹è»Šè¼›æ¨¡å‹
         GameObject selectedVehiclePrefab = vehiclePrefabs[Random.Range(0, vehiclePrefabs.Length)];
 
-        // ŒÀı»¯Ü‡İvKÔOÖÃéÄ¸Îï¼şµÄ×ÓÎï¼ş
+        // å¯¦ä¾‹åŒ–è»Šè¼›ä¸¦è¨­ç½®ç‚ºæ¯ç‰©ä»¶çš„å­ç‰©ä»¶
         GameObject vehicle = Instantiate(selectedVehiclePrefab, spawnPosition, Quaternion.identity, vehicleParent);
 
-        // ³õÊ¼»¯Ü‡İvµÄÄ¿˜Ëüc
+        // åˆå§‹åŒ–è»Šè¼›çš„ç›®æ¨™é»
         VehicleController vehicleController = vehicle.GetComponent<VehicleController>();
         if (vehicleController != null)
         {
@@ -71,7 +71,7 @@ public class VehiclePatrol : MonoBehaviour
             GameObject vehicle = activeVehicles[i];
             VehicleController vehicleController = vehicle.GetComponent<VehicleController>();
 
-            // ´_±£Ü‡İvÖÁÉÙÒÑ½›Ñ²ß‰Èı‚€½ÇÂä
+            // ç¢ºä¿è»Šè¼›è‡³å°‘å·²ç¶“å·¡é‚ä¸‰å€‹è§’è½
             if (vehicleController != null && vehicleController.CornerVisitCount >= 2)
             {
                 if (Vector3.Distance(vehicle.transform.position, player.position) > deleteDistance)

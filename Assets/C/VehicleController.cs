@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class VehicleController : MonoBehaviour
 {
-    public float speed = 5f; // Ü‡İvµÄÒÆ„ÓËÙ¶È
-    public float turnSpeed = 10f; // Ü‡İvµÄŞDËÙ¶È
-    private Transform[] corners; // éL·½ówµÄËÄ‚€½ÇÂä
-    private int currentCornerIndex; // ®”Ç°Ä¿˜Ë½ÇÂäµÄË÷Òı
-    public int CornerVisitCount { get; private set; } = 0; // ÒÑÑ²ß‰µÄ½ÇÂä”µÁ¿
+    public float speed = 5f; // è»Šè¼›çš„ç§»å‹•é€Ÿåº¦
+    public float turnSpeed = 10f; // è»Šè¼›çš„è½‰å½é€Ÿåº¦
+    private Transform[] corners; // é•·æ–¹é«”çš„å››å€‹è§’è½
+    private int currentCornerIndex; // ç•¶å‰ç›®æ¨™è§’è½çš„ç´¢å¼•
+    public int CornerVisitCount { get; private set; } = 0; // å·²å·¡é‚çš„è§’è½æ•¸é‡
 
     public void Initialize(Transform[] cornerPoints, int startingIndex)
     {
         corners = cornerPoints;
-        currentCornerIndex = (startingIndex + 1) % corners.Length; // ÔO¶¨ÆğÊ¼Ä¿˜Ë½ÇÂä
-        transform.position = corners[startingIndex].position; // Œ¢Ü‡İvÎ»ÖÃÔOÖÃéÆğÊ¼½ÇÂä
-        CornerVisitCount = 1; // ³õÊ¼Ñ²ß‰Ó›ä›
+        currentCornerIndex = (startingIndex + 1) % corners.Length; // è¨­å®šèµ·å§‹ç›®æ¨™è§’è½
+        transform.position = corners[startingIndex].position; // å°‡è»Šè¼›ä½ç½®è¨­ç½®ç‚ºèµ·å§‹è§’è½
+        CornerVisitCount = 1; // åˆå§‹å·¡é‚è¨˜éŒ„
     }
 
     void Update()
@@ -27,26 +27,26 @@ public class VehicleController : MonoBehaviour
     {
         if (corners == null || corners.Length == 0) return;
 
-        // «@È¡Ä¿˜Ë½ÇÂäµÄÎ»ÖÃ
+        // ç²å–ç›®æ¨™è§’è½çš„ä½ç½®
         Vector3 targetPosition = corners[currentCornerIndex].position;
 
-        // Ó‹Ëã·½ÏòÅcĞıŞD
+        // è¨ˆç®—æ–¹å‘èˆ‡æ—‹è½‰
         Vector3 direction = (targetPosition - transform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
-        // ÒÆ„ÓÜ‡İv
+        // ç§»å‹•è»Šè¼›
         transform.position += direction * speed * Time.deltaTime;
 
-        // Æ½»¬ŞDÏò
+        // å¹³æ»‘è½‰å‘
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
 
-        // ™zœyÊÇ·ñµ½ß_Ä¿˜Ë½ÇÂä
+        // æª¢æ¸¬æ˜¯å¦åˆ°é”ç›®æ¨™è§’è½
         if (Vector3.Distance(transform.position, targetPosition) <0.9f)
         {
-            // ¸üĞÂµ½ÏÂÒ»‚€½ÇÂä
+            // æ›´æ–°åˆ°ä¸‹ä¸€å€‹è§’è½
             currentCornerIndex = (currentCornerIndex + 1) % corners.Length;
 
-            // Ôö¼ÓÑ²ß‰Ó›ä›
+            // å¢åŠ å·¡é‚è¨˜éŒ„
             CornerVisitCount++;
         }
     }

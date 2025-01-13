@@ -8,14 +8,14 @@ public class CameraController : MonoBehaviour
     [System.Serializable]
     public class GuideStep
     {
-        public Camera guideCamera; // ÒıŒ§”zÓ°™C
-        public GameObject tipCanvas; // ÌáÊ¾®‹²¼
-        public float duration = 3f; // ÒıŒ§³ÖÀm•rég
-        public float targetFOV = 40f; // Ä¿˜ËÒ•½Ç
+        public Camera guideCamera; // å¼•å°æ”å½±æ©Ÿ
+        public GameObject tipCanvas; // æç¤ºç•«å¸ƒ
+        public float duration = 3f; // å¼•å°æŒçºŒæ™‚é–“
+        public float targetFOV = 40f; // ç›®æ¨™è¦–è§’
     }
 
-    public List<GuideStep> guideSteps; // ÒıŒ§²½óEÁĞ±í
-    public Camera mainCamera; // Ö÷”zÓ°™C
+    public List<GuideStep> guideSteps; // å¼•å°æ­¥é©Ÿåˆ—è¡¨
+    public Camera mainCamera; // ä¸»æ”å½±æ©Ÿ
 
     private int currentStepIndex = 0;
     private bool skipGuide = false;
@@ -23,26 +23,26 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        // ³õÊ¼»¯ËùÓĞÒıŒ§”zÓ°™CºÍÌáÊ¾®‹²¼éë[²Ø î‘B
+        // åˆå§‹åŒ–æ‰€æœ‰å¼•å°æ”å½±æ©Ÿå’Œæç¤ºç•«å¸ƒç‚ºéš±è—ç‹€æ…‹
         foreach (var step in guideSteps)
         {
             if (step.guideCamera != null)
             {
-                step.guideCamera.enabled = false; // ³õÊ¼êPé]ÒıŒ§”zÓ°™C
+                step.guideCamera.enabled = false; // åˆå§‹é—œé–‰å¼•å°æ”å½±æ©Ÿ
             }
 
             if (step.tipCanvas != null)
             {
-                step.tipCanvas.SetActive(false); // ³õÊ¼ë[²ØÌáÊ¾®‹²¼
+                step.tipCanvas.SetActive(false); // åˆå§‹éš±è—æç¤ºç•«å¸ƒ
             }
         }
 
-        mainCamera.enabled = true; // ´_±£Ö÷”zÓ°™C†¢ÓÃ
+        mainCamera.enabled = true; // ç¢ºä¿ä¸»æ”å½±æ©Ÿå•Ÿç”¨
     }
 
     private void Update()
     {
-        // ‚ÉœyÌøß^°´æI
+        // åµæ¸¬è·³éæŒ‰éµ
         if (Input.anyKeyDown && currentStepIndex < guideSteps.Count)
         {
             skipGuide = true;
@@ -64,10 +64,10 @@ public class CameraController : MonoBehaviour
 
         var step = guideSteps[currentStepIndex];
 
-        // Í£ÓÃËùÓĞ UI
+        // åœç”¨æ‰€æœ‰ UI
         DisableAllUI();
 
-        // †¢ÓÃŒ¦‘ªµÄÒıŒ§”zÓ°™CºÍÌáÊ¾®‹²¼
+        // å•Ÿç”¨å°æ‡‰çš„å¼•å°æ”å½±æ©Ÿå’Œæç¤ºç•«å¸ƒ
         if (step.guideCamera != null)
         {
             step.guideCamera.enabled = true;
@@ -75,12 +75,12 @@ public class CameraController : MonoBehaviour
 
         if (step.tipCanvas != null)
         {
-            step.tipCanvas.SetActive(true); // ï@Ê¾ÌáÊ¾®‹²¼
+            step.tipCanvas.SetActive(true); // é¡¯ç¤ºæç¤ºç•«å¸ƒ
         }
 
-        mainCamera.enabled = false; // ½ûÓÃÖ÷”zÓ°™C
+        mainCamera.enabled = false; // ç¦ç”¨ä¸»æ”å½±æ©Ÿ
 
-        // ß^¶Éµ½Ä¿˜ËÒ•½Ç
+        // éæ¸¡åˆ°ç›®æ¨™è¦–è§’
         yield return StartCoroutine(FOVTransition(step.guideCamera, step.targetFOV, step.duration));
 
         float elapsed = 0f;
@@ -90,20 +90,20 @@ public class CameraController : MonoBehaviour
             yield return null;
         }
 
-        // ½YÊøáá»ÖÍÖ÷”zÓ°™CºÍ UI
+        // çµæŸå¾Œæ¢å¾©ä¸»æ”å½±æ©Ÿå’Œ UI
         if (step.guideCamera != null)
         {
-            step.guideCamera.enabled = false; // ½ûÓÃÒıŒ§”zÓ°™C
+            step.guideCamera.enabled = false; // ç¦ç”¨å¼•å°æ”å½±æ©Ÿ
         }
 
         if (step.tipCanvas != null)
         {
-            step.tipCanvas.SetActive(false); // ë[²ØÌáÊ¾®‹²¼
+            step.tipCanvas.SetActive(false); // éš±è—æç¤ºç•«å¸ƒ
         }
 
-        mainCamera.enabled = true; // »ÖÍÖ÷”zÓ°™C
+        mainCamera.enabled = true; // æ¢å¾©ä¸»æ”å½±æ©Ÿ
 
-        RestoreUI(); // »ÖÍ UI
+        RestoreUI(); // æ¢å¾© UI
     }
 
     private IEnumerator FOVTransition(Camera camera, float targetFOV, float duration)
@@ -113,12 +113,12 @@ public class CameraController : MonoBehaviour
 
         while (elapsed < duration && !skipGuide)
         {
-            camera.fieldOfView = Mathf.Lerp(startFOV, targetFOV, elapsed / duration); // Ò•½Çß^¶É
+            camera.fieldOfView = Mathf.Lerp(startFOV, targetFOV, elapsed / duration); // è¦–è§’éæ¸¡
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        camera.fieldOfView = targetFOV; // ×î½KÒ•½Ç
+        camera.fieldOfView = targetFOV; // æœ€çµ‚è¦–è§’
     }
 
     private void DisableAllUI()
@@ -129,7 +129,7 @@ public class CameraController : MonoBehaviour
             if (ui.gameObject.activeSelf)
             {
                 activeUIs.Add(ui.gameObject);
-                ui.gameObject.SetActive(false); // ½ûÓÃ UI Ôª¼ş
+                ui.gameObject.SetActive(false); // ç¦ç”¨ UI å…ƒä»¶
             }
         }
     }
@@ -140,7 +140,7 @@ public class CameraController : MonoBehaviour
         {
             if (ui != null)
             {
-                ui.SetActive(true); // »ÖÍ UI Ôª¼ş
+                ui.SetActive(true); // æ¢å¾© UI å…ƒä»¶
             }
         }
         activeUIs.Clear();

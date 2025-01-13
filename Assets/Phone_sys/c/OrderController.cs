@@ -5,19 +5,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Ø“ØŸÉú³ÉÓ††Î
+/// è² è²¬ç”Ÿæˆè¨‚å–®
 /// </summary>
 public class OrderController : MonoBehaviour
 {
-    // î™¿ÍÃû·QÅc Prefab µÄÓ³Éä
+    // é¡§å®¢åç¨±èˆ‡ Prefab çš„æ˜ å°„
     public Dictionary<string, GameObject> customerPrefabs = new Dictionary<string, GameObject>();
 
-    // ³õÊ¼»¯Ó³Éä±í£¨¿ÉÔÚ Inspector ÖĞÔO¶¨£©
+    // åˆå§‹åŒ–æ˜ å°„è¡¨ï¼ˆå¯åœ¨ Inspector ä¸­è¨­å®šï¼‰
     [System.Serializable]
     public struct CustomerData
     {
-        public string customerName; // î™¿ÍÃû·Q
-        public GameObject customerPrefab; // î™¿ÍµÄ Prefab
+        public string customerName; // é¡§å®¢åç¨±
+        public GameObject customerPrefab; // é¡§å®¢çš„ Prefab
     }
 
     public List<CustomerData> customerDataList = new List<CustomerData>();
@@ -25,37 +25,37 @@ public class OrderController : MonoBehaviour
     [System.Serializable]
     public class LevelDifficulty
     {
-        public float order_time; // Ó††Î•rég
-        public List<string> allowedRestaurants; // ÔÊÔSµÄ²Íd
-        public List<string> allowedCustomers; // ÔÊÔSµÄî™¿Í
+        public float order_time; // è¨‚å–®æ™‚é–“
+        public List<string> allowedRestaurants; // å…è¨±çš„é¤å»³
+        public List<string> allowedCustomers; // å…è¨±çš„é¡§å®¢
         public int orderCount;
     }
 
     private float order_time;
     public string cusname;
 
-    public newlist_test listScript; // ÒıÓÃµÚÒ»‚€Ä_±¾µÄŒÀı
+    public newlist_test listScript; // å¼•ç”¨ç¬¬ä¸€å€‹è…³æœ¬çš„å¯¦ä¾‹
     private Transform customer, restaurant;
-    // keyµê¼ÒÃû·Q£¬µê¼ÒÊ³ÎïÁĞ±í
+    // keyåº—å®¶åç¨±ï¼Œåº—å®¶é£Ÿç‰©åˆ—è¡¨
     private Dictionary<string, List<string>> restaurantFoods = new Dictionary<string, List<string>>();
 
-    //keyµê¼ÒÃû·Q£¬µê¼Ò×ù˜Ë
+    //keyåº—å®¶åç¨±ï¼Œåº—å®¶åº§æ¨™
     private Dictionary<string, Transform> restaurantTransforms = new Dictionary<string, Transform>();
 
-    //keyî™¿ÍÃû·Q£¬î™¿Í×ù˜Ë
+    //keyé¡§å®¢åç¨±ï¼Œé¡§å®¢åº§æ¨™
     private Dictionary<string, Transform> customerTransforms = new Dictionary<string, Transform>();
 
     private Dictionary<int, LevelDifficulty> levelDifficulty = new Dictionary<int, LevelDifficulty>();
 
     public GameObject deliveryObjectPrefab;
 
-    private List<string> availableRestaurants; // ƒ¦´æ®”Ç°êP¿¨ÔÊÔSµÄ²Íd
-    private List<string> availableCustomers; // ƒ¦´æ®”Ç°êP¿¨ÔÊÔSµÄî™¿Í
+    private List<string> availableRestaurants; // å„²å­˜ç•¶å‰é—œå¡å…è¨±çš„é¤å»³
+    private List<string> availableCustomers; // å„²å­˜ç•¶å‰é—œå¡å…è¨±çš„é¡§å®¢
 
     void Start()
     {
 
-        // Œ¢ List ÖĞµÄÙYÁÏ³õÊ¼»¯µ½ Dictionary
+        // å°‡ List ä¸­çš„è³‡æ–™åˆå§‹åŒ–åˆ° Dictionary
         foreach (var data in customerDataList)
         {
             if (!customerPrefabs.ContainsKey(data.customerName))
@@ -64,11 +64,11 @@ public class OrderController : MonoBehaviour
             }
         }
         InitializeRestaurantData();
-        InitializeLevelDifficulty(); // ³õÊ¼»¯ëy¶È—l¼ş
+        InitializeLevelDifficulty(); // åˆå§‹åŒ–é›£åº¦æ¢ä»¶
 
         string sceneName = SceneManager.GetActiveScene().name;
         int levelNumber = ExtractLevelNumber(sceneName);
-        Debug.LogWarning ("ÌáÈ¡µÄêP¿¨”µ×Ö: " + levelNumber);
+        Debug.LogWarning ("æå–çš„é—œå¡æ•¸å­—: " + levelNumber);
 
         SetLevelConditions(levelNumber);
         //order_manager.orderTimer = order_time;
@@ -87,9 +87,9 @@ public class OrderController : MonoBehaviour
     }
     private int ExtractLevelNumber(string sceneName)
     {
-        // ÕÒµ½×ÖÄ¸ "V" µÄÎ»ÖÃK½ØÈ¡ááÃæµÄ²¿·Ö
+        // æ‰¾åˆ°å­—æ¯ "V" çš„ä½ç½®ä¸¦æˆªå–å¾Œé¢çš„éƒ¨åˆ†
         string numberPart = sceneName.Substring(sceneName.IndexOf('V') + 1);
-        return int.Parse(numberPart); // ŞD“Q³ÉÕû”µK·µ»Ø
+        return int.Parse(numberPart); // è½‰æ›æˆæ•´æ•¸ä¸¦è¿”å›
     }
     private void Update()
     {
@@ -99,57 +99,57 @@ public class OrderController : MonoBehaviour
             GenerateRandomOrder();
         }
     }
-    // ³õÊ¼»¯²ÍdÅcÊ³ÎïÙYÁÏ
+    // åˆå§‹åŒ–é¤å»³èˆ‡é£Ÿç‰©è³‡æ–™
     private void InitializeRestaurantData()
     {
-        restaurantFoods.Add("‰ÛË¾µê", new List<string> { "¾CºÏ‰ÛË¾", "¾CºÏÉúô~Æ¬", "õnô~‰ÛË¾", "õqô~‰ÛË¾", "Óñ×ÓŸı‰ÛË¾",
-            "õqô~ÂÑÊÖ¾í","¶¹Æ¤‰ÛË¾","üS½ğõnô~‰ÛË¾","õrÎrÌJ¹SÊÖ’Ô","¾CºÏÖËŸı‰ÛË¾","»¨‰ÛË¾" });
-        restaurantFoods.Add("¾Ó¾ÆÎİ", new List<string> { "»¨ô~Ò»Ò¹¸É", "Ì¿¿¾÷»×ÓÅ£", "áu¿¾ØiÈâ´®", "¿É˜·ï",
-            "ÉúÆ¡¾Æ","É³Íß","ÌÆ“Pëu","³´õıˆüI","û}¿¾Çïµ¶ô~","Ã÷Ì«×Óëu³á","É½ËÄàÉ³À­","û}¿¾™±¹Ï´®"});
-        restaurantFoods.Add("Sïˆ", new List<string> { "Å£Èâ‰ÛÏ²¶¨Ê³","Õ¨ÎrÌì‹DÁ_¶¨Ê³","ÆÑŸıö ô~¶¨Ê³","Õ¨ØiÅÅ¶¨Ê³",
-            "õqô~ÓH×ÓS","û}¿¾õ›ô~¶¨Ê³","ËÉÛàëà¶¨Ê³","ÌØ¼‰ÈıÉ«S","ÕĞÅÆº£õrS"});
-        restaurantFoods.Add("µ°°üïˆ", new List<string> {
-            "·¬ÇÑµ°°üïˆ",
-            "¿§Á¨šWÄ·µ°°üïˆ",
-            "ÌÆ“Pëuµ°°üïˆ",
-            "Õ¨ØiÅÅµ°°üïˆ",
-            "Ä¢¹½ÄÌÓÍáuµ°°üïˆ",
-            "¿§Á¨õrÎrµ°°üïˆ",
-            "¼t¾ÆÅ£ÈâšWÄ·µ°°üïˆ",
-            "õrÊßµ°°üïˆ",
-            "h±¤ÅÅµ°°üïˆ"
+        restaurantFoods.Add("å£½å¸åº—", new List<string> { "ç¶œåˆå£½å¸", "ç¶œåˆç”Ÿé­šç‰‡", "é®ªé­šå£½å¸", "é®­é­šå£½å¸", "ç‰å­ç‡’å£½å¸",
+            "é®­é­šåµæ‰‹å·","è±†çš®å£½å¸","é»ƒé‡‘é®ªé­šå£½å¸","é®®è¦è˜†ç­æ‰‹æ²","ç¶œåˆç‚™ç‡’å£½å¸","èŠ±å£½å¸" });
+        restaurantFoods.Add("å±…é…’å±‹", new List<string> { "èŠ±é­šä¸€å¤œå¹²", "ç‚­çƒ¤éª°å­ç‰›", "é†¬çƒ¤è±¬è‚‰ä¸²", "å¯æ¨‚é¤…",
+            "ç”Ÿå•¤é…’","æ²™ç“¦","å”æšé›","ç‚’çƒé¾éºµ","é¹½çƒ¤ç§‹åˆ€é­š","æ˜å¤ªå­é›ç¿…","å±±è—¥æ³¥æ²™æ‹‰","é¹½çƒ¤æ«›ç“œä¸²"});
+        restaurantFoods.Add("ä¸¼é£¯", new List<string> { "ç‰›è‚‰å£½å–œå®šé£Ÿ","ç‚¸è¦å¤©å©¦ç¾…å®šé£Ÿ","è’²ç‡’é°»é­šå®šé£Ÿ","ç‚¸è±¬æ’å®šé£Ÿ",
+            "é®­é­šè¦ªå­ä¸¼","é¹½çƒ¤é¯–é­šå®šé£Ÿ","æ¾å‚è±šå®šé£Ÿ","ç‰¹ç´šä¸‰è‰²ä¸¼","æ‹›ç‰Œæµ·é®®ä¸¼"});
+        restaurantFoods.Add("è›‹åŒ…é£¯", new List<string> {
+            "ç•ªèŒ„è›‹åŒ…é£¯",
+            "å’–å“©æ­å§†è›‹åŒ…é£¯",
+            "å”æšé›è›‹åŒ…é£¯",
+            "ç‚¸è±¬æ’è›‹åŒ…é£¯",
+            "è˜‘è‡å¥¶æ²¹é†¬è›‹åŒ…é£¯",
+            "å’–å“©é®®è¦è›‹åŒ…é£¯",
+            "ç´…é…’ç‰›è‚‰æ­å§†è›‹åŒ…é£¯",
+            "é®®è”¬è›‹åŒ…é£¯",
+            "æ¼¢å ¡æ’è›‹åŒ…é£¯"
         });
-        restaurantFoods.Add("¿§Á¨ïˆ", new List<string> {
-            "ÌÆ“Pëu¿§Á¨ïˆ",
-            "Ò¬ÏãÅ£Èâ¾G¿§Á¨ïˆ",
-            "Õ¨ØiÅÅ¿§Á¨ïˆ",
-            "¹½¹½Êß²Ë¿§Á¨ïˆ",
-            "½›µäëuÈâ¿§Á¨ïˆ",
-            "Õ¨Îr¿§Á¨ïˆ",
-            "h±¤ÅÅ¿§Á¨ïˆ",
-            "˜OĞÁ¿§Á¨ïˆ"
+        restaurantFoods.Add("å’–å“©é£¯", new List<string> {
+            "å”æšé›å’–å“©é£¯",
+            "æ¤°é¦™ç‰›è‚‰ç¶ å’–å“©é£¯",
+            "ç‚¸è±¬æ’å’–å“©é£¯",
+            "è‡è‡è”¬èœå’–å“©é£¯",
+            "ç¶“å…¸é›è‚‰å’–å“©é£¯",
+            "ç‚¸è¦å’–å“©é£¯",
+            "æ¼¢å ¡æ’å’–å“©é£¯",
+            "æ¥µè¾›å’–å“©é£¯"
         });
 
 
 
-        restaurantTransforms.Add("‰ÛË¾µê", GameObject.Find("‰ÛË¾µê").transform);
-        restaurantTransforms.Add("¾Ó¾ÆÎİ", GameObject.Find("¾Ó¾ÆÎİ").transform);
-        restaurantTransforms.Add("Sïˆ", GameObject.Find("Sïˆ").transform);
-        restaurantTransforms.Add("µ°°üïˆ", GameObject.Find("µ°°üïˆ").transform);
+        restaurantTransforms.Add("å£½å¸åº—", GameObject.Find("å£½å¸åº—").transform);
+        restaurantTransforms.Add("å±…é…’å±‹", GameObject.Find("å±…é…’å±‹").transform);
+        restaurantTransforms.Add("ä¸¼é£¯", GameObject.Find("ä¸¼é£¯").transform);
+        restaurantTransforms.Add("è›‹åŒ…é£¯", GameObject.Find("è›‹åŒ…é£¯").transform);
 
-        restaurantTransforms.Add("¿§Á¨ïˆ", GameObject.Find("¿§Á¨ïˆ").transform);
+        restaurantTransforms.Add("å’–å“©é£¯", GameObject.Find("å’–å“©é£¯").transform);
 
-        customerTransforms.Add("ëu¸ç", GameObject.Find("ëu¸ç").transform);
-        customerTransforms.Add("ß÷ß÷", GameObject.Find("ß÷ß÷").transform);
-        customerTransforms.Add("ëu¹¾", GameObject.Find("ëu¹¾").transform);
-        customerTransforms.Add("Ğ¡Ã·", GameObject.Find("Ğ¡Ã·").transform);
-        customerTransforms.Add("Ğ¡°×½ã", GameObject.Find("Ğ¡°×½ã").transform);
-        //customerTransforms.Add("ßäßä", GameObject.Find("ßäßä").transform);
-        customerTransforms.Add("Ğ¡°×ÃÃ", GameObject.Find("Ğ¡°×ÃÃ").transform);
-        //customerTransforms.Add("Ğ¡ä½", GameObject.Find("Ğ¡ä½").transform);
-        customerTransforms.Add("Ğ¡Àê", GameObject.Find("Ğ¡Àê").transform);
-        //customerTransforms.Add("Ğ¡Ã·", GameObject.Find("Ğ¡Ã·").transform);
-        //customerTransforms.Add("Ğ¡°ß", GameObject.Find("Ğ¡°ß").transform);
+        customerTransforms.Add("é›å“¥", GameObject.Find("é›å“¥").transform);
+        customerTransforms.Add("å–µå–µ", GameObject.Find("å–µå–µ").transform);
+        customerTransforms.Add("é›å’•", GameObject.Find("é›å’•").transform);
+        customerTransforms.Add("å°æ¢…", GameObject.Find("å°æ¢…").transform);
+        customerTransforms.Add("å°ç™½å§", GameObject.Find("å°ç™½å§").transform);
+        //customerTransforms.Add("å’ªå’ª", GameObject.Find("å’ªå’ª").transform);
+        customerTransforms.Add("å°ç™½å¦¹", GameObject.Find("å°ç™½å¦¹").transform);
+        //customerTransforms.Add("å°æµ£", GameObject.Find("å°æµ£").transform);
+        customerTransforms.Add("å°ç‹¸", GameObject.Find("å°ç‹¸").transform);
+        //customerTransforms.Add("å°æ¢…", GameObject.Find("å°æ¢…").transform);
+        //customerTransforms.Add("å°æ–‘", GameObject.Find("å°æ–‘").transform);
 
     }
     private void InitializeLevelDifficulty()
@@ -157,60 +157,60 @@ public class OrderController : MonoBehaviour
         levelDifficulty.Add(1, new LevelDifficulty
         {
             order_time = 300f,
-            allowedRestaurants = new List<string> { "‰ÛË¾µê" },
-            allowedCustomers = new List<string> { "ëu¸ç" },
+            allowedRestaurants = new List<string> { "å£½å¸åº—" },
+            allowedCustomers = new List<string> { "é›å“¥" },
             orderCount = 1
         });
 
         levelDifficulty.Add(2, new LevelDifficulty
         {
             order_time = 100f,
-            allowedRestaurants = new List<string> { "‰ÛË¾µê", "µ°°üïˆ" },
-            allowedCustomers = new List<string> { "ß÷ß÷", "ëu¹¾" },
+            allowedRestaurants = new List<string> { "å£½å¸åº—", "è›‹åŒ…é£¯" },
+            allowedCustomers = new List<string> { "å–µå–µ", "é›å’•" },
             orderCount = 5
         });
 
         levelDifficulty.Add(3, new LevelDifficulty
         {
             order_time = 400f,
-            allowedRestaurants = new List<string> { "µ°°üïˆ", "¿§Á¨ïˆ" },
-            allowedCustomers = new List<string> { "Ğ¡Ã·", "Ğ¡°×ÃÃ", "Ğ¡Àê" },
+            allowedRestaurants = new List<string> { "è›‹åŒ…é£¯", "å’–å“©é£¯" },
+            allowedCustomers = new List<string> { "å°æ¢…", "å°ç™½å¦¹", "å°ç‹¸" },
             orderCount = 20
         });
         levelDifficulty.Add(4, new LevelDifficulty
         {
             order_time = 400f,
-            allowedRestaurants = new List<string> { "Sïˆ", "¿§Á¨ïˆ","¾Ó¾ÆÎİ" },
-            allowedCustomers = new List<string> { "Ğ¡Ã·", "Ğ¡°×ÃÃ", "Ğ¡Àê" },
+            allowedRestaurants = new List<string> { "ä¸¼é£¯", "å’–å“©é£¯","å±…é…’å±‹" },
+            allowedCustomers = new List<string> { "å°æ¢…", "å°ç™½å¦¹", "å°ç‹¸" },
             orderCount = 20
         });
         levelDifficulty.Add(5, new LevelDifficulty
         {
             order_time = 400f,
-            allowedRestaurants = new List<string> { "Sïˆ", "¿§Á¨ïˆ", "¾Ó¾ÆÎİ" },
-            allowedCustomers = new List<string> { "Ğ¡Ã·", "Ğ¡°×ÃÃ", "Ğ¡Àê" },
+            allowedRestaurants = new List<string> { "ä¸¼é£¯", "å’–å“©é£¯", "å±…é…’å±‹" },
+            allowedCustomers = new List<string> { "å°æ¢…", "å°ç™½å¦¹", "å°ç‹¸" },
             orderCount = 20
         });
         levelDifficulty.Add(6, new LevelDifficulty
         {
             order_time = 400f,
-            allowedRestaurants = new List<string> { "Sïˆ", "¿§Á¨ïˆ", "¾Ó¾ÆÎİ" },
-            allowedCustomers = new List<string> { "Ğ¡Ã·", "Ğ¡°×ÃÃ", "Ğ¡Àê" },
+            allowedRestaurants = new List<string> { "ä¸¼é£¯", "å’–å“©é£¯", "å±…é…’å±‹" },
+            allowedCustomers = new List<string> { "å°æ¢…", "å°ç™½å¦¹", "å°ç‹¸" },
             orderCount = 20
         });
-        // Ìí¼Ó¸ü¶àêP¿¨ÔO¶¨...
+        // æ·»åŠ æ›´å¤šé—œå¡è¨­å®š...
     }
 
     private void GenerateRandomOrder() //GenerateRandomOrder(string customerName, float orderTime)
     {
-        // ´_±£ëS™Cßx“ñ²ÍdºÍî™¿Í•r£¬ƒHÄ®”Ç°êP¿¨ÔÊÔSµÄ²ÍdºÍî™¿ÍÖĞßx“ñ
+        // ç¢ºä¿éš¨æ©Ÿé¸æ“‡é¤å»³å’Œé¡§å®¢æ™‚ï¼Œåƒ…å¾ç•¶å‰é—œå¡å…è¨±çš„é¤å»³å’Œé¡§å®¢ä¸­é¸æ“‡
         int randomCustomerIndex = Random.Range(0, availableCustomers.Count);
         string selectedCustomer = availableCustomers[randomCustomerIndex];
 
         int randomRestaurantIndex = Random.Range(0, availableRestaurants.Count);
         string selectedRestaurant = availableRestaurants[randomRestaurantIndex];
 
-        // ëS™Cßx“ñ²Íüc
+        // éš¨æ©Ÿé¸æ“‡é¤é»
         List<string> foods = restaurantFoods[selectedRestaurant];
         int randomFoodIndex = Random.Range(0, foods.Count);
         string selectedFood = foods[randomFoodIndex];
@@ -218,27 +218,27 @@ public class OrderController : MonoBehaviour
         Transform restaurantTransform = restaurantTransforms[selectedRestaurant];
         Transform customerTransform = customerTransforms[selectedCustomer];
 
-        // Éú³ÉÓ††Î
+        // ç”Ÿæˆè¨‚å–®
         listScript.CreateNewItem(order_time, selectedFood, selectedCustomer, selectedRestaurant, listScript.contentPanel1, listScript.itemObjects1);
-        Debug.Log($"ëS™CÓ††Î: {selectedRestaurant}£¬µÄ:{selectedFood}£¬î™¿Í: {selectedCustomer} \n î™¿Í×ù˜Ë: {customerTransform.position}£¬²Íd×ù˜Ë: {restaurantTransform.position} ");
-        //Debug.Log("Éú³Éî™¿ÍÃû·Q:" + selectedCustomer);
+        Debug.Log($"éš¨æ©Ÿè¨‚å–®: {selectedRestaurant}ï¼Œçš„:{selectedFood}ï¼Œé¡§å®¢: {selectedCustomer} \n é¡§å®¢åº§æ¨™: {customerTransform.position}ï¼Œé¤å»³åº§æ¨™: {restaurantTransform.position} ");
+        //Debug.Log("ç”Ÿæˆé¡§å®¢åç¨±:" + selectedCustomer);
         
         customer = customerTransform;
         restaurant = restaurantTransform;
     }
 
 
-    // ¸ù“şÄ¿Ç°êP¿¨ÔO¶¨ëy¶È—l¼ş
+    // æ ¹æ“šç›®å‰é—œå¡è¨­å®šé›£åº¦æ¢ä»¶
     private void SetLevelConditions(int level)
     {
         if (levelDifficulty.ContainsKey(level))
         {
             LevelDifficulty levelData = levelDifficulty[level];
 
-            // ÔO¶¨•rég
+            // è¨­å®šæ™‚é–“
             order_time = levelData.order_time;
 
-            // ÔO¶¨¿ÉÓÃ²Íd
+            // è¨­å®šå¯ç”¨é¤å»³
             availableRestaurants = new List<string>();
             foreach (var restaurantName in levelData.allowedRestaurants)
             {
@@ -248,7 +248,7 @@ public class OrderController : MonoBehaviour
                 }
             }
 
-            // ÔO¶¨¿ÉÓÃî™¿Í
+            // è¨­å®šå¯ç”¨é¡§å®¢
             availableCustomers = new List<string>();
             foreach (var customerName in levelData.allowedCustomers)
             {
@@ -258,12 +258,12 @@ public class OrderController : MonoBehaviour
                 }
             }
 
-            // ï@Ê¾®”Ç°êP¿¨ÔO¶¨
-            Debug.Log($"êP¿¨ {level} ÔO¶¨Íê³É: •rég {order_time}, ²Íd {string.Join(", ", availableRestaurants)}, î™¿Í {string.Join(", ", availableCustomers)}");
+            // é¡¯ç¤ºç•¶å‰é—œå¡è¨­å®š
+            Debug.Log($"é—œå¡ {level} è¨­å®šå®Œæˆ: æ™‚é–“ {order_time}, é¤å»³ {string.Join(", ", availableRestaurants)}, é¡§å®¢ {string.Join(", ", availableCustomers)}");
         }
         else
         {
-            Debug.LogError("Ÿo´ËêP¿¨");
+            Debug.LogError("ç„¡æ­¤é—œå¡");
         }
     }
     public void InstantiateAtRestaurantPosition(int id,string pos)
@@ -272,7 +272,7 @@ public class OrderController : MonoBehaviour
         //Instantiate(deliveryObjectPrefab, restaurant.transform.position, Quaternion.identity);
         deliveryObject.name = id.ToString();
         deliveryObject.tag = "order_start";
-        Debug.Log("Éú³É²ÍdÓ††ÎID::" + id);
+        Debug.Log("ç”Ÿæˆé¤å»³è¨‚å–®ID::" + id);
         Order_state order_State= deliveryObjectPrefab.GetComponent<Order_state>();
         order_State.orderId = id;
        //FindObjectOfType<CameraController>().StartGuide(0);
@@ -284,11 +284,11 @@ public class OrderController : MonoBehaviour
         //Instantiate(deliveryObjectPrefab, restaurant.transform.position, Quaternion.identity);
         Object.name = id.ToString();
         Object.tag = "order_end";
-        //ÔÚî™¿ÍµÄ×ù˜ËÉú³ÉÎï¼ş
+        //åœ¨é¡§å®¢çš„åº§æ¨™ç”Ÿæˆç‰©ä»¶
         //Instantiate(deliveryObjectPrefab, customer.transform.position, Quaternion.identity);
-        Debug.Log("Éú³É¿ÍÈËÓ††ÎID::" + id);
+        Debug.Log("ç”Ÿæˆå®¢äººè¨‚å–®ID::" + id);
 
-        //Éú³Éî™¿Í
+        //ç”Ÿæˆé¡§å®¢
         //SpawnCustomerAtLocation(cusname, customer.transform.position);
         //FindObjectOfType<CameraController>().StartGuide(1);
 
@@ -296,33 +296,33 @@ public class OrderController : MonoBehaviour
 
 
     /// <summary>
-    /// ¸ù“şî™¿ÍÃû·QºÍ×ù˜ËÉú³ÉŒ¦‘ªµÄî™¿Í Prefab
+    /// æ ¹æ“šé¡§å®¢åç¨±å’Œåº§æ¨™ç”Ÿæˆå°æ‡‰çš„é¡§å®¢ Prefab
     /// </summary>
-    /// <param name="customerName">î™¿ÍÃû·Q</param>
-    /// <param name="position">Éú³ÉÎ»ÖÃ</param>
+    /// <param name="customerName">é¡§å®¢åç¨±</param>
+    /// <param name="position">ç”Ÿæˆä½ç½®</param>
     public void SpawnCustomerAtLocation(string customerName,int id )
     {
         if (customerPrefabs.ContainsKey(customerName))
         {
-            Debug.LogWarning("½ÓÊÕµ½"+customerName);
+            Debug.LogWarning("æ¥æ”¶åˆ°"+customerName);
             GameObject customerPrefab = customerPrefabs[customerName];
             GameObject pos = GameObject.Find(customerName);
             if (customerPrefab != null && pos!= null)
             {
-                // Éú³Éî™¿Í
+                // ç”Ÿæˆé¡§å®¢
                 GameObject newObject = Instantiate(customerPrefab, pos.transform.position, Quaternion.identity);
                 newObject.name = id.ToString();
                 //Instantiate(customerPrefab, pos.transform.position, Quaternion.identity);
-                Debug.Log($"³É¹¦Éú³Éî™¿Í '{customerName}' ÔÚÎ»ÖÃ {pos.transform.position}");
+                Debug.Log($"æˆåŠŸç”Ÿæˆé¡§å®¢ '{customerName}' åœ¨ä½ç½® {pos.transform.position}");
             }
             else
             {
-                Debug.LogWarning($"î™¿Í '{customerName}' µÄ Prefab ÉĞÎ´Ö¸¶¨£¡");
+                Debug.LogWarning($"é¡§å®¢ '{customerName}' çš„ Prefab å°šæœªæŒ‡å®šï¼");
             }
         }
         else
         {
-            Debug.LogWarning($"ÕÒ²»µ½Ãû·Qé '{customerName}' µÄî™¿Í£¡");
+            Debug.LogWarning($"æ‰¾ä¸åˆ°åç¨±ç‚º '{customerName}' çš„é¡§å®¢ï¼");
         }
     }
 

@@ -9,17 +9,17 @@ public class BagManager : MonoBehaviour
     [System.Serializable]
     public class Bag
     {
-        public string contentName; // ƒÈÈİÎïÃû·Q
-        public int contentID; // ƒÈÈİÎï ID
-        public GameObject contentUI; // ƒÈÈİÎïµÄ UI£¨ÀıÈçÎÄ×Ö»òÌáÊ¾¿ò£©
-        public Image bagImage; // ´ü×ÓµÄ Image ½M¼ş£¬ÓÃì¶ÇĞ“Q Sprite
-        public Image foodPic; // Ê³ÎïˆDÆ¬
-        public Button bagButton; // Ã¿‚€´ü×ÓŒ¦‘ªµÄ°´âo
+        public string contentName; // å…§å®¹ç‰©åç¨±
+        public int contentID; // å…§å®¹ç‰© ID
+        public GameObject contentUI; // å…§å®¹ç‰©çš„ UIï¼ˆä¾‹å¦‚æ–‡å­—æˆ–æç¤ºæ¡†ï¼‰
+        public Image bagImage; // è¢‹å­çš„ Image çµ„ä»¶ï¼Œç”¨æ–¼åˆ‡æ› Sprite
+        public Image foodPic; // é£Ÿç‰©åœ–ç‰‡
+        public Button bagButton; // æ¯å€‹è¢‹å­å°æ‡‰çš„æŒ‰éˆ•
     }
 
-    public List<Bag> bags = new List<Bag>(); // ´æ·ÅÁù‚€´ü×ÓµÄê‡ÁĞ
-    public Sprite spriteA; // ÓĞƒÈÈİÎï•rµÄˆDÆ¬
-    public Sprite spriteB; // ŸoƒÈÈİÎï•rµÄˆDÆ¬
+    public List<Bag> bags = new List<Bag>(); // å­˜æ”¾å…­å€‹è¢‹å­çš„é™£åˆ—
+    public Sprite spriteA; // æœ‰å…§å®¹ç‰©æ™‚çš„åœ–ç‰‡
+    public Sprite spriteB; // ç„¡å…§å®¹ç‰©æ™‚çš„åœ–ç‰‡
     private newlist_test newlist_test;
     private BagManager bagManager;
 
@@ -30,7 +30,7 @@ public class BagManager : MonoBehaviour
         bagManager= FindObjectOfType<BagManager>();
         //if (newlist_test != null) Debug.LogWarning("OK");
 
-        // ³õÊ¼»¯´ü×ÓµÄ Sprite ºÍ°´âoÊÂ¼ş
+        // åˆå§‹åŒ–è¢‹å­çš„ Sprite å’ŒæŒ‰éˆ•äº‹ä»¶
         foreach (var bag in bags)
         {
             if (bag.bagButton != null)
@@ -53,15 +53,15 @@ public class BagManager : MonoBehaviour
     {
         foreach (var bag in bags)
         {
-            if (!string.IsNullOrEmpty(bag.contentName)) // Èç¹ûÓĞƒÈÈİÎï
+            if (!string.IsNullOrEmpty(bag.contentName)) // å¦‚æœæœ‰å…§å®¹ç‰©
             {
                 bag.bagImage.sprite = spriteA;
-                bag.bagButton.interactable = true; // †¢ÓÃ°´âo
+                bag.bagButton.interactable = true; // å•Ÿç”¨æŒ‰éˆ•
             }
-            else // ›]ÓĞƒÈÈİÎï
+            else // æ²’æœ‰å…§å®¹ç‰©
             {
                 bag.bagImage.sprite = spriteB;
-                bag.bagButton.interactable = false; // ½ûÓÃ°´âo
+                bag.bagButton.interactable = false; // ç¦ç”¨æŒ‰éˆ•
             }
         }
     }
@@ -72,99 +72,99 @@ public class BagManager : MonoBehaviour
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(bag.bagImage.rectTransform, Input.mousePosition))
             {
-                if (!string.IsNullOrEmpty(bag.contentName)) // Èç¹û´ü×ÓÓĞƒÈÈİÎï
+                if (!string.IsNullOrEmpty(bag.contentName)) // å¦‚æœè¢‹å­æœ‰å…§å®¹ç‰©
                 {
-                    bag.contentUI.SetActive(true); // ï@Ê¾ƒÈÈİÎïµÄ UI
+                    bag.contentUI.SetActive(true); // é¡¯ç¤ºå…§å®¹ç‰©çš„ UI
                 }
             }
             else
             {
-                bag.contentUI.SetActive(false); // »¬Êó²»ÔÚ´ü×ÓÉÏ£¬êPé]ƒÈÈİÎï UI
+                bag.contentUI.SetActive(false); // æ»‘é¼ ä¸åœ¨è¢‹å­ä¸Šï¼Œé—œé–‰å…§å®¹ç‰© UI
             }
         }
     }
 
     /// <summary>
-    /// ĞÂÔöÎïÆ·µ½´ü×ÓÖĞ
+    /// æ–°å¢ç‰©å“åˆ°è¢‹å­ä¸­
     /// </summary>
     public void AddItemToBag(string foodName, int orderID)
     {
         foreach (var bag in bags)
         {
-            if (string.IsNullOrEmpty(bag.contentName)) // ÕÒµ½µÚÒ»‚€¿ÕµÄ´ü×Ó
+            if (string.IsNullOrEmpty(bag.contentName)) // æ‰¾åˆ°ç¬¬ä¸€å€‹ç©ºçš„è¢‹å­
             {
                 bag.contentName = foodName;
                 bag.contentID = orderID;
 
-                Debug.Log($"ĞÂÔöÎïÆ·: {foodName} (ID: {orderID})");
+                Debug.Log($"æ–°å¢ç‰©å“: {foodName} (ID: {orderID})");
 
-                // ‡LÔ‡İdÈëˆDÆ¬ÙYÔ´
+                // å˜—è©¦è¼‰å…¥åœ–ç‰‡è³‡æº
                 Sprite itemSprite = Resources.Load<Sprite>("Order_Pic/" + foodName);
                 if (itemSprite != null)
                 {
                     bag.foodPic.sprite = itemSprite;
                 }
 
-                UpdateBagSprites(); // ¸üĞÂ´ü×ÓµÄï@Ê¾ î‘B
+                UpdateBagSprites(); // æ›´æ–°è¢‹å­çš„é¡¯ç¤ºç‹€æ…‹
                 return;
             }
         }
 
-        Debug.LogWarning("ËùÓĞ´ü×Ó¶¼ÒÑM£¬Ÿo·¨ĞÂÔöÎïÆ·£¡");
+        Debug.LogWarning("æ‰€æœ‰è¢‹å­éƒ½å·²æ»¿ï¼Œç„¡æ³•æ–°å¢ç‰©å“ï¼");
     }
 
     public void RemoveItemFromBagByID(int orderID)
     {
         foreach (var bag in bags)
         {
-            if (bag.contentID == orderID) // ÕÒµ½Œ¦‘ªµÄ ID
+            if (bag.contentID == orderID) // æ‰¾åˆ°å°æ‡‰çš„ ID
             {
-                bag.contentName = string.Empty; // Çå¿ÕƒÈÈİÎïÃû·Q
-                bag.contentID = 0; // Çå¿ÕƒÈÈİÎï ID
-                bag.foodPic.sprite = null; // Çå¿ÕˆDÆ¬
-                bag.bagImage.sprite = spriteB; // Œ¢ˆDÆ¬ÖØÔOéŸoƒÈÈİµÄˆDÆ¬
-                UpdateBagSprites(); // ¸üĞÂ´ü×ÓµÄï@Ê¾ î‘B
+                bag.contentName = string.Empty; // æ¸…ç©ºå…§å®¹ç‰©åç¨±
+                bag.contentID = 0; // æ¸…ç©ºå…§å®¹ç‰© ID
+                bag.foodPic.sprite = null; // æ¸…ç©ºåœ–ç‰‡
+                bag.bagImage.sprite = spriteB; // å°‡åœ–ç‰‡é‡è¨­ç‚ºç„¡å…§å®¹çš„åœ–ç‰‡
+                UpdateBagSprites(); // æ›´æ–°è¢‹å­çš„é¡¯ç¤ºç‹€æ…‹
 
-                Debug.Log($"ÒÑÒÆ³ı ID é {orderID} µÄƒÈÈİÎï");
+                Debug.Log($"å·²ç§»é™¤ ID ç‚º {orderID} çš„å…§å®¹ç‰©");
                 return;
             }
         }
 
-        Debug.LogWarning($"ÕÒ²»µ½ ID é {orderID} µÄƒÈÈİÎï£¡");
+        Debug.LogWarning($"æ‰¾ä¸åˆ° ID ç‚º {orderID} çš„å…§å®¹ç‰©ï¼");
     }
 
     /// <summary>
-    /// ®”´ü×Ó°´âo±»üc“ô•rÓ|°lµÄÊÂ¼ş
+    /// ç•¶è¢‹å­æŒ‰éˆ•è¢«é»æ“Šæ™‚è§¸ç™¼çš„äº‹ä»¶
     /// </summary>
-    /// <param name="bag">Œ¦‘ªµÄ´ü×Ó</param>
+    /// <param name="bag">å°æ‡‰çš„è¢‹å­</param>
     private void OnBagButtonClick(Bag bag)
     {
         if (!string.IsNullOrEmpty(bag.contentName))
         {
-            Debug.Log($"°´ÏÂ´ü×Ó°´âo£¬ƒÈÈİÎïÃû·Q: {bag.contentName}, Ó††Î ID: {bag.contentID}");
+            Debug.Log($"æŒ‰ä¸‹è¢‹å­æŒ‰éˆ•ï¼Œå…§å®¹ç‰©åç¨±: {bag.contentName}, è¨‚å–® ID: {bag.contentID}");
             
             newlist_test.VerifyOrderDelivery(bag.contentID);
             newlist_test.DeletePreviewItem(bag.contentID);
     
-            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>(); // «@È¡ˆö¾°ÖĞËùÓĞÎï¼ş
+            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>(); // ç²å–å ´æ™¯ä¸­æ‰€æœ‰ç‰©ä»¶
 
             foreach (GameObject obj in allObjects)
             {
                 if (obj.name == bag.contentID.ToString())
                 {
-                    Debug.LogWarning($"„h³ıÎï¼ş: {obj.name}");
-                    Destroy(obj); // „h³ıÔ“Îï¼ş
+                    Debug.LogWarning($"åˆªé™¤ç‰©ä»¶: {obj.name}");
+                    Destroy(obj); // åˆªé™¤è©²ç‰©ä»¶
                 }
             }
 
-            newlist_test.UpdateOrderStatus(bag.contentID, "ÒÑËÍß_");
+            newlist_test.UpdateOrderStatus(bag.contentID, "å·²é€é”");
             bagManager.RemoveItemFromBagByID(bag.contentID);
 
 
         }
         else
         {
-            Debug.LogWarning("´ü×ÓÊÇ¿ÕµÄ£¬Ÿo·¨ï@Ê¾ƒÈÈİÎï£¡");
+            Debug.LogWarning("è¢‹å­æ˜¯ç©ºçš„ï¼Œç„¡æ³•é¡¯ç¤ºå…§å®¹ç‰©ï¼");
         }
     }
 }

@@ -6,25 +6,25 @@ using UnityEngine.UI;
 
 public class list : MonoBehaviour
 {
-    // ìo‘BÙYÁÏÁĞ±í
+    // éœæ…‹è³‡æ–™åˆ—è¡¨
     static public List<string> dataList = new List<string> { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
-    static public List<string> deletedDataList = new List<string>(); // ´æ·Å„h³ıááµÄÙYÁÏ
+    static public List<string> deletedDataList = new List<string>(); // å­˜æ”¾åˆªé™¤å¾Œçš„è³‡æ–™
 
     static public bool order_start =true;
-    
-    public GameObject contentPanel1; 
-    public GameObject contentPanel2; 
-    public GameObject itemPrefab;    
 
-    private List<GameObject> itemObjects1 = new List<GameObject>(); 
-    private List<GameObject> itemObjects2 = new List<GameObject>(); 
+    public GameObject contentPanel1;
+    public GameObject contentPanel2;
+    public GameObject itemPrefab;
+
+    private List<GameObject> itemObjects1 = new List<GameObject>();
+    private List<GameObject> itemObjects2 = new List<GameObject>();
 
     void Start()
     {
-        
+
         for (int i = 0; i < dataList.Count; i++)
         {
-            CreateNewItem(i, contentPanel1, itemObjects1, false); // ÔÚcontentPanel1ÖĞ?½¨?Ä¿
+            CreateNewItem(i, contentPanel1, itemObjects1, false); // åœ¨contentPanel1ä¸­?å»º?ç›®
         }
     }
 
@@ -38,7 +38,7 @@ public class list : MonoBehaviour
 
     void DeleteFirstItemFromPanel2()
     {
-        if (itemObjects2.Count > 0) 
+        if (itemObjects2.Count > 0)
         {
             int indexToDelete = 0;
 
@@ -51,12 +51,12 @@ public class list : MonoBehaviour
                 deletedDataList.RemoveAt(indexToDelete);
             }
 
-            
-            Debug.Log("§R°£¤F contentPanel2 ¤¤ªº²Ä¤@­Óª«¥ó");
+
+            Debug.Log("îœ˜åŸƒî—¬ contentPanel2 ã„î€™æî—¦î…Œî€Šãƒ³");
         }
         else
         {
-            Debug.Log("contentPanel2 ¤¤¨S¦³ª«¥ó¥i¥H§R°£");
+            Debug.Log("contentPanel2 ã„âŠ¿Î¤î€Šãƒ³î™¯î™îœ˜åŸƒ");
         }
     }
 
@@ -65,10 +65,10 @@ public class list : MonoBehaviour
     {
         GameObject newItem = Instantiate(itemPrefab, contentPanel.transform);
 
-        // ÔOÖÃÆäËûµÄí—Ä¿£¬±ÈÈçÒÑ„h³ıí—Ä¿µÄï@Ê¾ÎÄ×Ö
+        // è¨­ç½®å…¶ä»–çš„é …ç›®ï¼Œæ¯”å¦‚å·²åˆªé™¤é …ç›®çš„é¡¯ç¤ºæ–‡å­—
         newItem.GetComponentInChildren<Text>().text = isDeleted ? deletedDataList[index] : dataList[index];
 
-       
+
         itemList.Add(newItem);
 
         if (isDeleted)
@@ -87,27 +87,27 @@ public class list : MonoBehaviour
     void DeleteItem(int index)
     {
         Debug.Log(dataList[index]);
-        // È¡µÃ„h³ıµÄÙYÁÏ
+        // å–å¾—åˆªé™¤çš„è³‡æ–™
         string deletedData = dataList[index];
 
-        // Œ¢ÙYÁÏÄdataListÖĞ„h³ıKÌí¼Óµ½deletedDataListÖĞ
+        // å°‡è³‡æ–™å¾dataListä¸­åˆªé™¤ä¸¦æ·»åŠ åˆ°deletedDataListä¸­
         dataList.RemoveAt(index);
         deletedDataList.Add(deletedData);
 
-        // „h³ıŒ¦‘ªµÄUIÎï¼ş
+        // åˆªé™¤å°æ‡‰çš„UIç‰©ä»¶
         Destroy(itemObjects1[index]);
 
-        // ÄÎï¼şÁĞ±íÖĞÒÆ³ı?UIÎï¼ş
+        // å¾ç‰©ä»¶åˆ—è¡¨ä¸­ç§»é™¤?UIç‰©ä»¶
         itemObjects1.RemoveAt(index);
 
-        // ÔÚµÚ¶şScroll View£¬Ê¹ÓÃÏàÍ¬µÄitemPrefab
-        CreateNewItem(deletedDataList.Count - 1, contentPanel2, itemObjects2, true); 
+        // åœ¨ç¬¬äºŒScroll Viewï¼Œä½¿ç”¨ç›¸åŒçš„itemPrefab
+        CreateNewItem(deletedDataList.Count - 1, contentPanel2, itemObjects2, true);
 
         RefreshItems();
     }
     void RefreshItems()
     {
-        // Çå¿Õ¬FÓĞµÄUIÎï¼ş
+        // æ¸…ç©ºç¾æœ‰çš„UIç‰©ä»¶
         foreach (GameObject item in itemObjects1)
         {
             Destroy(item);
@@ -116,8 +116,8 @@ public class list : MonoBehaviour
 
         for (int i = 0; i < dataList.Count; i++)
         {
-            CreateNewItem(i, contentPanel1, itemObjects1, false); 
-            Debug.Log(dataList[i]+"Éú³É");
+            CreateNewItem(i, contentPanel1, itemObjects1, false);
+            Debug.Log(dataList[i]+"ç”Ÿæˆ");
         }
     }
 }

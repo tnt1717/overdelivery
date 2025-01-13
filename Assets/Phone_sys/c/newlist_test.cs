@@ -9,38 +9,38 @@ public class newlist_test : MonoBehaviour
     public GameObject contentPanel1;
     public GameObject contentPanel2;
 
-    public GameObject contentPanel3;  // ĞÂµÄ¼oä›Ãæ°å
+    public GameObject contentPanel3;  // æ–°çš„ç´€éŒ„é¢æ¿
 
-    public GameObject contentPanel4; // îAÓ[ßMĞĞÖĞÓ††ÎµÄÈİÆ÷
+    public GameObject contentPanel4; // é è¦½é€²è¡Œä¸­è¨‚å–®çš„å®¹å™¨
     public GameObject itemPrefab;
     public OrderController orderController;
 
-    public GameObject previewPrefab; // îAÓ[Ó††ÎµÄîAÑuów
-    public Text ongoingOrderCountText; // ÓÃì¶ï@Ê¾ßMĞĞÖĞÓ††Î”µÁ¿µÄÎÄ±¾
+    public GameObject previewPrefab; // é è¦½è¨‚å–®çš„é è£½é«”
+    public Text ongoingOrderCountText; // ç”¨æ–¼é¡¯ç¤ºé€²è¡Œä¸­è¨‚å–®æ•¸é‡çš„æ–‡æœ¬
 
     private BagManager bagManager;
     private string foodimagename;
 
-    public Dictionary<string, Sprite> foodSprites = new Dictionary<string, Sprite>(); // Ê³ÎïˆDÆ¬Œ¦‘ª±í
-    public Dictionary<string, Sprite> customerSprites = new Dictionary<string, Sprite>(); // î™¿ÍˆDÆ¬Œ¦‘ª±í
+    public Dictionary<string, Sprite> foodSprites = new Dictionary<string, Sprite>(); // é£Ÿç‰©åœ–ç‰‡å°æ‡‰è¡¨
+    public Dictionary<string, Sprite> customerSprites = new Dictionary<string, Sprite>(); // é¡§å®¢åœ–ç‰‡å°æ‡‰è¡¨
     bool isc = false;
 
 
     static public bool isEndPoint = false;
     public List<GameObject> itemObjects1 = new List<GameObject>();
     public List<GameObject> itemObjects2 = new List<GameObject>();
-    public List<GameObject> itemObjects3 = new List<GameObject>();  // ´æ·Å¼oä›í—Ä¿
-    public List<GameObject> itemObjects4 = new List<GameObject>(); // îAÓ[ßMĞĞÖĞµÄÓ††Î
+    public List<GameObject> itemObjects3 = new List<GameObject>();  // å­˜æ”¾ç´€éŒ„é …ç›®
+    public List<GameObject> itemObjects4 = new List<GameObject>(); // é è¦½é€²è¡Œä¸­çš„è¨‚å–®
     private Dictionary<int, GameObject> previewItems = new Dictionary<int, GameObject>();
-    private Dictionary<int, float> orderTimes = new Dictionary<int, float>(); //Ó††Î•rég×Öµä
-    private int nextOrderId = 1;  // ÓÃíÉú³ÉÎ¨Ò» ID
+    private Dictionary<int, float> orderTimes = new Dictionary<int, float>(); //è¨‚å–®æ™‚é–“å­—å…¸
+    private int nextOrderId = 1;  // ç”¨ä¾†ç”Ÿæˆå”¯ä¸€ ID
     int currentOrderId;
     private Text orderTimeLimitText;
 
     private LevelManager levelManager;
-    private Dictionary<int, string> orderStatuses = new Dictionary<int, string>(); //¼ÇÂ¼Ã¿¸ö¶©µ¥µÄ×´Ì¬
+    private Dictionary<int, string> orderStatuses = new Dictionary<int, string>(); //è®°å½•æ¯ä¸ªè®¢å•çš„çŠ¶æ€
 
-    private Dictionary<int, string> orderCustomerNames = new Dictionary<int, string>(); // ×Öµäí´æƒ¦Ó††Î ID Åcî™¿ÍÃû·Q
+    private Dictionary<int, string> orderCustomerNames = new Dictionary<int, string>(); // å­—å…¸ä¾†å­˜å„²è¨‚å–® ID èˆ‡é¡§å®¢åç¨±
 
     public class OrderItem : MonoBehaviour
     {
@@ -48,101 +48,101 @@ public class newlist_test : MonoBehaviour
 
         public void Initialize(float order_time, string foodName, string cusName, string shopName, int orderId)
         {
-            // ³õÊ¼»¯”µ“ş
+            // åˆå§‹åŒ–æ•¸æ“š
             OrderId = orderId;
-            // ÆäËû³õÊ¼»¯ß‰İ‹
+            // å…¶ä»–åˆå§‹åŒ–é‚è¼¯
         }
     }
 
     private Dictionary<string, Dictionary<string, string>> restaurantFoods = new Dictionary<string, Dictionary<string, string>>
     {
-        { "‰ÛË¾µê", new Dictionary<string, string>
+        { "å£½å¸åº—", new Dictionary<string, string>
             {
-                { "¾CºÏ‰ÛË¾", "JP_Sushi_01" },
-                { "¾CºÏÉúô~Æ¬", "JP_Sushi_02" },
-                { "õnô~‰ÛË¾", "JP_Sushi_03" },
-                { "õqô~‰ÛË¾", "JP_Sushi_04" },
-                { "Óñ×ÓŸı‰ÛË¾", "JP_Sushi_05" },
-                { "õqô~ÂÑÊÖ¾í", "JP_Sushi_06" },
-                { "¶¹Æ¤‰ÛË¾", "JP_Sushi_07" },
-                { "üS½ğõnô~‰ÛË¾", "JP_Sushi_08" },
-                { "õrÎrÌJ¹SÊÖ’Ô", "JP_Sushi_09" },
-                { "¾CºÏÖËŸı‰ÛË¾", "JP_Sushi_10" },
-                { "»¨‰ÛË¾", "JP_Sushi_11" }
+                { "ç¶œåˆå£½å¸", "JP_Sushi_01" },
+                { "ç¶œåˆç”Ÿé­šç‰‡", "JP_Sushi_02" },
+                { "é®ªé­šå£½å¸", "JP_Sushi_03" },
+                { "é®­é­šå£½å¸", "JP_Sushi_04" },
+                { "ç‰å­ç‡’å£½å¸", "JP_Sushi_05" },
+                { "é®­é­šåµæ‰‹å·", "JP_Sushi_06" },
+                { "è±†çš®å£½å¸", "JP_Sushi_07" },
+                { "é»ƒé‡‘é®ªé­šå£½å¸", "JP_Sushi_08" },
+                { "é®®è¦è˜†ç­æ‰‹æ²", "JP_Sushi_09" },
+                { "ç¶œåˆç‚™ç‡’å£½å¸", "JP_Sushi_10" },
+                { "èŠ±å£½å¸", "JP_Sushi_11" }
             }
         },
-        { "¾Ó¾ÆÎİ", new Dictionary<string, string>
+        { "å±…é…’å±‹", new Dictionary<string, string>
             {
-                { "»¨ô~Ò»Ò¹¸É", "JP_Izakaya_01" },
-                { "¾CºÏëuÈâ´®", "JP_Izakaya_02" },
-                { "Ì¿¿¾÷»×ÓÅ£", "JP_Izakaya_03" },
-                { "áu¿¾ØiÈâ´®", "JP_Izakaya_04" },
-                { "¿É˜·ï", "JP_Izakaya_05" },
-                { "ÉúÆ¡¾Æ", "JP_Izakaya_06" },
-                { "É³Íß", "JP_Izakaya_07" },
-                { "ÌÆ“Pëu", "JP_Izakaya_08" },
-                { "³´õıˆüI", "JP_Izakaya_09" },
-                { "û}¿¾Çïµ¶ô~", "JP_Izakaya_10" },
-                { "Ã÷Ì«×Óëu³á", "JP_Izakaya_11" },
-                { "É½ËÄàÉ³À­", "JP_Izakaya_12" },
-                { "û}¿¾™±¹Ï´®", "JP_Izakaya_13" }
+                { "èŠ±é­šä¸€å¤œå¹²", "JP_Izakaya_01" },
+                { "ç¶œåˆé›è‚‰ä¸²", "JP_Izakaya_02" },
+                { "ç‚­çƒ¤éª°å­ç‰›", "JP_Izakaya_03" },
+                { "é†¬çƒ¤è±¬è‚‰ä¸²", "JP_Izakaya_04" },
+                { "å¯æ¨‚é¤…", "JP_Izakaya_05" },
+                { "ç”Ÿå•¤é…’", "JP_Izakaya_06" },
+                { "æ²™ç“¦", "JP_Izakaya_07" },
+                { "å”æšé›", "JP_Izakaya_08" },
+                { "ç‚’çƒé¾éºµ", "JP_Izakaya_09" },
+                { "é¹½çƒ¤ç§‹åˆ€é­š", "JP_Izakaya_10" },
+                { "æ˜å¤ªå­é›ç¿…", "JP_Izakaya_11" },
+                { "å±±è—¥æ³¥æ²™æ‹‰", "JP_Izakaya_12" },
+                { "é¹½çƒ¤æ«›ç“œä¸²", "JP_Izakaya_13" }
             }
         },
-                { "µ°°üïˆ", new Dictionary<string, string>
+                { "è›‹åŒ…é£¯", new Dictionary<string, string>
                     {
-                    { "·¬ÇÑµ°°üïˆ", "JP_OmuRice_01" },
-                    { "¿§Á¨šWÄ·µ°°üïˆ", "JP_OmuRice_02" },
-                    { "ÌÆ“Pëuµ°°üïˆ", "JP_OmuRice_03" },
-                    { "Õ¨ØiÅÅµ°°üïˆ", "JP_OmuRice_04" },
-                    { "Ä¢¹½ÄÌÓÍáuµ°°üïˆ", "JP_OmuRice_05" },
-                    { "¿§Á¨õrÎrµ°°üïˆ", "JP_OmuRice_06" },
-                    { "¼t¾ÆÅ£ÈâšWÄ·µ°°üïˆ", "JP_OmuRice_07" },
-                    { "õrÊßµ°°üïˆ", "JP_OmuRice_08" },
-                    { "h±¤ÅÅµ°°üïˆ", "JP_OmuRice_09" }
+                    { "ç•ªèŒ„è›‹åŒ…é£¯", "JP_OmuRice_01" },
+                    { "å’–å“©æ­å§†è›‹åŒ…é£¯", "JP_OmuRice_02" },
+                    { "å”æšé›è›‹åŒ…é£¯", "JP_OmuRice_03" },
+                    { "ç‚¸è±¬æ’è›‹åŒ…é£¯", "JP_OmuRice_04" },
+                    { "è˜‘è‡å¥¶æ²¹é†¬è›‹åŒ…é£¯", "JP_OmuRice_05" },
+                    { "å’–å“©é®®è¦è›‹åŒ…é£¯", "JP_OmuRice_06" },
+                    { "ç´…é…’ç‰›è‚‰æ­å§†è›‹åŒ…é£¯", "JP_OmuRice_07" },
+                    { "é®®è”¬è›‹åŒ…é£¯", "JP_OmuRice_08" },
+                    { "æ¼¢å ¡æ’è›‹åŒ…é£¯", "JP_OmuRice_09" }
                     }
 
                 },
-                { "¿§Á¨ïˆ", new Dictionary<string, string>
+                { "å’–å“©é£¯", new Dictionary<string, string>
                     {
-                        { "ÌÆ“Pëu¿§Á¨ïˆ", "JP_KareRice_01" },
-                        { "Ò¬ÏãÅ£Èâ¾G¿§Á¨ïˆ", "JP_KareRice_02" },
-                        { "Õ¨ØiÅÅ¿§Á¨ïˆ", "JP_KareRice_03" },
-                        { "¹½¹½Êß²Ë¿§Á¨ïˆ", "JP_KareRice_04" },
-                        { "½›µäëuÈâ¿§Á¨ïˆ", "JP_KareRice_05" },
-                        { "Õ¨Îr¿§Á¨ïˆ", "JP_KareRice_06" },
-                        { "h±¤ÅÅ¿§Á¨ïˆ", "JP_KareRice_07" },
-                        { "˜OĞÁ¿§Á¨ïˆ", "JP_KareRice_08" }
+                        { "å”æšé›å’–å“©é£¯", "JP_KareRice_01" },
+                        { "æ¤°é¦™ç‰›è‚‰ç¶ å’–å“©é£¯", "JP_KareRice_02" },
+                        { "ç‚¸è±¬æ’å’–å“©é£¯", "JP_KareRice_03" },
+                        { "è‡è‡è”¬èœå’–å“©é£¯", "JP_KareRice_04" },
+                        { "ç¶“å…¸é›è‚‰å’–å“©é£¯", "JP_KareRice_05" },
+                        { "ç‚¸è¦å’–å“©é£¯", "JP_KareRice_06" },
+                        { "æ¼¢å ¡æ’å’–å“©é£¯", "JP_KareRice_07" },
+                        { "æ¥µè¾›å’–å“©é£¯", "JP_KareRice_08" }
                     }
                 },
-                { "ïˆ¼a", new Dictionary<string, string>
+                { "é£¯ç³°", new Dictionary<string, string>
                     {
-                        { "ÖËŸıÃ÷Ì«×Óõqô~ïˆ¼a", "JP_Onigiri_01" },
-                        { "×ÏÌKÃ·×Óïˆ¼a", "JP_Onigiri_02" },
-                        { "õrÊßäçĞÄµ°ïˆ¼a", "JP_Onigiri_03" },
-                        { "Å£İòïˆ¼a", "JP_Onigiri_04" },
-                        { "ÕÕŸıëuïˆ¼a", "JP_Onigiri_05" },
-                        { "Èâó ïˆ¼a", "JP_Onigiri_06" },
-                        { "õnô~ïˆ¼a", "JP_Onigiri_07" },
-                        { "áuÖ­²ñô~ïˆ¼a", "JP_Onigiri_08" },
-                        { "É½ËÄàïˆ¼a", "JP_Onigiri_09" }
+                        { "ç‚™ç‡’æ˜å¤ªå­é®­é­šé£¯ç³°", "JP_Onigiri_01" },
+                        { "ç´«è˜‡æ¢…å­é£¯ç³°", "JP_Onigiri_02" },
+                        { "é®®è”¬æºå¿ƒè›‹é£¯ç³°", "JP_Onigiri_03" },
+                        { "ç‰›è’¡é£¯ç³°", "JP_Onigiri_04" },
+                        { "ç…§ç‡’é›é£¯ç³°", "JP_Onigiri_05" },
+                        { "è‚‰é¬†é£¯ç³°", "JP_Onigiri_06" },
+                        { "é®ªé­šé£¯ç³°", "JP_Onigiri_07" },
+                        { "é†¬æ±æŸ´é­šé£¯ç³°", "JP_Onigiri_08" },
+                        { "å±±è—¥æ³¥é£¯ç³°", "JP_Onigiri_09" }
                     }
                 }
 
     };
 
-    // î™¿ÍˆDÆ¬Œ¦‘ªÙYÁÏì
+    // é¡§å®¢åœ–ç‰‡å°æ‡‰è³‡æ–™åº«
     private Dictionary<string, string> customerImages = new Dictionary<string, string>
     {
-        { "ß÷ß÷", "UI_NPC_Cat_01" },
-        { "ßäßä", "UI_NPC_Cat_02" },
-        { "ëu¸ç", "UI_NPC_Chicken_01" },
-        { "ëu¹¾", "UI_NPC_Chicken_02" },
-        { "Ğ¡°×ÃÃ", "UI_NPC_Rabbit_01" },
-        { "Ğ¡°×æ¢", "UI_NPC_Rabbit_02" },
-        { "Ğ¡ä½", "UI_NPC_Raccoon_01" },
-        { "Ğ¡Àê", "UI_NPC_Raccoon_02" },
-        { "Ğ¡Ã·", "UI_NPC_SikaDeer_01" },
-        { "Ğ¡°ß", "UI_NPC_SikaDeer_02" }
+        { "å–µå–µ", "UI_NPC_Cat_01" },
+        { "å’ªå’ª", "UI_NPC_Cat_02" },
+        { "é›å“¥", "UI_NPC_Chicken_01" },
+        { "é›å’•", "UI_NPC_Chicken_02" },
+        { "å°ç™½å¦¹", "UI_NPC_Rabbit_01" },
+        { "å°ç™½å§Š", "UI_NPC_Rabbit_02" },
+        { "å°æµ£", "UI_NPC_Raccoon_01" },
+        { "å°ç‹¸", "UI_NPC_Raccoon_02" },
+        { "å°æ¢…", "UI_NPC_SikaDeer_01" },
+        { "å°æ–‘", "UI_NPC_SikaDeer_02" }
     };
     private void Start()
     {
@@ -176,11 +176,11 @@ public class newlist_test : MonoBehaviour
         LoadFoodImage(Food_Name, foodImage);
         LoadCustomerImage(Cus_Name, cusImage);
 
-        orderStatuses[currentOrderId] = "Î´È¡²Í"; // ³õÊ¼»¯×´Ì¬
+        orderStatuses[currentOrderId] = "æœªå–é¤"; // åˆå§‹åŒ–çŠ¶æ€
 
         orderTimes[currentOrderId] = order_time;
         Order_id.text = currentOrderId.ToString();
-        // Èç¹ûÊÇ contentPanel2£¬†¢„Óµ¹Ó‹•rKÌÀí°´âo½ûÓÃ
+        // å¦‚æœæ˜¯ contentPanel2ï¼Œå•Ÿå‹•å€’è¨ˆæ™‚ä¸¦è™•ç†æŒ‰éˆ•ç¦ç”¨
         if (contentPanel == contentPanel2)
         {
             StartCoroutine(StartCountdown(currentOrderId, newItem));
@@ -188,9 +188,9 @@ public class newlist_test : MonoBehaviour
             newItem.tag = "order_start";
             bagManager.AddItemToBag(foodimagename, currentOrderId);
             CreatePreviewItem(currentOrderId, Cus_Name, Shop_Name, Food_Name, order_time);
-            Debug.LogWarning("ÌáÈ¡Ô­ÏÈid: " + currentOrderId + " food: " + Food_Name);
+            Debug.LogWarning("æå–åŸå…ˆid: " + currentOrderId + " food: " + Food_Name);
 
-            // ½ûÓÃ°´âoK¸ü¸ÄÎÄ±¾é "ßMĞĞÖĞ"
+            // ç¦ç”¨æŒ‰éˆ•ä¸¦æ›´æ”¹æ–‡æœ¬ç‚º "é€²è¡Œä¸­"
             Button itemButton = newItem.GetComponentInChildren<Button>();
             if (itemButton != null)
             {
@@ -199,7 +199,7 @@ public class newlist_test : MonoBehaviour
                 Text buttonText = itemButton.GetComponentInChildren<Text>();
                 if (buttonText != null)
                 {
-                    buttonText.text = "ßMĞĞÖĞ";
+                    buttonText.text = "é€²è¡Œä¸­";
                 }
             }
 
@@ -210,7 +210,7 @@ public class newlist_test : MonoBehaviour
 
         Button deleteButton = newItem.GetComponentInChildren<Button>();
         deleteButton.onClick.AddListener(() => DeleteItem(newItem, order_time, Food_Name, Cus_Name, Shop_Name));
-        //// Èç¹ûÊÇ contentPanel2£¬†¢„Óµ¹Ó‹•rKÌÀí°´âo½ûÓÃ
+        //// å¦‚æœæ˜¯ contentPanel2ï¼Œå•Ÿå‹•å€’è¨ˆæ™‚ä¸¦è™•ç†æŒ‰éˆ•ç¦ç”¨
         //if (contentPanel == contentPanel2)
         //{
         //    StartCoroutine(StartCountdown(currentOrderId, newItem));
@@ -218,8 +218,8 @@ public class newlist_test : MonoBehaviour
         //    newItem.tag = "order_start";
         //    bagManager.AddItemToBag(foodimagename, currentOrderId);
         //    CreatePreviewItem(currentOrderId, Cus_Name, Shop_Name, Food_Name, order_time);
-        //    Debug.LogWarning ("ÌáÈ¡Ô­ÏÈid" + currentOrderId + "food:" + Food_Name);
-        //    // ½ûÓÃ°´âoK¸ü¸ÄÎÄ±¾é "ßMĞĞÖĞ"
+        //    Debug.LogWarning ("æå–åŸå…ˆid" + currentOrderId + "food:" + Food_Name);
+        //    // ç¦ç”¨æŒ‰éˆ•ä¸¦æ›´æ”¹æ–‡æœ¬ç‚º "é€²è¡Œä¸­"
         //    Button itemButton = newItem.GetComponentInChildren<Button>();
         //    if (itemButton != null)
         //    {
@@ -228,7 +228,7 @@ public class newlist_test : MonoBehaviour
         //        Text buttonText = itemButton.GetComponentInChildren<Text>();
         //        if (buttonText != null)
         //        {
-        //            buttonText.text = "ßMĞĞÖĞ";
+        //            buttonText.text = "é€²è¡Œä¸­";
         //        }
         //    }
 
@@ -240,7 +240,7 @@ public class newlist_test : MonoBehaviour
     }
 
 
-    /// ²éÔƒK¸üĞÂÊ³ÎïˆDÆ¬
+    /// æŸ¥è©¢ä¸¦æ›´æ–°é£Ÿç‰©åœ–ç‰‡
     private void LoadFoodImage(string foodName, Image foodImage)
     {
         string foodImageName = "";
@@ -262,7 +262,7 @@ public class newlist_test : MonoBehaviour
 
     }
 
-    // ²éÔƒK¸üĞÂî™¿ÍˆDÆ¬
+    // æŸ¥è©¢ä¸¦æ›´æ–°é¡§å®¢åœ–ç‰‡
     private void LoadCustomerImage(string cusName, Image cusImage)
     {
         if (customerImages.ContainsKey(cusName))
@@ -275,12 +275,12 @@ public class newlist_test : MonoBehaviour
     void DeleteItem(GameObject item, float order_time, string Food_Name, string Cus_Name, string Shop_Name)
     {
         
-        // Ä contentPanel1 ÖĞ„h³ıÔ“í—Ä¿
+        // å¾ contentPanel1 ä¸­åˆªé™¤è©²é …ç›®
         itemObjects1.Remove(item);
         Text orderIdText = item.transform.Find("order_ID").GetComponent<Text>();
         int itemId = int.Parse(orderIdText.text);
         Destroy(item);
-        // ÔÚ contentPanel2 ÖĞÖØĞÂŒÀı»¯Ô“í—Ä¿
+        // åœ¨ contentPanel2 ä¸­é‡æ–°å¯¦ä¾‹åŒ–è©²é …ç›®
         //CreateNewItem(order_time, Food_Name, Cus_Name, Shop_Name, contentPanel2, itemObjects2);
         CreateNewItem(order_time, Food_Name, Cus_Name, Shop_Name, contentPanel2, itemObjects2, itemId);
     }
@@ -295,16 +295,16 @@ public class newlist_test : MonoBehaviour
             orderTimes[orderId]--;
             if (Input.GetKey(KeyCode.F11)) orderTimes[orderId] -= 10;
 
-            // ¸üĞÂ UI ï@Ê¾
+            // æ›´æ–° UI é¡¯ç¤º
             Text orderTimeText = item.transform.Find("OrderTimeText").GetComponent<Text>();
             orderTimeText.text = orderTimes[orderId].ToString();
 
-            // ¸üĞÂµ¹”µ•régµÄ UI
+            // æ›´æ–°å€’æ•¸æ™‚é–“çš„ UI
             if (orderTimeLimitText != null)
             {
-                orderTimeLimitText.text = "Ê£ğN" + orderTimes[orderId].ToString() + "s";
+                orderTimeLimitText.text = "å‰©é¤˜" + orderTimes[orderId].ToString() + "s";
             }
-            // ¸üĞÂîAÓ[ÖĞµÄÊ£ğN•rég
+            // æ›´æ–°é è¦½ä¸­çš„å‰©é¤˜æ™‚é–“
             if (previewItems.ContainsKey(orderId) != null)
             {
                 GameObject previewItem = previewItems[orderId];
@@ -313,7 +313,7 @@ public class newlist_test : MonoBehaviour
                     Text previewTimeText = previewItem.transform.Find("Order_TimeLimit").GetComponent<Text>();
                     if (previewTimeText != null)
                     {
-                        previewTimeText.text = "Ê£ğN" + orderTimes[orderId].ToString() + "s";
+                        previewTimeText.text = "å‰©é¤˜" + orderTimes[orderId].ToString() + "s";
                     }
 
                 }
@@ -324,48 +324,48 @@ public class newlist_test : MonoBehaviour
             //    bagManager.RemoveItemFromBagByID(orderId);
             //    DeletePreviewItem(orderId);
             //}
-            // µ¹Ó‹•r½YÊø£¬¸ù“ş î‘BßMĞĞÌÀí
-            if (orderStatuses[orderId] == "ÒÑËÍß_" && orderTimes[orderId] >= 0)
+            // å€’è¨ˆæ™‚çµæŸï¼Œæ ¹æ“šç‹€æ…‹é€²è¡Œè™•ç†
+            if (orderStatuses[orderId] == "å·²é€é”" && orderTimes[orderId] >= 0)
             {
-                // ÌÀíÒÑÍê³ÉµÄÓ††Î
+                // è™•ç†å·²å®Œæˆçš„è¨‚å–®
                 DeleteItemFromPanel2(item, true);
                 bagManager.RemoveItemFromBagByID(orderId);
                 DeletePreviewItem(orderId);
                 //moneyManager.AddCompletion();
-                Debug.Log($"Ó††Î {orderId} µ¹Ó‹•r½YÊø£¬ î‘B: {orderStatuses[orderId]}");
+                Debug.Log($"è¨‚å–® {orderId} å€’è¨ˆæ™‚çµæŸï¼Œç‹€æ…‹: {orderStatuses[orderId]}");
 
 
             }
             else if (orderTimes[orderId] < 0)
             {
-                // ÌÀí³¬•rµÄÓ††Î
+                // è™•ç†è¶…æ™‚çš„è¨‚å–®
                 DeleteItemFromPanel2(item, false);
-                //Debug.Log("³¬•r");
+                //Debug.Log("è¶…æ™‚");
                 bagManager.RemoveItemFromBagByID(orderId);
                 DeletePreviewItem(orderId);
-                orderStatuses[orderId] = "³¬•r";
+                orderStatuses[orderId] = "è¶…æ™‚";
                 moneyManager.AddTimeout();
-                Debug.Log($"Ó††Î {orderId} µ¹Ó‹•r½YÊø£¬ î‘B: {orderStatuses[orderId]}");
+                Debug.Log($"è¨‚å–® {orderId} å€’è¨ˆæ™‚çµæŸï¼Œç‹€æ…‹: {orderStatuses[orderId]}");
 
 
             }
-            // ÄÏàêPÁĞ±íÖĞÒÆ³ı
+            // å¾ç›¸é—œåˆ—è¡¨ä¸­ç§»é™¤
 
             //if (orderTimes[orderId] != 0)
             //{
-            //    bool isCompleted = previewItems[orderId]; // ×Ô¶¨Áxß‰İ‹™zœyÊÇ·ñÍê³É
+            //    bool isCompleted = previewItems[orderId]; // è‡ªå®šç¾©é‚è¼¯æª¢æ¸¬æ˜¯å¦å®Œæˆ
             //    if (isCompleted)
             //    {
-            //        Debug.LogWarning("åeÕ`ßMÈë");
-            //       // MarkOrderAsCompleted(item, initialTime - orderTimes[orderId]); // Ó‹Ëã»¨ÙMµÄ•rég
+            //        Debug.LogWarning("éŒ¯èª¤é€²å…¥");
+            //       // MarkOrderAsCompleted(item, initialTime - orderTimes[orderId]); // è¨ˆç®—èŠ±è²»çš„æ™‚é–“
             //    }
             //    else
             //    {
-            //        DeleteItemFromPanel2(item, false); // ÒÆ„Óµ½¼oä›Ãæ°åK˜ËÓ›é³¬•r
+            //        DeleteItemFromPanel2(item, false); // ç§»å‹•åˆ°ç´€éŒ„é¢æ¿ä¸¦æ¨™è¨˜ç‚ºè¶…æ™‚
             //        bagManager.RemoveItemFromBagByID(orderId); 
             //    }
 
-            //    Debug.Log("Ó††Î•régµ½£¬ÌÀíÍê³É»ò³¬•rß‰İ‹");
+            //    Debug.Log("è¨‚å–®æ™‚é–“åˆ°ï¼Œè™•ç†å®Œæˆæˆ–è¶…æ™‚é‚è¼¯");
             //}
 
 
@@ -373,12 +373,12 @@ public class newlist_test : MonoBehaviour
     }
     public void VerifyOrderDelivery(int providedOrderId)
     {
-        // ÕÒµ½µÚÒ»‚€ î‘Bé "ÒÑÈ¡²Í" µÄÓ††Î
+        // æ‰¾åˆ°ç¬¬ä¸€å€‹ç‹€æ…‹ç‚º "å·²å–é¤" çš„è¨‚å–®
         int? firstPickedOrderId = null;
 
         foreach (var entry in orderStatuses)
         {
-            if (entry.Value == "ÒÑÈ¡²Í")
+            if (entry.Value == "å·²å–é¤")
             {
                 firstPickedOrderId = entry.Key;
                 break;
@@ -387,55 +387,55 @@ public class newlist_test : MonoBehaviour
 
         if (firstPickedOrderId == null)
         {
-            Debug.LogWarning("Ä¿Ç°›]ÓĞÈÎºÎ 'ÒÑÈ¡²Í' µÄÓ††Î");
+            Debug.LogWarning("ç›®å‰æ²’æœ‰ä»»ä½• 'å·²å–é¤' çš„è¨‚å–®");
             return;
         }
 
-        // ±ÈŒ¦Ó††Î ID
+        // æ¯”å°è¨‚å–® ID
         if (firstPickedOrderId == providedOrderId)
         {
-            Debug.Log($"Ó††ÎÕı´_£¬ID: {providedOrderId}");
+            Debug.Log($"è¨‚å–®æ­£ç¢ºï¼ŒID: {providedOrderId}");
             moneyManager.AddCompletion();
             levelManager.totalOrders += 1;
         }
         else
         {
-            Debug.LogWarning($"Ó††ÎåeÕ`£¬Ìá¹©µÄ ID: {providedOrderId}£¬‘ªé ID: {firstPickedOrderId}");
+            Debug.LogWarning($"è¨‚å–®éŒ¯èª¤ï¼Œæä¾›çš„ ID: {providedOrderId}ï¼Œæ‡‰ç‚º ID: {firstPickedOrderId}");
             moneyManager.AddError();
             levelManager.totalErrors += 1;
-            //ßBÍ¬åeÕ`Ó††ÎÒ»Æğ„h³ı
+            //é€£åŒéŒ¯èª¤è¨‚å–®ä¸€èµ·åˆªé™¤
 
         }
     }
     public void DeleteItemFromPanel2(GameObject item, bool isCompleted)
     {
-        Debug.Log("ÊÕµ½ÒªÇó:" + item + "T F?" + isCompleted);
+        Debug.Log("æ”¶åˆ°è¦æ±‚:" + item + "T F?" + isCompleted);
         if (itemObjects2.Contains(item))
         {
-            // Ä panel2 ÖĞÒÆ³ı
+            // å¾ panel2 ä¸­ç§»é™¤
             itemObjects2.Remove(item);
-            item.transform.SetParent(contentPanel3.transform);  // Œ¢í—Ä¿ÒÆ„Óµ½ contentPanel3
-            itemObjects3.Add(item);  // ¼ÓÈëµ½¼oä›ÁĞ±í
+            item.transform.SetParent(contentPanel3.transform);  // å°‡é …ç›®ç§»å‹•åˆ° contentPanel3
+            itemObjects3.Add(item);  // åŠ å…¥åˆ°ç´€éŒ„åˆ—è¡¨
 
 
             Button itemButton = item.GetComponentInChildren<Button>();
             if (itemButton != null)
             {
-                itemButton.interactable = false;  // ½ûÓÃ°´âo
+                itemButton.interactable = false;  // ç¦ç”¨æŒ‰éˆ•
 
-                // ¸ù“ş î‘B¸ü¸Ä°´âoÎÄ±¾
+                // æ ¹æ“šç‹€æ…‹æ›´æ”¹æŒ‰éˆ•æ–‡æœ¬
                 Text buttonText = itemButton.GetComponentInChildren<Text>();
                 if (buttonText != null)
                 {
-                    buttonText.text = isCompleted ? "Íê³É" : "³¬•r";
+                    buttonText.text = isCompleted ? "å®Œæˆ" : "è¶…æ™‚";
                 }
             }
 
-            Debug.Log("Ó††Îí—Ä¿ÒÑÄ contentPanel2 ÒÆ„Óµ½ contentPanel3 KÒÑ½ûÓÃ°´âo¹¦ÄÜ");
+            Debug.Log("è¨‚å–®é …ç›®å·²å¾ contentPanel2 ç§»å‹•åˆ° contentPanel3 ä¸¦å·²ç¦ç”¨æŒ‰éˆ•åŠŸèƒ½");
         }
         else
         {
-            Debug.Log("›]ÓĞ¿ÉÒÆ„ÓµÄÓ††Îí—Ä¿");
+            Debug.Log("æ²’æœ‰å¯ç§»å‹•çš„è¨‚å–®é …ç›®");
         }
         CheckAndTriggerSettlement();
     }
@@ -448,38 +448,38 @@ public class newlist_test : MonoBehaviour
         Text orderTimeLimitText = previewItem.transform.Find("Order_TimeLimit").GetComponent<Text>();
 
         orderTitleText.text = $"[{cusName}]{shopName}-{foodName}";
-        orderTimeLimitText.text = "Ê£ğN" + orderTimes[orderId].ToString() + "s";
+        orderTimeLimitText.text = "å‰©é¤˜" + orderTimes[orderId].ToString() + "s";
 
 
-        // Œ¢îAÓ[í—Ä¿¼ÓÈëÁĞ±í£¬KÓ›ä›ÅcÓ††Î ID µÄêP‚S
+        // å°‡é è¦½é …ç›®åŠ å…¥åˆ—è¡¨ï¼Œä¸¦è¨˜éŒ„èˆ‡è¨‚å–® ID çš„é—œä¿‚
         previewItem.name = $"Preview_{orderId}";
-        previewItems[orderId] = previewItem;  // Ìí¼Óµ½×Öµä
+        previewItems[orderId] = previewItem;  // æ·»åŠ åˆ°å­—å…¸
         itemObjects4.Add(previewItem);
 
         UpdateOngoingOrderCount();
     }
 
-    // ²éÑ¯¶©µ¥×´Ì¬
+    // æŸ¥è¯¢è®¢å•çŠ¶æ€
     public string GetOrderStatus(int orderId)
     {
         if (orderStatuses.TryGetValue(orderId, out string status))
         {
             return status;
         }
-        return "Î´Öª";
+        return "æœªçŸ¥";
     }
 
-    // ¸üĞÂ¶©µ¥×´Ì¬
+    // æ›´æ–°è®¢å•çŠ¶æ€
     public void UpdateOrderStatus(int orderId, string newStatus)
     {
         if (orderStatuses.ContainsKey(orderId))
         {
             orderStatuses[orderId] = newStatus;
-            Debug.Log($"¶©µ¥ {orderId} ×´Ì¬¸üĞÂÎª: {newStatus}");
+            Debug.Log($"è®¢å• {orderId} çŠ¶æ€æ›´æ–°ä¸º: {newStatus}");
         }
         else
         {
-            Debug.LogWarning($"ÎŞ·¨¸üĞÂ×´Ì¬£¬¶©µ¥ {orderId} ²»´æÔÚ");
+            Debug.LogWarning($"æ— æ³•æ›´æ–°çŠ¶æ€ï¼Œè®¢å• {orderId} ä¸å­˜åœ¨");
         }
     }
 
@@ -491,7 +491,7 @@ public class newlist_test : MonoBehaviour
 
     public void DeletePreviewItem(int orderId)
     {
-        // ²éÕÒK„h³ıŒ¦‘ªµÄîAÓ[í—Ä¿
+        // æŸ¥æ‰¾ä¸¦åˆªé™¤å°æ‡‰çš„é è¦½é …ç›®
         GameObject previewItem = itemObjects4.Find(item => item.name == $"Preview_{orderId}");
         if (previewItem != null)
         {
@@ -506,27 +506,27 @@ public class newlist_test : MonoBehaviour
     {
         //if (ongoingOrderCountText != null)
         //{
-        //    ongoingOrderCountText.text = $"ßMĞĞÖĞÓ††Î”µÁ¿: {itemObjects4.Count}";
+        //    ongoingOrderCountText.text = $"é€²è¡Œä¸­è¨‚å–®æ•¸é‡: {itemObjects4.Count}";
         //}
         int ongoingCount = previewItems.Count;
 
         if (ongoingOrderCountText != null)
         {
-            ongoingOrderCountText.text = $"ßMĞĞÖĞÓ††Î: {ongoingCount}";
+            ongoingOrderCountText.text = $"é€²è¡Œä¸­è¨‚å–®: {ongoingCount}";
         }
     }
     public void MarkOrderAsCompleted(GameObject item, float totalTime)
     {
-        if (itemObjects2.Contains(item)) // ™z²éÔ“í—Ä¿ÊÇ·ñ´æÔÚì¶ contentPanel2
+        if (itemObjects2.Contains(item)) // æª¢æŸ¥è©²é …ç›®æ˜¯å¦å­˜åœ¨æ–¼ contentPanel2
         {
-            // Ä panel2 ÖĞÒÆ³ı
+            // å¾ panel2 ä¸­ç§»é™¤
             itemObjects2.Remove(item);
 
-            // Œ¢Ô“í—Ä¿ÒÆ„Óµ½ contentPanel3 K¸üĞÂÆä î‘B
+            // å°‡è©²é …ç›®ç§»å‹•åˆ° contentPanel3 ä¸¦æ›´æ–°å…¶ç‹€æ…‹
             item.transform.SetParent(contentPanel3.transform);
             itemObjects3.Add(item);
 
-            // ¸üĞÂ°´âo î‘B
+            // æ›´æ–°æŒ‰éˆ•ç‹€æ…‹
             Button itemButton = item.GetComponentInChildren<Button>();
             if (itemButton != null)
             {
@@ -535,23 +535,23 @@ public class newlist_test : MonoBehaviour
                 Text buttonText = itemButton.GetComponentInChildren<Text>();
                 if (buttonText != null)
                 {
-                    buttonText.text = "Íê³É";
+                    buttonText.text = "å®Œæˆ";
                 }
             }
 
-            // İ”³öÔ“Ó††ÎµÄÍê³É•rég
-            Debug.Log($"Ó††ÎÍê³É£¡¿‚»¨ÙM•rég: {totalTime} Ãë");
+            // è¼¸å‡ºè©²è¨‚å–®çš„å®Œæˆæ™‚é–“
+            Debug.Log($"è¨‚å–®å®Œæˆï¼ç¸½èŠ±è²»æ™‚é–“: {totalTime} ç§’");
 
-            // ï@Ê¾ÔÚ UI£¨¿Éßx£¬¸ù“şĞèÇó£©
+            // é¡¯ç¤ºåœ¨ UIï¼ˆå¯é¸ï¼Œæ ¹æ“šéœ€æ±‚ï¼‰
             Text orderTimeText = item.transform.Find("OrderTimeText").GetComponent<Text>();
             if (orderTimeText != null)
             {
-                orderTimeText.text = $"Íê³É•rég: {totalTime:F1}s";
+                orderTimeText.text = $"å®Œæˆæ™‚é–“: {totalTime:F1}s";
             }
         }
         else
         {
-            Debug.Log("Ô“Ó††Îí—Ä¿²»ÔÚ contentPanel2 ÖĞ£¬Ÿo·¨˜ËÓ›éÍê³É");
+            Debug.Log("è©²è¨‚å–®é …ç›®ä¸åœ¨ contentPanel2 ä¸­ï¼Œç„¡æ³•æ¨™è¨˜ç‚ºå®Œæˆ");
         }
     }
 
@@ -563,14 +563,14 @@ public class newlist_test : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Î´ÕÒµ½Œ¦‘ªµÄî™¿ÍÃû·Q£¬Ó††Î ID: {orderId}");
+            Debug.LogWarning($"æœªæ‰¾åˆ°å°æ‡‰çš„é¡§å®¢åç¨±ï¼Œè¨‚å–® ID: {orderId}");
             return null;
         }
     }
 
     public void CheckAndTriggerSettlement()
     {
-        // ™z²éƒÉ‚€ÁĞ±íÊÇ·ñ¶¼é¿Õ
+        // æª¢æŸ¥å…©å€‹åˆ—è¡¨æ˜¯å¦éƒ½ç‚ºç©º
         if (itemObjects1.Count == 0 && itemObjects2.Count == 0)
         {
             if (isc != true) { 
@@ -580,7 +580,7 @@ public class newlist_test : MonoBehaviour
         }
         else
         {
-            Debug.Log("ÁĞ±íÖĞÈÔÓĞÎï¼ş£¬Î´Ó|°l½YËãß‰İ‹¡£");
+            Debug.Log("åˆ—è¡¨ä¸­ä»æœ‰ç‰©ä»¶ï¼Œæœªè§¸ç™¼çµç®—é‚è¼¯ã€‚");
         }
 
     }

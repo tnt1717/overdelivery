@@ -5,28 +5,28 @@ using UnityEngine.UI;
 
 public class list1 : MonoBehaviour
 {
-    public GameObject contentPanel; // ƒÈÈİÃæ°å
-    public GameObject itemPrefab;   // îAÑuów
+    public GameObject contentPanel; // å…§å®¹é¢æ¿
+    public GameObject itemPrefab;   // é è£½é«”
 
     private Dictionary<string, AchievementData> achievementDatabase;
-    private HashSet<string> instantiatedAchievements = new HashSet<string>(); // ÒÑŒÀı»¯³É¾ÍµÄæI
+    private HashSet<string> instantiatedAchievements = new HashSet<string>(); // å·²å¯¦ä¾‹åŒ–æˆå°±çš„éµ
     private PlayerManager playerManager;
 
     void Awake()
     {
-        // «@È¡ PlayerManager Îï¼şÅcÙYÁÏ
+        // ç²å– PlayerManager ç‰©ä»¶èˆ‡è³‡æ–™
         GameObject playerSys = GameObject.Find("PlayerSys");
         if (playerSys != null)
         {
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
         }
 
         InitializeDatabase();
@@ -42,20 +42,20 @@ public class list1 : MonoBehaviour
 
     private void InitializeDatabase()
     {
-        // ½¨Á¢³É¾ÍÙYÁÏì£¬Ä Resources ¼ÓİdˆDÆ¬
+        // å»ºç«‹æˆå°±è³‡æ–™åº«ï¼Œå¾ Resources åŠ è¼‰åœ–ç‰‡
         achievementDatabase = new Dictionary<string, AchievementData>
         {
-            { "Achievement1", new AchievementData("ËÍß^î^", "³É¹¦Íê³ÉµÚÒ»†Î", LoadSprite("UI_Phone_Achievement_01")) },
-            { "Achievement2", new AchievementData("Ê³°²†–î}", "ÔÚÊ³ÎïĞÂõr¶Èé0•r°ÑÊ³Îï½»½o¿Í‘ô", LoadSprite("UI_Phone_Achievement_02")) },
-            { "Achievement3", new AchievementData("²Ëëu", "ÔÚ1-1ƒHÄÃµ½1îwĞÇ", LoadSprite("UI_Phone_Achievement_03")) },
-            { "Achievement4", new AchievementData("ĞÂÊÖñ{ñ‚", "×²µ½Ü‡×Ó»òĞĞÈË", LoadSprite("UI_Phone_Achievement_04")) },
-            { "Achievement5", new AchievementData("ò¯Õ\µÄĞÅÍ½", "È¥ÉñÉç…¢°İ", LoadSprite("UI_Phone_Achievement_05")) }
+            { "Achievement1", new AchievementData("é€éé ­", "æˆåŠŸå®Œæˆç¬¬ä¸€å–®", LoadSprite("UI_Phone_Achievement_01")) },
+            { "Achievement2", new AchievementData("é£Ÿå®‰å•é¡Œ", "åœ¨é£Ÿç‰©æ–°é®®åº¦ç‚º0æ™‚æŠŠé£Ÿç‰©äº¤çµ¦å®¢æˆ¶", LoadSprite("UI_Phone_Achievement_02")) },
+            { "Achievement3", new AchievementData("èœé›", "åœ¨1-1åƒ…æ‹¿åˆ°1é¡†æ˜Ÿ", LoadSprite("UI_Phone_Achievement_03")) },
+            { "Achievement4", new AchievementData("æ–°æ‰‹é§•é§›", "æ’åˆ°è»Šå­æˆ–è¡Œäºº", LoadSprite("UI_Phone_Achievement_04")) },
+            { "Achievement5", new AchievementData("è™”èª çš„ä¿¡å¾’", "å»ç¥ç¤¾åƒæ‹œ", LoadSprite("UI_Phone_Achievement_05")) }
         };
     }
 
     private Sprite LoadSprite(string imageName)
     {
-        // Ä Resources/Sprites/Achievements ¼ÓİdˆDÆ¬
+        // å¾ Resources/Sprites/Achievements åŠ è¼‰åœ–ç‰‡
         return Resources.Load<Sprite>($"ach_icon/{imageName}");
     }
 
@@ -63,41 +63,41 @@ public class list1 : MonoBehaviour
     {
         foreach (var achievement in achievements)
         {
-            // Èç¹û³É¾ÍÒÑ½âæiÇÒÉĞÎ´ŒÀı»¯
+            // å¦‚æœæˆå°±å·²è§£é–ä¸”å°šæœªå¯¦ä¾‹åŒ–
             if (achievement.Value && !instantiatedAchievements.Contains(achievement.Key))
             {
                 if (achievementDatabase.TryGetValue(achievement.Key, out AchievementData data))
                 {
                     GameObject newItem = Instantiate(itemPrefab, contentPanel.transform);
 
-                    // ÔOÖÃ˜Ëî}
+                    // è¨­ç½®æ¨™é¡Œ
                     Text titleText = newItem.transform.Find("title").GetComponent<Text>();
                     if (titleText != null) titleText.text = data.title;
 
-                    // ÔOÖÃÃèÊö
+                    // è¨­ç½®æè¿°
                     Text descriptionText = newItem.transform.Find("text").GetComponent<Text>();
                     if (descriptionText != null) descriptionText.text = data.text;
 
-                    // ÔOÖÃˆDÆ¬
+                    // è¨­ç½®åœ–ç‰‡
                     Image iconImage = newItem.transform.Find("image").GetComponent<Image>();
                     if (iconImage != null && data.image != null)
                     {
                         iconImage.sprite = data.image;
                     }
 
-                    // Ìí¼Óµ½ÒÑŒÀı»¯¼¯ºÏ
+                    // æ·»åŠ åˆ°å·²å¯¦ä¾‹åŒ–é›†åˆ
                     instantiatedAchievements.Add(achievement.Key);
                 }
             }
         }
     }
 
-    // ³É¾ÍÙYÁÏ½Y˜‹
+    // æˆå°±è³‡æ–™çµæ§‹
     private class AchievementData
     {
-        public string title;   // ³É¾Í˜Ëî}
-        public string text;    // ³É¾ÍÃèÊö
-        public Sprite image;   // ³É¾ÍˆDÆ¬
+        public string title;   // æˆå°±æ¨™é¡Œ
+        public string text;    // æˆå°±æè¿°
+        public Sprite image;   // æˆå°±åœ–ç‰‡
 
         public AchievementData(string title, string text, Sprite image)
         {

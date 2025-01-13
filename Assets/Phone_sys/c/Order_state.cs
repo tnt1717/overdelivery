@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 /// <summary>
-/// Ø“ØŸ™zœyÍæ¼ÒÅö×²È¡²Íüc
+/// è² è²¬æª¢æ¸¬ç©å®¶ç¢°æ’å–é¤é»
 /// </summary>
 public class Order_state : MonoBehaviour
 {
-    public OrderController orderController; // ÒıÓÃOrderController
+    public OrderController orderController; // å¼•ç”¨OrderController
     public newlist_test newlist_test;
     public LevelManager levelManager;
     public CustomerController customerController;
     private BagManager bagManager;
-    public int orderId; // Ó††Î ID
+    public int orderId; // è¨‚å–® ID
     public string orderName;    
 
     void Start()
@@ -27,7 +27,7 @@ public class Order_state : MonoBehaviour
     }
     private void Update()
     {
-        if(newlist_test.GetOrderStatus(orderId)=="³¬•r") Destroy(gameObject);
+        if(newlist_test.GetOrderStatus(orderId)=="è¶…æ™‚") Destroy(gameObject);
                
         orderName = newlist_test.GetCustomerNameByOrderId(orderId);
 
@@ -38,29 +38,29 @@ public class Order_state : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log(gameObject.name);
-            if (newlist_test.GetOrderStatus(orderId) != "ÒÑÈ¡²Í")
+            if (newlist_test.GetOrderStatus(orderId) != "å·²å–é¤")
             {
                 AudioManager.Instance.PlaySound("order_S");
 
-                newlist_test.UpdateOrderStatus(orderId, "ÒÑÈ¡²Í");
+                newlist_test.UpdateOrderStatus(orderId, "å·²å–é¤");
                 newlist_test.isEndPoint = true;
                 orderController.InstantiateAtCustomerPosition(orderId, orderName);
-                Debug.Log("Íæ¼ÒÅcÓ††ÎÆğüc½ÓÓ|£¬Éú³É½Küc¡£");
+                Debug.Log("ç©å®¶èˆ‡è¨‚å–®èµ·é»æ¥è§¸ï¼Œç”Ÿæˆçµ‚é»ã€‚");
                 Destroy(this.gameObject);
             }
             else
             {
                 
 
-                Debug.Log("Íæ¼ÒÅc½Küc½ÓÓ|"+ gameObject.name);
+                Debug.Log("ç©å®¶èˆ‡çµ‚é»æ¥è§¸"+ gameObject.name);
                 if (Input.GetKey(KeyCode.F)) {
 
-                    //Debug.Log("Íæ¼ÒÅc½Küc½ÓÓ|£¬Ó††ÎÍê³É£¡ ID:"+gameObject.name);
+                    //Debug.Log("ç©å®¶èˆ‡çµ‚é»æ¥è§¸ï¼Œè¨‚å–®å®Œæˆï¼ ID:"+gameObject.name);
                     AudioManager.Instance.PlaySound("order_F");
                     //newlist_test.DeletePreviewItem(orderId);
                     //bagManager.RemoveItemFromBagByID(orderId);
 
-                    //ÊÇ·ñÓĞÏàêP³É¾Í
+                    //æ˜¯å¦æœ‰ç›¸é—œæˆå°±
                     if (SceneManager.GetActiveScene().name == "LV1")
                     {
 
@@ -71,7 +71,7 @@ public class Order_state : MonoBehaviour
 
                 }
 
-                //Õ{È¡Ô“Ó††ÎËùÓĞ¼oä›¡£
+                //èª¿å–è©²è¨‚å–®æ‰€æœ‰ç´€éŒ„ã€‚
                 //
                 //customerController.SpawnCustomerAndMove();
 

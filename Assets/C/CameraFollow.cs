@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;          // Ü‡İvµÄ Transform
-    public float smoothSpeed = 0.125f; // Æ½»¬ËÙ¶È
+    public Transform target;          // è»Šè¼›çš„ Transform
+    public float smoothSpeed = 0.125f; // å¹³æ»‘é€Ÿåº¦
 
-    private Vector3 initialOffset;     // ”zÓ°™CÅcÜ‡İvµÄ³õÊ¼ÏàŒ¦Î»ÖÃ
+    private Vector3 initialOffset;     // æ”å½±æ©Ÿèˆ‡è»Šè¼›çš„åˆå§‹ç›¸å°ä½ç½®
 
     void Start()
     {
-        // ±£´æ”zÓ°™CÅcÜ‡İvÖ®égµÄ³õÊ¼ÏàŒ¦Î»ÖÃ
+        // ä¿å­˜æ”å½±æ©Ÿèˆ‡è»Šè¼›ä¹‹é–“çš„åˆå§‹ç›¸å°ä½ç½®
         initialOffset = transform.position - target.position;
     }
 
     void LateUpdate()
     {
-        // ¸ù“ş³õÊ¼ÏàŒ¦Î»ÖÃÓ‹Ëã”zÓ°™CµÄÄ¿˜ËÎ»ÖÃ
+        // æ ¹æ“šåˆå§‹ç›¸å°ä½ç½®è¨ˆç®—æ”å½±æ©Ÿçš„ç›®æ¨™ä½ç½®
         Vector3 desiredPosition = target.position + initialOffset;
 
-        // Ê¹ÓÃ Lerp íÆ½»¬ÒÆ„Óµ½Ä¿˜ËÎ»ÖÃ
+        // ä½¿ç”¨ Lerp ä¾†å¹³æ»‘ç§»å‹•åˆ°ç›®æ¨™ä½ç½®
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;
 
-        // ±£³Ö”zÓ°™CµÄÔ­Ê¼ĞıŞD£¬²»ßMĞĞĞıŞD
-        // Èç¹ûÄãÏ£Íû”zÓ°™C±£³Ö®”Ç°½Ç¶È£¬¾Í²»ĞŞ¸ÄĞıŞD
+        // ä¿æŒæ”å½±æ©Ÿçš„åŸå§‹æ—‹è½‰ï¼Œä¸é€²è¡Œæ—‹è½‰
+        // å¦‚æœä½ å¸Œæœ›æ”å½±æ©Ÿä¿æŒç•¶å‰è§’åº¦ï¼Œå°±ä¸ä¿®æ”¹æ—‹è½‰
     }
 }

@@ -14,13 +14,13 @@ public class ach_car : MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
     }
@@ -37,7 +37,7 @@ public class ach_car : MonoBehaviour
             //if (playerManager.playerData.achievements.TryGetValue("Achievement4", out bool isUnlocked))
             if (playerManager.playerData.achievements["Achievement4"] == false)
             {
-                    //playerManager.playerData.achievements["Achievement4"] = true; // ½âæi³É¾Í
+                    //playerManager.playerData.achievements["Achievement4"] = true; // è§£é–æˆå°±
                     //AchievementManager.Instance.UnlockAchievement("Achievement4");
                     //AchievementUIManager.Instance.ShowAchievement("Achievement4");
                     playerManager.UnlockAchievement("Achievement4");

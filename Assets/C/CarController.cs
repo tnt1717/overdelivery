@@ -4,75 +4,75 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    public float moveSpeed = 10f;       // Ü‡İvµÄÒÆ„ÓËÙ¶È
-    public float turnSpeed = 70f;       // Ü‡İvµÄŞDÏòËÙ¶È
+    public float moveSpeed = 10f;       // è»Šè¼›çš„ç§»å‹•é€Ÿåº¦
+    public float turnSpeed = 70f;       // è»Šè¼›çš„è½‰å‘é€Ÿåº¦
 
-    public float rightingSpeed = 1f; // »ØÕıËÙ¶È
-    public float maxTiltAngle = 20f; // Ó|°l·­ÕıµÄ½Ç¶Èé“Öµ
-    public GameObject helperCollider; // ÍÖú·­ÕıµÄÇòówÅö×²Ïä
-    public float disableDelay = 2f; // ½ûÓÃÇòówÅö×²ÏäµÄÑÓßt•rég
+    public float rightingSpeed = 1f; // å›æ­£é€Ÿåº¦
+    public float maxTiltAngle = 20f; // è§¸ç™¼ç¿»æ­£çš„è§’åº¦é–¾å€¼
+    public GameObject helperCollider; // å¹«åŠ©ç¿»æ­£çš„çƒé«”ç¢°æ’ç®±
+    public float disableDelay = 2f; // ç¦ç”¨çƒé«”ç¢°æ’ç®±çš„å»¶é²æ™‚é–“
 
-    private bool isRighting = false; // ÊÇ·ñÕıÔÚ»ØÕı
-    private float disableTimer = 0f; // Åö×²Ïä½ûÓÃµÄÓ‹•rÆ÷
+    private bool isRighting = false; // æ˜¯å¦æ­£åœ¨å›æ­£
+    private float disableTimer = 0f; // ç¢°æ’ç®±ç¦ç”¨çš„è¨ˆæ™‚å™¨
     void Start()
     {
         if (helperCollider != null)
         {
-            helperCollider.SetActive(false); // ³õÊ¼•r½ûÓÃÇòówÅö×²Ïä
+            helperCollider.SetActive(false); // åˆå§‹æ™‚ç¦ç”¨çƒé«”ç¢°æ’ç®±
         }
     }
     void Update()
     {
-        // ´¹Ö±·½Ïò¿ØÖÆÜ‡İvµÄÇ°ßMºÍááÍË£¨W/S æI£©
+        // å‚ç›´æ–¹å‘æ§åˆ¶è»Šè¼›çš„å‰é€²å’Œå¾Œé€€ï¼ˆW/S éµï¼‰
         float move = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
 
-        // Ë®Æ½·½Ïò¿ØÖÆÜ‡İvµÄ×óÓÒŞDÏò£¨A/D æI£©
+        // æ°´å¹³æ–¹å‘æ§åˆ¶è»Šè¼›çš„å·¦å³è½‰å‘ï¼ˆA/D éµï¼‰
         float turn = Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime;
 
-        // ÒÆ„ÓÜ‡İvÑØÖø®”Ç°Ç°ßM·½Ïò
+        // ç§»å‹•è»Šè¼›æ²¿è‘—ç•¶å‰å‰é€²æ–¹å‘
         transform.Translate(Vector3.forward * move);
 
-        // ĞıŞDÜ‡İv×óÓÒŞDÏò
+        // æ—‹è½‰è»Šè¼›å·¦å³è½‰å‘
         transform.Rotate(Vector3.up * turn);
         if (helperCollider != null)
         {
-            helperCollider.SetActive(false); // ³õÊ¼•r½ûÓÃÇòówÅö×²Ïä
+            helperCollider.SetActive(false); // åˆå§‹æ™‚ç¦ç”¨çƒé«”ç¢°æ’ç®±
         }
         CheckAndRightCar();
 
-        // ÌÀíÇòówÅö×²Ïä½ûÓÃµÄÓ‹•r
+        // è™•ç†çƒé«”ç¢°æ’ç®±ç¦ç”¨çš„è¨ˆæ™‚
         if (isRighting && helperCollider != null && disableTimer > 0)
         {
             disableTimer -= Time.deltaTime;
             if (disableTimer <= 0)
             {
-                helperCollider.SetActive(false); // ½ûÓÃÇòówÅö×²Ïä
+                helperCollider.SetActive(false); // ç¦ç”¨çƒé«”ç¢°æ’ç®±
                 isRighting = false;
             }
         }
     }
     private void CheckAndRightCar()
     {
-        // «@È¡®”Ç°µÄ Z İSĞıŞD½Ç¶È£¬´_±£ÔÚ -180 µ½ 180 ¹ ‡úƒÈ
+        // ç²å–ç•¶å‰çš„ Z è»¸æ—‹è½‰è§’åº¦ï¼Œç¢ºä¿åœ¨ -180 åˆ° 180 ç¯„åœå…§
         float zRotation = NormalizeAngle(transform.eulerAngles.z);
 
-        // Èç¹û Z İS½Ç¶È³¬ß^é“Öµ£¬†¢„Ó»ØÕı
+        // å¦‚æœ Z è»¸è§’åº¦è¶…éé–¾å€¼ï¼Œå•Ÿå‹•å›æ­£
         if (Mathf.Abs(zRotation) > maxTiltAngle)
         {
             isRighting = true;
 
-            // †¢ÓÃÇòówÅö×²Ïä
+            // å•Ÿç”¨çƒé«”ç¢°æ’ç®±
             if (helperCollider != null)
             {
                 helperCollider.SetActive(true);
-                disableTimer = disableDelay; // ÔO¶¨½ûÓÃÑÓßt
+                disableTimer = disableDelay; // è¨­å®šç¦ç”¨å»¶é²
             }
 
-            // Œ¢Ü‡İv¾Âı»ØÕı
+            // å°‡è»Šè¼›ç·©æ…¢å›æ­£
             float newZ = Mathf.LerpAngle(zRotation, 0, rightingSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, newZ);
 
-            // ®” Z İS½Ó½ü 0 •r£¬ÕJé»ØÕıÍê³É
+            // ç•¶ Z è»¸æ¥è¿‘ 0 æ™‚ï¼Œèªç‚ºå›æ­£å®Œæˆ
             if (Mathf.Abs(newZ) < 0.1f)
             {
                 transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0);
@@ -80,7 +80,7 @@ public class CarController : MonoBehaviour
         }
     }
 
-    // Œ¢½Ç¶ÈŞD“Qé -180 µ½ 180 ¹ ‡ú
+    // å°‡è§’åº¦è½‰æ›ç‚º -180 åˆ° 180 ç¯„åœ
     private float NormalizeAngle(float angle)
     {
         if (angle > 180)

@@ -5,15 +5,15 @@ public class VoidResetManager : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        // ™zœyÊÇ·ñéÍæ¼Ò
+        // æª¢æ¸¬æ˜¯å¦ç‚ºç©å®¶
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Íæ¼ÒµôÈëÌ“¿Õ£¬ÖØĞÂİdÈëˆö¾°...");
+            Debug.Log("ç©å®¶æ‰å…¥è™›ç©ºï¼Œé‡æ–°è¼‰å…¥å ´æ™¯...");
 
-            // «@È¡®”Ç°†¢ÓÃµÄˆö¾°Ãû·Q
+            // ç²å–ç•¶å‰å•Ÿç”¨çš„å ´æ™¯åç¨±
             string currentSceneName = SceneManager.GetActiveScene().name;
 
-            // ÖØĞÂİdÈë®”Ç°ˆö¾°
+            // é‡æ–°è¼‰å…¥ç•¶å‰å ´æ™¯
             SceneManager.LoadScene(currentSceneName);
         }
     }

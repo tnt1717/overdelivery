@@ -7,31 +7,31 @@ public class ToDance : MonoBehaviour
 {
     private Animator animator;
     private bool isMouseOver = false;
-    static public bool hasSelectedModel = false; // ·ÀÖ¹ÖØÑ}ßx“ñÎï¼şµÄÆì˜Ë
-    public CanvasGroup canvasGroup; // ¿ØÖÆ®‹²¼Í¸Ã÷¶È
-    public InputField playerNameInput; // Íæ¼ÒÃû·Qİ”Èë¿ò
-    public Button confirmButton; // ´_ÕJ°´âo
+    static public bool hasSelectedModel = false; // é˜²æ­¢é‡è¤‡é¸æ“‡ç‰©ä»¶çš„æ——æ¨™
+    public CanvasGroup canvasGroup; // æ§åˆ¶ç•«å¸ƒé€æ˜åº¦
+    public InputField playerNameInput; // ç©å®¶åç¨±è¼¸å…¥æ¡†
+    public Button confirmButton; // ç¢ºèªæŒ‰éˆ•
     public Text tip;
-    private bool isCanvasVisible = false; // ÅĞ”à®‹²¼ÊÇ·ñÒÑï@Ê¾
-    private Camera mainCamera; // Ö÷”zÓ°™C
-    public Image modelImage; // ÓÃì¶ï@Ê¾Ä£ĞÍŒ¦‘ªˆDÆ¬µÄ Image ½M¼ş
-    public Sprite imageA; // A Œ¦‘ªµÄˆDÆ¬
-    public Sprite imageB; // B Œ¦‘ªµÄˆDÆ¬
+    private bool isCanvasVisible = false; // åˆ¤æ–·ç•«å¸ƒæ˜¯å¦å·²é¡¯ç¤º
+    private Camera mainCamera; // ä¸»æ”å½±æ©Ÿ
+    public Image modelImage; // ç”¨æ–¼é¡¯ç¤ºæ¨¡å‹å°æ‡‰åœ–ç‰‡çš„ Image çµ„ä»¶
+    public Sprite imageA; // A å°æ‡‰çš„åœ–ç‰‡
+    public Sprite imageB; // B å°æ‡‰çš„åœ–ç‰‡
     public GameObject p;
 
     void Start()
     {
         p.active = false;
-        mainCamera = Camera.main; // «@È¡Ö÷”zÓ°™C
-        tip.text = "Õˆßx“ñ½ÇÉ«";
+        mainCamera = Camera.main; // ç²å–ä¸»æ”å½±æ©Ÿ
+        tip.text = "è«‹é¸æ“‡è§’è‰²";
         animator = GetComponent<Animator>();
 
         if (animator == null)
         {
-            Debug.LogError("Animator Î´ÕÒµ½£¬Õˆ´_ÕJÎï¼şÉÏÊÇ·ñÓĞ Animator ½M¼ş¡£");
+            Debug.LogError("Animator æœªæ‰¾åˆ°ï¼Œè«‹ç¢ºèªç‰©ä»¶ä¸Šæ˜¯å¦æœ‰ Animator çµ„ä»¶ã€‚");
         }
 
-        // ³õÊ¼»¯®‹²¼Í¸Ã÷¶Èé 0£¬ë[²Ø
+        // åˆå§‹åŒ–ç•«å¸ƒé€æ˜åº¦ç‚º 0ï¼Œéš±è—
         if (canvasGroup != null)
         {
             canvasGroup.alpha = 0;
@@ -39,7 +39,7 @@ public class ToDance : MonoBehaviour
             canvasGroup.blocksRaycasts = false;
         }
 
-        // ÔOÖÃ°´âoÊÂ¼ş
+        // è¨­ç½®æŒ‰éˆ•äº‹ä»¶
         if (confirmButton != null)
         {
             confirmButton.onClick.AddListener(OnConfirmPlayerName);
@@ -53,7 +53,7 @@ public class ToDance : MonoBehaviour
             animator.SetBool("dance", isMouseOver);
         }
 
-        if (!hasSelectedModel) // ƒHÔÚÎ´ßx“ñÄ£ĞÍ•rˆÌĞĞÉä¾€™zœy
+        if (!hasSelectedModel) // åƒ…åœ¨æœªé¸æ“‡æ¨¡å‹æ™‚åŸ·è¡Œå°„ç·šæª¢æ¸¬
         {
             CheckMouseHover();
         }
@@ -70,14 +70,14 @@ public class ToDance : MonoBehaviour
 
             if (hitObject == gameObject)
             {
-                if (!isMouseOver) // ·ÀÖ¹ÖØÑ}Ó|°l
+                if (!isMouseOver) // é˜²æ­¢é‡è¤‡è§¸ç™¼
                 {
                     isMouseOver = true;
                     animator.SetBool("dance", true);
                 }
 
-                // ‚Éœyüc“ôÊÂ¼ş
-                if (Input.GetMouseButtonDown(0)) // »¬Êó×óæI
+                // åµæ¸¬é»æ“Šäº‹ä»¶
+                if (Input.GetMouseButtonDown(0)) // æ»‘é¼ å·¦éµ
                 {
                     AudioManager.Instance.PlaySound("tap");
 
@@ -106,18 +106,18 @@ public class ToDance : MonoBehaviour
 
     private void RecordModelName(string name)
     {
-        if (hasSelectedModel) return; // ÈôÒÑßx“ñÄ£ĞÍ„t²»ÔÙˆÌĞĞ
+        if (hasSelectedModel) return; // è‹¥å·²é¸æ“‡æ¨¡å‹å‰‡ä¸å†åŸ·è¡Œ
 
-        hasSelectedModel = true; // ÔOÖÃÆì˜Ë·ÀÖ¹ÖØÑ}ßx“ñ
+        hasSelectedModel = true; // è¨­ç½®æ——æ¨™é˜²æ­¢é‡è¤‡é¸æ“‡
 
         if (PlayerManager.instance != null && PlayerManager.instance.playerData != null)
         {
-            PlayerManager.instance.playerData.Playermodle = name; // Ó›ä›µ½ playerData
-            Debug.Log($"ÒÑÓ›ä›Íæ¼ÒÄ£ĞÍÃû·Q: {name}");
-            StartCoroutine(FadeInCanvas()); // uuï@Ê¾®‹²¼
-            tip.text = "Õˆİ”ÈëÍæ¼ÒÃû·Q";
+            PlayerManager.instance.playerData.Playermodle = name; // è¨˜éŒ„åˆ° playerData
+            Debug.Log($"å·²è¨˜éŒ„ç©å®¶æ¨¡å‹åç¨±: {name}");
+            StartCoroutine(FadeInCanvas()); // æ¼¸æ¼¸é¡¯ç¤ºç•«å¸ƒ
+            tip.text = "è«‹è¼¸å…¥ç©å®¶åç¨±";
 
-            // ¸ù“şÃû·QÇĞ“QˆDÆ¬
+            // æ ¹æ“šåç¨±åˆ‡æ›åœ–ç‰‡
             if (name == "JP_Boy_01" && imageA != null)
             {
                 modelImage.sprite = imageA;
@@ -128,12 +128,12 @@ public class ToDance : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Î´ÕÒµ½Œ¦‘ªµÄˆDÆ¬£¬Õˆ´_ÕJÔOÖÃÊÇ·ñÕı´_¡£");
+                Debug.LogWarning("æœªæ‰¾åˆ°å°æ‡‰çš„åœ–ç‰‡ï¼Œè«‹ç¢ºèªè¨­ç½®æ˜¯å¦æ­£ç¢ºã€‚");
             }
         }
         else
         {
-            Debug.LogError("PlayerManager »ò PlayerData Î´³õÊ¼»¯£¬Ÿo·¨Ó›ä›Ä£ĞÍÃû·Q¡£");
+            Debug.LogError("PlayerManager æˆ– PlayerData æœªåˆå§‹åŒ–ï¼Œç„¡æ³•è¨˜éŒ„æ¨¡å‹åç¨±ã€‚");
         }
     }
 
@@ -158,12 +158,12 @@ public class ToDance : MonoBehaviour
     {
         if (PlayerManager.instance != null && PlayerManager.instance.playerData != null)
         {
-            string playerName = playerNameInput.text; // «@È¡İ”Èë¿òƒÈÈİ
+            string playerName = playerNameInput.text; // ç²å–è¼¸å…¥æ¡†å…§å®¹
             if (!string.IsNullOrEmpty(playerName))
             {
                 PlayerManager.instance.playerData.isCharacterCreated = true;
                 PlayerManager.instance.playerData.PlayerName = playerName;
-                Debug.Log($"Íæ¼ÒÃû·QÒÑ´æƒ¦: {playerName}");
+                Debug.Log($"ç©å®¶åç¨±å·²å­˜å„²: {playerName}");
                 SaveSystem.SavePlayerData(PlayerManager.instance.playerData);
                 p.active = true;
 
@@ -180,25 +180,25 @@ public class ToDance : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Íæ¼ÒÃû·Qé¿Õ£¬Õˆİ”ÈëÓĞĞ§Ãû·Q¡£");
-                tip.text = "Íæ¼ÒÃû·Q²»ÄÜé¿Õ¡£";
+                Debug.LogWarning("ç©å®¶åç¨±ç‚ºç©ºï¼Œè«‹è¼¸å…¥æœ‰æ•ˆåç¨±ã€‚");
+                tip.text = "ç©å®¶åç¨±ä¸èƒ½ç‚ºç©ºã€‚";
             }
         }
         else
         {
-            Debug.LogError("PlayerManager »ò PlayerData Î´³õÊ¼»¯£¬Ÿo·¨´æƒ¦Íæ¼ÒÃû·Q¡£");
-            tip.text = " PlayerData Î´³õÊ¼»¯£¬Ÿo·¨´æƒ¦Íæ¼ÒÃû·Q¡£";
+            Debug.LogError("PlayerManager æˆ– PlayerData æœªåˆå§‹åŒ–ï¼Œç„¡æ³•å­˜å„²ç©å®¶åç¨±ã€‚");
+            tip.text = " PlayerData æœªåˆå§‹åŒ–ï¼Œç„¡æ³•å­˜å„²ç©å®¶åç¨±ã€‚";
         }
     }
 
     IEnumerator DelayAction()
     {
-        // ÑÓßtƒÉÃë
+        // å»¶é²å…©ç§’
         yield return new WaitForSeconds(5f);
     }
     IEnumerator DelayActionB()
     {
-        // ÑÓßtƒÉÃë
+        // å»¶é²å…©ç§’
         yield return new WaitForSeconds(3f);
         SceneTransitionManager transitionManager = FindObjectOfType<SceneTransitionManager>();
         transitionManager.StartSceneTransition();

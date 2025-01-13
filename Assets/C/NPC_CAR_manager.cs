@@ -4,11 +4,11 @@ using UnityEngine.AI;
 
 public class NPC_CAR_manager : MonoBehaviour
 {
-    public GameObject[] npcPrefabs;         // 9‚€NPCÜ‡İvµÄÄ£ĞÍê‡ÁĞ
-    public Transform player;                // Íæ¼ÒÎ»ÖÃ
-    public float spawnInterval = 7f;        // Ã¿ÆßÃëÉú³ÉÒ»´Î
-    public float spawnDistance = 30f;       // NPC ¾àëxÍæ¼Ò³¬ß^30•rÉú³É»òäNš§
-    public int roadAreaMask;                // Ö¸¶¨µÄ NavMesh ˆDŒÓ
+    public GameObject[] npcPrefabs;         // 9å€‹NPCè»Šè¼›çš„æ¨¡å‹é™£åˆ—
+    public Transform player;                // ç©å®¶ä½ç½®
+    public float spawnInterval = 7f;        // æ¯ä¸ƒç§’ç”Ÿæˆä¸€æ¬¡
+    public float spawnDistance = 30f;       // NPC è·é›¢ç©å®¶è¶…é30æ™‚ç”Ÿæˆæˆ–éŠ·æ¯€
+    public int roadAreaMask;                // æŒ‡å®šçš„ NavMesh åœ–å±¤
 
 
     private void Start()
@@ -31,7 +31,7 @@ public class NPC_CAR_manager : MonoBehaviour
                 GameObject npcPrefab = npcPrefabs[Random.Range(0, npcPrefabs.Length)];
                 GameObject npc = Instantiate(npcPrefab, spawnPosition, Quaternion.identity);
 
-                // ÔO¶¨ NPC Ü‡İv£¬KŒ¢ roadAreaMask ‚÷ßf½oËü
+                // è¨­å®š NPC è»Šè¼›ï¼Œä¸¦å°‡ roadAreaMask å‚³éçµ¦å®ƒ
                 npc.AddComponent<NPCVehicle>().Initialize(player, roadAreaMask, spawnDistance);
             }
         }
@@ -39,7 +39,7 @@ public class NPC_CAR_manager : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
-        // ëS™CÉú³ÉÔÚÍæ¼Ò spawnDistance ¾àëxÍâµÄÎ»ÖÃ
+        // éš¨æ©Ÿç”Ÿæˆåœ¨ç©å®¶ spawnDistance è·é›¢å¤–çš„ä½ç½®
         Vector3 randomDirection = Random.insideUnitSphere * spawnDistance;
         randomDirection += player.position;
 

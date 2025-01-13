@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class StarRatingManager: MonoBehaviour
 {
-    // ĞÇĞÇˆDÆ¬
+    // æ˜Ÿæ˜Ÿåœ–ç‰‡
     public Image starA;
     public Image starB;
     public Image starC;
@@ -16,40 +16,40 @@ public class StarRatingManager: MonoBehaviour
     public Text delay;
     public Text totalcoins;
 
-    // ĞÇĞÇµÄ†¢ÓÃˆDÆ¬ÅcÎ´†¢ÓÃˆDÆ¬
-    public Sprite filledStar;  // †¢ÓÃĞÇĞÇˆDÆ¬
-    public Sprite emptyStar;   // Î´†¢ÓÃĞÇĞÇˆD
+    // æ˜Ÿæ˜Ÿçš„å•Ÿç”¨åœ–ç‰‡èˆ‡æœªå•Ÿç”¨åœ–ç‰‡
+    public Sprite filledStar;  // å•Ÿç”¨æ˜Ÿæ˜Ÿåœ–ç‰‡
+    public Sprite emptyStar;   // æœªå•Ÿç”¨æ˜Ÿæ˜Ÿåœ–
     private PlayerManager playerManager;
 
     public GameObject ui;
     private RandomModelSpawner randomModelSpawner;
 
 
-    // ƒ¦´æÃ¿Ò»êPµÄÔu·Ö—l¼ş
+    // å„²å­˜æ¯ä¸€é—œçš„è©•åˆ†æ¢ä»¶
     [System.Serializable]
     public class LevelStarCondition
     {
-        public int totalOrders;  // ¿‚†Î”µ—l¼ş
-        public int maxErrors;    // åeÕ`×î´óÖµ
-        public int minCorrect;   // Õı´_×îĞ¡Öµ
+        public int totalOrders;  // ç¸½å–®æ•¸æ¢ä»¶
+        public int maxErrors;    // éŒ¯èª¤æœ€å¤§å€¼
+        public int minCorrect;   // æ­£ç¢ºæœ€å°å€¼
     }
 
     public Dictionary<string, LevelStarCondition> levelConditions = new Dictionary<string, LevelStarCondition>();
 
     public void CloseAllOtherUIByLayer()
     {
-        // «@È¡®”Ç°Îï¼şËùÔÚµÄ Layer
+        // ç²å–ç•¶å‰ç‰©ä»¶æ‰€åœ¨çš„ Layer
         int uiLayer = LayerMask.NameToLayer("UI");
 
-        // ±éšvˆö¾°ÖĞËùÓĞ¼¤»îµÄÎï¼ş
+        // éæ­·å ´æ™¯ä¸­æ‰€æœ‰æ¿€æ´»çš„ç‰©ä»¶
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
 
         foreach (GameObject obj in allObjects)
         {
-            // ™z²éÎï¼şÊÇ·ñÔÚ UI ŒÓKÇÒ²»ÊÇ®”Ç°Îï¼ş
+            // æª¢æŸ¥ç‰©ä»¶æ˜¯å¦åœ¨ UI å±¤ä¸¦ä¸”ä¸æ˜¯ç•¶å‰ç‰©ä»¶
             if (obj.layer == uiLayer && obj != this.gameObject && obj.activeSelf)
             {
-                obj.SetActive(false); // êPé]ÆäËû UI
+                obj.SetActive(false); // é—œé–‰å…¶ä»– UI
             }
         }
     }
@@ -65,17 +65,17 @@ public class StarRatingManager: MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
 
-        // ³õÊ¼»¯Ã¿Ò»êP—l¼ş
+        // åˆå§‹åŒ–æ¯ä¸€é—œæ¢ä»¶
         levelConditions.Add("LV1", new LevelStarCondition { totalOrders = 1, maxErrors = 0, minCorrect = 1 });
         levelConditions.Add("LV2", new LevelStarCondition { totalOrders = 4, maxErrors = 2, minCorrect = 3 });
         levelConditions.Add("LV3", new LevelStarCondition { totalOrders = 15, maxErrors = 4, minCorrect = 10 });
@@ -84,7 +84,7 @@ public class StarRatingManager: MonoBehaviour
         levelConditions.Add("LV6", new LevelStarCondition { totalOrders = 30, maxErrors = 6, minCorrect = 27 });
 
 
-        // ¿ÉÒÀĞèÒªĞÂÔö¸ü¶àêP¿¨
+        // å¯ä¾éœ€è¦æ–°å¢æ›´å¤šé—œå¡
     }
     private void Update()
     {
@@ -94,14 +94,14 @@ public class StarRatingManager: MonoBehaviour
     }
 
     /// <summary>
-    /// ÔO¶¨ĞÇĞÇÔu·Ö
+    /// è¨­å®šæ˜Ÿæ˜Ÿè©•åˆ†
     /// </summary>
-    /// <param name="level">êP¿¨”µ</param>
-    /// <param name="totalOrders">Íê³ÉµÄ¿‚†Î”µ</param>
-    /// <param name="correctOrders">Õı´_Íê³ÉµÄ†Î”µ</param>
-    /// <param name="errorOrders">åeÕ`µÄ†Î”µ</param>
-    /// <param name="timeoutOrders">³¬•rµÄ†Î”µ</param>
-    /// <param name="income">Íæ¼Ò«@µÃµÄÊÕÈë</param>
+    /// <param name="level">é—œå¡æ•¸</param>
+    /// <param name="totalOrders">å®Œæˆçš„ç¸½å–®æ•¸</param>
+    /// <param name="correctOrders">æ­£ç¢ºå®Œæˆçš„å–®æ•¸</param>
+    /// <param name="errorOrders">éŒ¯èª¤çš„å–®æ•¸</param>
+    /// <param name="timeoutOrders">è¶…æ™‚çš„å–®æ•¸</param>
+    /// <param name="income">ç©å®¶ç²å¾—çš„æ”¶å…¥</param>
     public void SetStarRating(int totalOrders, int correctOrders, int errorOrders, int timeoutOrders, int income)
     {
         string currentLevel = SceneManager.GetActiveScene().name;
@@ -111,14 +111,14 @@ public class StarRatingManager: MonoBehaviour
         randomModelSpawner.SpawnRandomModels();
         if (!levelConditions.ContainsKey(currentLevel))
         {
-            Debug.LogWarning($"ÕÒ²»µ½µÚ {currentLevel} êPµÄĞÇĞÇ—l¼ş");
+            Debug.LogWarning($"æ‰¾ä¸åˆ°ç¬¬ {currentLevel} é—œçš„æ˜Ÿæ˜Ÿæ¢ä»¶");
             return;
         }
 
-        // È¡µÃ®”Ç°êP¿¨µÄĞÇĞÇ—l¼ş
+        // å–å¾—ç•¶å‰é—œå¡çš„æ˜Ÿæ˜Ÿæ¢ä»¶
         LevelStarCondition condition = levelConditions[currentLevel];
 
-        // Ó‹ËãĞÇĞÇÔu·Ö
+        // è¨ˆç®—æ˜Ÿæ˜Ÿè©•åˆ†
         int stars = 0;
 
 
@@ -126,12 +126,12 @@ public class StarRatingManager: MonoBehaviour
         if (errorOrders <= condition.maxErrors) stars++;
         if (correctOrders >= condition.minCorrect) stars++;
 
-        cmp.text = "Íê³ÉÓ††Î”µ:" + correctOrders+"/"+ condition.totalOrders;
-        error.text = "åeÕ`Ó††Î”µ:" + errorOrders + "/" + condition.maxErrors;
-        delay.text = "³¬•rÓ††Î”µ:" + timeoutOrders + "/" + condition.minCorrect;
-        totalcoins.text = "¿‚ÊÕÈë:" + income;
+        cmp.text = "å®Œæˆè¨‚å–®æ•¸:" + correctOrders+"/"+ condition.totalOrders;
+        error.text = "éŒ¯èª¤è¨‚å–®æ•¸:" + errorOrders + "/" + condition.maxErrors;
+        delay.text = "è¶…æ™‚è¨‚å–®æ•¸:" + timeoutOrders + "/" + condition.minCorrect;
+        totalcoins.text = "ç¸½æ”¶å…¥:" + income;
         playerManager.playerData.coins += income;
-        // ¸üĞÂĞÇĞÇï@Ê¾
+        // æ›´æ–°æ˜Ÿæ˜Ÿé¡¯ç¤º
         UpdateStars(stars);
         playerManager.playerData.levelStars[currentLevel] = stars;
         Debug.LogWarning(currentLevel + "+" + stars);
@@ -139,17 +139,17 @@ public class StarRatingManager: MonoBehaviour
     }
 
     /// <summary>
-    /// ¸üĞÂĞÇĞÇµÄï@Ê¾
+    /// æ›´æ–°æ˜Ÿæ˜Ÿçš„é¡¯ç¤º
     /// </summary>
-    /// <param name="stars">«@µÃµÄĞÇĞÇ”µÁ¿</param>
+    /// <param name="stars">ç²å¾—çš„æ˜Ÿæ˜Ÿæ•¸é‡</param>
     private void UpdateStars(int stars)
     {
-        // ³õÊ¼»¯ËùÓĞĞÇĞÇéÎ´†¢ÓÃ î‘B
+        // åˆå§‹åŒ–æ‰€æœ‰æ˜Ÿæ˜Ÿç‚ºæœªå•Ÿç”¨ç‹€æ…‹
         starA.sprite = emptyStar;
         starB.sprite = emptyStar;
         starC.sprite = emptyStar;
 
-        // †¢ÓÃŒ¦‘ª”µÁ¿µÄĞÇĞÇ
+        // å•Ÿç”¨å°æ‡‰æ•¸é‡çš„æ˜Ÿæ˜Ÿ
         if (stars >= 1) starA.sprite = filledStar;
         if (stars >= 2) starB.sprite = filledStar;
         if (stars >= 3) starC.sprite = filledStar;

@@ -8,21 +8,21 @@ public class VehicleManager : MonoBehaviour
     [System.Serializable]
     public class Vehicle
     {
-        public string vehicleName;  // Ü‡İvÃû·Q
-        public int price;           // Ü‡İvƒr¸ñ
-        public GameObject vehicleObject; // Ü‡İvŒ¦‘ªµÄÎï¼ş
+        public string vehicleName;  // è»Šè¼›åç¨±
+        public int price;           // è»Šè¼›åƒ¹æ ¼
+        public GameObject vehicleObject; // è»Šè¼›å°æ‡‰çš„ç‰©ä»¶
     }
-    private PlayerManager playerManager; // ßB½Y PlayerManager ÓÃì¶´æÈ¡ PlayerData
+    private PlayerManager playerManager; // é€£çµ PlayerManager ç”¨æ–¼å­˜å– PlayerData
 
-    public Vehicle[] vehicles;      // ËùÓĞÜ‡İvµÄê‡ÁĞ
-    public Text buttonText;         // °´âoÉÏµÄÎÄ×Ö
-    public Button actionButton;     // ˆÌĞĞÙÙI»òÇĞ“QµÄ°´âo
-    public Text playerCoinsText;    // ï@Ê¾Íæ¼Ò½ğÅµÄÎÄ±¾
-    private int currentIndex = 0;   // ®”Ç°ßxÖĞµÄÜ‡İvË÷Òı
+    public Vehicle[] vehicles;      // æ‰€æœ‰è»Šè¼›çš„é™£åˆ—
+    public Text buttonText;         // æŒ‰éˆ•ä¸Šçš„æ–‡å­—
+    public Button actionButton;     // åŸ·è¡Œè³¼è²·æˆ–åˆ‡æ›çš„æŒ‰éˆ•
+    public Text playerCoinsText;    // é¡¯ç¤ºç©å®¶é‡‘å¹£çš„æ–‡æœ¬
+    private int currentIndex = 0;   // ç•¶å‰é¸ä¸­çš„è»Šè¼›ç´¢å¼•
     //private PlayerData playerData;
 
-    //public PlayerData playerData;   // Íæ¼Ò”µ“şÎï¼ş
-    private string currentVehicleKey = "currentVehicle"; // Ê¹ÓÃÖĞµÄÜ‡İv´æƒ¦æI
+    //public PlayerData playerData;   // ç©å®¶æ•¸æ“šç‰©ä»¶
+    private string currentVehicleKey = "currentVehicle"; // ä½¿ç”¨ä¸­çš„è»Šè¼›å­˜å„²éµ
 
     private void Start()
     {
@@ -32,100 +32,100 @@ public class VehicleManager : MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
 
         
-        LoadPlayerData(); // ³õÊ¼»¯Íæ¼Ò”µ“ş
-        SavePlayerData(); // ´_±£Ä¬ÕJ î‘B±»±£´æ
-        UpdateVehicleUI(); // ¸üĞÂUI
+        LoadPlayerData(); // åˆå§‹åŒ–ç©å®¶æ•¸æ“š
+        SavePlayerData(); // ç¢ºä¿é»˜èªç‹€æ…‹è¢«ä¿å­˜
+        UpdateVehicleUI(); // æ›´æ–°UI
     }
 
     private void LoadPlayerData()
     {
-        // ´_±£Ã¿İvÜ‡¶¼ÓĞ î‘B
+        // ç¢ºä¿æ¯è¼›è»Šéƒ½æœ‰ç‹€æ…‹
         foreach (var vehicle in vehicles)
         {
             if (!playerManager.playerData.vehicleStates.ContainsKey(vehicle.vehicleName))
             {
-                playerManager.playerData.vehicleStates[vehicle.vehicleName] = false; // Ä¬ÕJéÎ´“íÓĞ
+                playerManager.playerData.vehicleStates[vehicle.vehicleName] = false; // é»˜èªç‚ºæœªæ“æœ‰
             }
         }
 
-        // Èç¹ûÎ´ÔOÖÃ®”Ç°Ü‡İv£¬»òµÚÒ»İvÜ‡ î‘B²»Õı´_£¬ĞŞÕıéµÚÒ»İvÜ‡
-        var defaultVehicle = vehicles[0]; // îAÔOéµÚÒ»İvÜ‡
+        // å¦‚æœæœªè¨­ç½®ç•¶å‰è»Šè¼›ï¼Œæˆ–ç¬¬ä¸€è¼›è»Šç‹€æ…‹ä¸æ­£ç¢ºï¼Œä¿®æ­£ç‚ºç¬¬ä¸€è¼›è»Š
+        var defaultVehicle = vehicles[0]; // é è¨­ç‚ºç¬¬ä¸€è¼›è»Š
         if (string.IsNullOrEmpty(playerManager.playerData.currentVehicle) ||
             !playerManager.playerData.vehicleStates[defaultVehicle.vehicleName])
         {
             playerManager.playerData.currentVehicle = defaultVehicle.vehicleName;
-            playerManager.playerData.vehicleStates[defaultVehicle.vehicleName] = true; // ÔOÖÃéÒÑ“íÓĞ
+            playerManager.playerData.vehicleStates[defaultVehicle.vehicleName] = true; // è¨­ç½®ç‚ºå·²æ“æœ‰
 
-            Debug.Log($"ĞŞÕıµÚÒ»İvÜ‡ {defaultVehicle.vehicleName} éîAÔOÜ‡İvÇÒ î‘BéÒÑ“íÓĞ");
+            Debug.Log($"ä¿®æ­£ç¬¬ä¸€è¼›è»Š {defaultVehicle.vehicleName} ç‚ºé è¨­è»Šè¼›ä¸”ç‹€æ…‹ç‚ºå·²æ“æœ‰");
         }
     }
 
     public void OnLeftButton()
     {
         currentIndex = (currentIndex - 1 + vehicles.Length) % vehicles.Length;
-        Debug.Log($"ÇĞ“Qµ½×óß…Ü‡İv£¬Ë÷Òı£º{currentIndex}");
+        Debug.Log($"åˆ‡æ›åˆ°å·¦é‚Šè»Šè¼›ï¼Œç´¢å¼•ï¼š{currentIndex}");
         UpdateVehicleUI();
     }
 
     public void OnRightButton()
     {
         currentIndex = (currentIndex + 1) % vehicles.Length;
-        Debug.Log($"ÇĞ“Qµ½ÓÒß…Ü‡İv£¬Ë÷Òı£º{currentIndex}");
+        Debug.Log($"åˆ‡æ›åˆ°å³é‚Šè»Šè¼›ï¼Œç´¢å¼•ï¼š{currentIndex}");
         UpdateVehicleUI();
     }
 
     private void UpdateVehicleUI()
     {
-        // ë[²ØËùÓĞÜ‡İvÎï¼ş
+        // éš±è—æ‰€æœ‰è»Šè¼›ç‰©ä»¶
         foreach (var vehicle in vehicles)
         {
             vehicle.vehicleObject.SetActive(false);
         }
 
-        // ï@Ê¾®”Ç°ßxÖĞÜ‡İv
+        // é¡¯ç¤ºç•¶å‰é¸ä¸­è»Šè¼›
         vehicles[currentIndex].vehicleObject.SetActive(true);
 
-        // ¸üĞÂ°´âo î‘B
+        // æ›´æ–°æŒ‰éˆ•ç‹€æ…‹
         var currentVehicle = vehicles[currentIndex];
         bool isOwned = playerManager.playerData.vehicleStates[currentVehicle.vehicleName];
 
-        Debug.Log($"®”Ç°ßxÖĞÜ‡İv£º{currentVehicle.vehicleName}£¬ÊÇ·ñÒÑ“íÓĞ£º{isOwned}");
+        Debug.Log($"ç•¶å‰é¸ä¸­è»Šè¼›ï¼š{currentVehicle.vehicleName}ï¼Œæ˜¯å¦å·²æ“æœ‰ï¼š{isOwned}");
 
         if (isOwned)
         {
             if (playerManager.playerData.currentVehicle == currentVehicle.vehicleName)
             {
-                buttonText.text = "Ê¹ÓÃÖĞ";
+                buttonText.text = "ä½¿ç”¨ä¸­";
                 actionButton.interactable = false;
-                Debug.Log($"{currentVehicle.vehicleName} ÕıÔÚÊ¹ÓÃÖĞ");
+                Debug.Log($"{currentVehicle.vehicleName} æ­£åœ¨ä½¿ç”¨ä¸­");
             }
             else
             {
-                buttonText.text = "Î´Ê¹ÓÃ";
+                buttonText.text = "æœªä½¿ç”¨";
                 actionButton.interactable = true;
-                Debug.Log($"{currentVehicle.vehicleName} ÒÑ“íÓĞµ«Î´Ê¹ÓÃ");
+                Debug.Log($"{currentVehicle.vehicleName} å·²æ“æœ‰ä½†æœªä½¿ç”¨");
             }
         }
         else
         {
-            buttonText.text = $"ƒr¸ñ: {currentVehicle.price}";
+            buttonText.text = $"åƒ¹æ ¼: {currentVehicle.price}";
             actionButton.interactable = playerManager.playerData.coins >= currentVehicle.price;
-            Debug.Log($"{currentVehicle.vehicleName} Î´“íÓĞ£¬ƒr¸ñé {currentVehicle.price}");
+            Debug.Log($"{currentVehicle.vehicleName} æœªæ“æœ‰ï¼Œåƒ¹æ ¼ç‚º {currentVehicle.price}");
         }
 
-        // ¸üĞÂÍæ¼Ò½ğÅï@Ê¾
-        playerCoinsText.text = $"½ğÅ: {playerManager.playerData.coins}";
+        // æ›´æ–°ç©å®¶é‡‘å¹£é¡¯ç¤º
+        playerCoinsText.text = $"é‡‘å¹£: {playerManager.playerData.coins}";
     }
     public void OnActionButton()
     {
@@ -134,38 +134,38 @@ public class VehicleManager : MonoBehaviour
 
         if (isOwned)
         {
-            // ÇĞ“Qé®”Ç°Ü‡İv
+            // åˆ‡æ›ç‚ºç•¶å‰è»Šè¼›
             playerManager.playerData.currentVehicle = currentVehicle.vehicleName;
-            Debug.Log($"ÇĞ“QÜ‡İvé£º{currentVehicle.vehicleName}");
+            Debug.Log($"åˆ‡æ›è»Šè¼›ç‚ºï¼š{currentVehicle.vehicleName}");
 
         }
         else
         {
             //int currentCoins = playerManager.playerData.coins;
-            // ÙÙIÜ‡İv
+            // è³¼è²·è»Šè¼›
             if (playerManager.playerData.coins >= currentVehicle.price)
             {
                 playerManager.playerData.coins -= currentVehicle.price;
                 playerManager.playerData.vehicleStates[currentVehicle.vehicleName] = true;
                 playerManager.playerData.currentVehicle = currentVehicle.vehicleName;
 
-                Debug.Log($"ÙÙIÜ‡İv {currentVehicle.vehicleName} ³É¹¦£¬Ê£ğN½ğÅ£º{playerManager.playerData.coins}");
+                Debug.Log($"è³¼è²·è»Šè¼› {currentVehicle.vehicleName} æˆåŠŸï¼Œå‰©é¤˜é‡‘å¹£ï¼š{playerManager.playerData.coins}");
             }
             else
             {
-                Debug.Log($"ÙÙIÊ§”¡£¬½ğÅ²»×ã£¡ĞèÒª£º{currentVehicle.price}£¬®”Ç°“íÓĞ£º{playerManager.playerData.coins}");
+                Debug.Log($"è³¼è²·å¤±æ•—ï¼Œé‡‘å¹£ä¸è¶³ï¼éœ€è¦ï¼š{currentVehicle.price}ï¼Œç•¶å‰æ“æœ‰ï¼š{playerManager.playerData.coins}");
                 return;
             }
         }
 
-        // ¸üĞÂUIK±£´æ”µ“ş
+        // æ›´æ–°UIä¸¦ä¿å­˜æ•¸æ“š
         UpdateVehicleUI();
         SavePlayerData();
     }
 
     private void SavePlayerData()
     {
-        // Œ¬F”µ“ş±£´æß‰İ‹£¬ÀıÈçÊ¹ÓÃPlayerPrefs»òÆäËû±£´æ·½Ê½
+        // å¯¦ç¾æ•¸æ“šä¿å­˜é‚è¼¯ï¼Œä¾‹å¦‚ä½¿ç”¨PlayerPrefsæˆ–å…¶ä»–ä¿å­˜æ–¹å¼
         PlayerPrefs.SetInt("playerCoins", playerManager.playerData.coins);
         PlayerPrefs.SetString(currentVehicleKey, playerManager.playerData.currentVehicle);
 
@@ -175,7 +175,7 @@ public class VehicleManager : MonoBehaviour
         }
 
         PlayerPrefs.Save();
-        Debug.Log("Íæ¼Ò”µ“şÒÑ±£´æ");
+        Debug.Log("ç©å®¶æ•¸æ“šå·²ä¿å­˜");
     }
 
     private void LoadPlayerDataFromPrefs()
@@ -189,13 +189,13 @@ public class VehicleManager : MonoBehaviour
             playerManager.playerData.vehicleStates[vehicle.vehicleName] = isOwned;
         }
 
-        // ´_±£µÚÒ»İvÜ‡éÒÑ“íÓĞ
+        // ç¢ºä¿ç¬¬ä¸€è¼›è»Šç‚ºå·²æ“æœ‰
         var defaultVehicle = vehicles[0];
         if (!playerManager.playerData.vehicleStates[defaultVehicle.vehicleName])
         {
             playerManager.playerData.vehicleStates[defaultVehicle.vehicleName] = true;
             playerManager.playerData.currentVehicle = defaultVehicle.vehicleName;
-            Debug.Log($"¼Óİd”µ“şááĞŞÕıµÚÒ»İvÜ‡ {defaultVehicle.vehicleName} éÒÑ“íÓĞ");
+            Debug.Log($"åŠ è¼‰æ•¸æ“šå¾Œä¿®æ­£ç¬¬ä¸€è¼›è»Š {defaultVehicle.vehicleName} ç‚ºå·²æ“æœ‰");
         }
     }
 }

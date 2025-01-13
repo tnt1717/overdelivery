@@ -17,12 +17,12 @@ public class order_manager : MonoBehaviour
     public GameObject order_state;
     public GameObject btn_state;
 
-    public Image foodImage; // ²ÍücˆDÆ¬½M¼ş
-    public Image customerImage; // î™¿ÍˆDÆ¬½M¼ş
+    public Image foodImage; // é¤é»åœ–ç‰‡çµ„ä»¶
+    public Image customerImage; // é¡§å®¢åœ–ç‰‡çµ„ä»¶
 
 
-    private Dictionary<string, Dictionary<string, string>> restaurantFoods; // ²ÍdÅc²ÍücŒ¦‘ªêP‚S
-    private Dictionary<string, string> customerImages; // î™¿ÍˆDÆ¬Œ¦‘ªêP‚S
+    private Dictionary<string, Dictionary<string, string>> restaurantFoods; // é¤å»³èˆ‡é¤é»å°æ‡‰é—œä¿‚
+    private Dictionary<string, string> customerImages; // é¡§å®¢åœ–ç‰‡å°æ‡‰é—œä¿‚
 
     private string currentFoodName = "";
     private string currentCusName = "";
@@ -35,17 +35,17 @@ public class order_manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //UpdateImages();  // ¸üĞÂˆDÆ¬
+        //UpdateImages();  // æ›´æ–°åœ–ç‰‡
 
     }
 
     public void InitializeOrder(int id, string foodName, string cusName)
     {
         //orderId = id;
-        //‘ªÔ“¿ÉÒÔ°Ñ•régÒ²½Ğß^í
+        //æ‡‰è©²å¯ä»¥æŠŠæ™‚é–“ä¹Ÿå«éä¾†
         currentFoodName = foodName;
         currentCusName = cusName;
-        //UpdateImages();  // ¸üĞÂˆDÆ¬
+        //UpdateImages();  // æ›´æ–°åœ–ç‰‡
         //Debug.Log(foodName + "+" + cusName);
     }
     private void FixedUpdate()

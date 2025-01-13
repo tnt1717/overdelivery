@@ -12,35 +12,35 @@ public class mortoSceneManager : MonoBehaviour
     [System.Serializable]
     public class Item
     {
-        public string itemName;     // ÉÌÆ·Ãû·Q
-        public int basePrice;       // Éı¼‰ƒr¸ñ»ù”µ
-        public Button buyButton;    // ÙÙI°´âo
-        public Text titleText;      // ï@Ê¾Ãû·Q+µÈ¼‰µÄÎÄ±¾
+        public string itemName;     // å•†å“åç¨±
+        public int basePrice;       // å‡ç´šåƒ¹æ ¼åŸºæ•¸
+        public Button buyButton;    // è³¼è²·æŒ‰éˆ•
+        public Text titleText;      // é¡¯ç¤ºåç¨±+ç­‰ç´šçš„æ–‡æœ¬
         public Text buybtnText;
-        public Text priceText;      // ï@Ê¾ƒr¸ñµÄÎÄ±¾
-        public Sprite normalSprite;  // ÆÕÍ¨°´âoˆDÏñ£¨A£©
-        public Sprite maxLevelSprite; // M¼‰°´âoˆDÏñ£¨B£©
+        public Text priceText;      // é¡¯ç¤ºåƒ¹æ ¼çš„æ–‡æœ¬
+        public Sprite normalSprite;  // æ™®é€šæŒ‰éˆ•åœ–åƒï¼ˆAï¼‰
+        public Sprite maxLevelSprite; // æ»¿ç´šæŒ‰éˆ•åœ–åƒï¼ˆBï¼‰
     }
 
-    public GameObject toolbox;        // ¹¤¾ßÏäÎï¼ş
-    public GameObject upgradeMenuUI;  // Éı¼‰ßx†Î UI
-    public GameObject vehicleMenuUI;  // Ü‡İvßx†Î UI
-    private bool isUpgradeMenuOpen = false;  // ÓÃì¶×·Û™Éı¼‰ßx†ÎÊÇ·ñé_†¢
+    public GameObject toolbox;        // å·¥å…·ç®±ç‰©ä»¶
+    public GameObject upgradeMenuUI;  // å‡ç´šé¸å–® UI
+    public GameObject vehicleMenuUI;  // è»Šè¼›é¸å–® UI
+    private bool isUpgradeMenuOpen = false;  // ç”¨æ–¼è¿½è¹¤å‡ç´šé¸å–®æ˜¯å¦é–‹å•Ÿ
 
-    public GameObject[] upgradeItems;   // ´æƒ¦Éı¼‰í—Ä¿ UI µÄê‡ÁĞ
-    private int currentIndex = 1;       // ®”Ç°ï@Ê¾µÄÉı¼‰í—Ä¿Ë÷Òı
+    public GameObject[] upgradeItems;   // å­˜å„²å‡ç´šé …ç›® UI çš„é™£åˆ—
+    private int currentIndex = 1;       // ç•¶å‰é¡¯ç¤ºçš„å‡ç´šé …ç›®ç´¢å¼•
 
-    private PlayerManager playerManager; // ßB½Y PlayerManager ÓÃì¶´æÈ¡ PlayerData
+    private PlayerManager playerManager; // é€£çµ PlayerManager ç”¨æ–¼å­˜å– PlayerData
 
     public Text playercoins;
     
-    public Item[] items; // ÉÌÆ·ê‡ÁĞ
-    public Button buyButton;    // ÙÙI°´âo
+    public Item[] items; // å•†å“é™£åˆ—
+    public Button buyButton;    // è³¼è²·æŒ‰éˆ•
 
     //private void Awake()
     //{
-    //    // ÔÚ Awake() ÖĞßMĞĞ³õÊ¼»¯£¬´_±£ Carobjects ÔÚ Start() Ç°¾Í±»ÔOÖÃ
-    //    InitializeItems(); // ³õÊ¼»¯ÉÌÆ·ÙYÁÏ9
+    //    // åœ¨ Awake() ä¸­é€²è¡Œåˆå§‹åŒ–ï¼Œç¢ºä¿ Carobjects åœ¨ Start() å‰å°±è¢«è¨­ç½®
+    //    InitializeItems(); // åˆå§‹åŒ–å•†å“è³‡æ–™9
     //}
 
     private void Start()
@@ -51,86 +51,86 @@ public class mortoSceneManager : MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
 
         
-        // ´_±£ UI  î‘BÔÚé_Ê¼•réêPé]
+        // ç¢ºä¿ UI ç‹€æ…‹åœ¨é–‹å§‹æ™‚ç‚ºé—œé–‰
         upgradeMenuUI.SetActive(false);
         vehicleMenuUI.SetActive(true);
-        InitializeItems(); // ³õÊ¼»¯ÉÌÆ·ÙYÁÏ
-        // ½‰¶¨Ã¿‚€ÉÌÆ·µÄÉı¼‰°´âo£¬‚÷ßfÉÌÆ·Îï¼ş×÷é…¢”µ
+        InitializeItems(); // åˆå§‹åŒ–å•†å“è³‡æ–™
+        // ç¶å®šæ¯å€‹å•†å“çš„å‡ç´šæŒ‰éˆ•ï¼Œå‚³éå•†å“ç‰©ä»¶ä½œç‚ºåƒæ•¸
         foreach (var item in items)
         {
-            // Ê¹ÓÃlambda±íß_Ê½í‚÷ßfÉÌÆ·…¢”µ
+            // ä½¿ç”¨lambdaè¡¨é”å¼ä¾†å‚³éå•†å“åƒæ•¸
             item.buyButton.onClick.AddListener(() => UpgradeItem(item));
         }
     }
 
     public void UpgradeItem(Item item)
     {
-        // È¡µÃ®”Ç°ÉÌÆ·µÄµÈ¼‰
+        // å–å¾—ç•¶å‰å•†å“çš„ç­‰ç´š
         int currentLevel = playerManager.playerData.itemLevels.ContainsKey(item.itemName) ? playerManager.playerData.itemLevels[item.itemName] : 0;
-        int upgradeCost = item.basePrice * (currentLevel + 1);  // Ó‹ËãÉı¼‰ƒr¸ñ
+        int upgradeCost = item.basePrice * (currentLevel + 1);  // è¨ˆç®—å‡ç´šåƒ¹æ ¼
 
-        // ™z²éÍæ¼Ò½ğÅÊÇ·ñ×ã‰ò
+        // æª¢æŸ¥ç©å®¶é‡‘å¹£æ˜¯å¦è¶³å¤ 
         //Debug.LogError(playerManager.playerData.coins);
         
         if (playerManager.playerData.coins >= upgradeCost)
         {
-            // ¿Û³ı½ğÅ
+            // æ‰£é™¤é‡‘å¹£
             playerManager.playerData.coins -= upgradeCost;
 
-            // Éı¼‰ÉÌÆ·µÈ¼‰
+            // å‡ç´šå•†å“ç­‰ç´š
             currentLevel++;
 
-            // ¸üĞÂÍæ¼ÒÙYÁÏ
+            // æ›´æ–°ç©å®¶è³‡æ–™
             playerManager.playerData.itemLevels[item.itemName] = currentLevel;
 
-            // ±£´æÍæ¼ÒÙYÁÏ
+            // ä¿å­˜ç©å®¶è³‡æ–™
             SaveSystem.SavePlayerData(playerManager.playerData);
 
-            Debug.Log($"Éı¼‰³É¹¦! {item.itemName} ¬FÔÚµÈ¼‰é {currentLevel}");
+            Debug.Log($"å‡ç´šæˆåŠŸ! {item.itemName} ç¾åœ¨ç­‰ç´šç‚º {currentLevel}");
 
-            // ¸üĞÂUIï@Ê¾
+            // æ›´æ–°UIé¡¯ç¤º
             UpdateItemUI(item, currentLevel);
         }
         else
         {
-            Debug.Log("½ğÅ²»×ã£¬Ÿo·¨Éı¼‰");
+            Debug.Log("é‡‘å¹£ä¸è¶³ï¼Œç„¡æ³•å‡ç´š");
         }
     }
 
-    // ¸üĞÂÉÌÆ·µÄUIï@Ê¾
+    // æ›´æ–°å•†å“çš„UIé¡¯ç¤º
     private void UpdateItemUI(Item item, int currentLevel)
     {
-        // ï@Ê¾Ãû·QºÍµÈ¼‰
+        // é¡¯ç¤ºåç¨±å’Œç­‰ç´š
         item.titleText.text = $"{item.itemName} Lv{currentLevel}";
 
-        // Ó‹ËãÉı¼‰ƒr¸ñ
+        // è¨ˆç®—å‡ç´šåƒ¹æ ¼
         int nextUpgradePrice = item.basePrice * (currentLevel + 1);
-        item.priceText.text = $"ƒr¸ñ: {nextUpgradePrice}";
+        item.priceText.text = $"åƒ¹æ ¼: {nextUpgradePrice}";
 
-        // Èç¹ûß_µ½µÈ¼‰ 3£¬Œ¢°´âoˆDÏñÔOé¡¸B¡¹£¬Kï@Ê¾¡¸ÒÑM¼‰¡¹
+        // å¦‚æœé”åˆ°ç­‰ç´š 3ï¼Œå°‡æŒ‰éˆ•åœ–åƒè¨­ç‚ºã€ŒBã€ï¼Œä¸¦é¡¯ç¤ºã€Œå·²æ»¿ç´šã€
         if (currentLevel >= 3)
         {
-            item.buyButton.interactable = false; // ½ûÓÃ°´âo
-            item.buyButton.GetComponent<Image>().sprite = item.maxLevelSprite; // ¸ü“QéM¼‰ˆDÏñ
-            item.priceText.text = "ÒÑM";  // ï@Ê¾ÒÑM¼‰
-            item.buybtnText.text = "ÒÑM¼‰";
+            item.buyButton.interactable = false; // ç¦ç”¨æŒ‰éˆ•
+            item.buyButton.GetComponent<Image>().sprite = item.maxLevelSprite; // æ›´æ›ç‚ºæ»¿ç´šåœ–åƒ
+            item.priceText.text = "å·²æ»¿";  // é¡¯ç¤ºå·²æ»¿ç´š
+            item.buybtnText.text = "å·²æ»¿ç´š";
 
         }
         else
         {
-            item.buyButton.interactable = true;  // é_†¢°´âo
-            item.buyButton.GetComponent<Image>().sprite = item.normalSprite;  // »ÖÍÕı³£ˆDÏñ
+            item.buyButton.interactable = true;  // é–‹å•ŸæŒ‰éˆ•
+            item.buyButton.GetComponent<Image>().sprite = item.normalSprite;  // æ¢å¾©æ­£å¸¸åœ–åƒ
         }
         playercoins.text = playerManager.playerData.coins.ToString();
     }
@@ -146,28 +146,28 @@ public class mortoSceneManager : MonoBehaviour
 
     private void Update()
     {
-        // ™z²éÊÇ·ñüc“ôÁË»¬Êó×óæI
+        // æª¢æŸ¥æ˜¯å¦é»æ“Šäº†æ»‘é¼ å·¦éµ
         if (Input.GetMouseButtonDown(0))
         {
-            // ™z²é»¬ÊóÊÇ·ñÔÚ UI ÉÏ
+            // æª¢æŸ¥æ»‘é¼ æ˜¯å¦åœ¨ UI ä¸Š
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                // ½¨Á¢ Ray£¬Ä”zÓ°™CÉä³öµ½»¬ÊóÎ»ÖÃ
+                // å»ºç«‹ Rayï¼Œå¾æ”å½±æ©Ÿå°„å‡ºåˆ°æ»‘é¼ ä½ç½®
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
-                // ™z²éÊÇ·ñÉä¾€´òµ½¹¤¾ßÏä
+                // æª¢æŸ¥æ˜¯å¦å°„ç·šæ‰“åˆ°å·¥å…·ç®±
                 if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == toolbox)
                 {
-                    // ÇĞ“QÉı¼‰ßx†Î UI µÄï@Ê¾ î‘B
+                    // åˆ‡æ›å‡ç´šé¸å–® UI çš„é¡¯ç¤ºç‹€æ…‹
                     isUpgradeMenuOpen = !isUpgradeMenuOpen;
                     upgradeMenuUI.SetActive(isUpgradeMenuOpen);
                     vehicleMenuUI.SetActive(!isUpgradeMenuOpen);
 
-                    // ï@Ê¾ î‘B×ƒ¸üÓÏ¢
-                    Debug.Log(isUpgradeMenuOpen ? "¹¤¾ßÏä±»üc“ô£¬´òé_Éı¼‰ßx†Î UI£¬êPé]Ü‡İvßx†Î UI"
-                                                : "¹¤¾ßÏä±»üc“ô£¬êPé]Éı¼‰ßx†Î UI£¬é_†¢Ü‡İvßx†Î UI");
-                    //vehicleButton.gameObject.SetActive(!isUpgradeMenuOpen); // ĞÂÔö£ºÇĞ“QÜ‡İv°´âoï@Ê¾ î‘B
+                    // é¡¯ç¤ºç‹€æ…‹è®Šæ›´è¨Šæ¯
+                    Debug.Log(isUpgradeMenuOpen ? "å·¥å…·ç®±è¢«é»æ“Šï¼Œæ‰“é–‹å‡ç´šé¸å–® UIï¼Œé—œé–‰è»Šè¼›é¸å–® UI"
+                                                : "å·¥å…·ç®±è¢«é»æ“Šï¼Œé—œé–‰å‡ç´šé¸å–® UIï¼Œé–‹å•Ÿè»Šè¼›é¸å–® UI");
+                    //vehicleButton.gameObject.SetActive(!isUpgradeMenuOpen); // æ–°å¢ï¼šåˆ‡æ›è»Šè¼›æŒ‰éˆ•é¡¯ç¤ºç‹€æ…‹
                 }
             }
         }
@@ -175,28 +175,28 @@ public class mortoSceneManager : MonoBehaviour
 
     public void OnRightButton()
     {
-        // ë[²Ø®”Ç°Éı¼‰í—Ä¿
+        // éš±è—ç•¶å‰å‡ç´šé …ç›®
         upgradeItems[currentIndex].SetActive(false);
 
-        // ¸üĞÂË÷ÒıKÑ­­h»Øµ½ê‡ÁĞé_î^
+        // æ›´æ–°ç´¢å¼•ä¸¦å¾ªç’°å›åˆ°é™£åˆ—é–‹é ­
         currentIndex = (currentIndex + 1) % upgradeItems.Length;
 
-        // ï@Ê¾ĞÂµÄÉı¼‰í—Ä¿
+        // é¡¯ç¤ºæ–°çš„å‡ç´šé …ç›®
         upgradeItems[currentIndex].SetActive(true);
     }
 
-    // °´âoÊÂ¼ş£ºÇĞ“Qµ½ÉÏÒ»‚€Éı¼‰í—Ä¿
+    // æŒ‰éˆ•äº‹ä»¶ï¼šåˆ‡æ›åˆ°ä¸Šä¸€å€‹å‡ç´šé …ç›®
     public void OnLeftButton()
     {
-        // ë[²Ø®”Ç°Éı¼‰í—Ä¿
+        // éš±è—ç•¶å‰å‡ç´šé …ç›®
         upgradeItems[currentIndex].SetActive(false);
 
-        // ¸üĞÂË÷ÒıKÑ­­h»Øµ½ê‡ÁĞ½YÎ²
+        // æ›´æ–°ç´¢å¼•ä¸¦å¾ªç’°å›åˆ°é™£åˆ—çµå°¾
         currentIndex = (currentIndex - 1 + upgradeItems.Length) % upgradeItems.Length;
 
-        // ï@Ê¾ĞÂµÄÉı¼‰í—Ä¿
+        // é¡¯ç¤ºæ–°çš„å‡ç´šé …ç›®
         upgradeItems[currentIndex].SetActive(true);
     }
-    // ×ó°´âoÊÂ¼ş£¬ï@Ê¾ÉÏÒ»‚€Îï¼ş
+    // å·¦æŒ‰éˆ•äº‹ä»¶ï¼Œé¡¯ç¤ºä¸Šä¸€å€‹ç‰©ä»¶
     
 }

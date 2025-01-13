@@ -10,7 +10,7 @@ public class Order
     public string FoodName;
     public string CusName;
     public string ShopName;
-    public GameObject UIItem; // êPÂ“µÄ UI ÔªËØ
+    public GameObject UIItem; // é—œè¯çš„ UI å…ƒç´ 
 
     public Order(int id, float orderTime, string foodName, string cusName, string shopName)
     {

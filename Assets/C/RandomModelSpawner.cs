@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class RandomModelSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] models; // ´æƒ¦Ä£ĞÍµÄê‡ÁĞ
-    [SerializeField] private Transform[] spawnPoints; // Ö¸¶¨µÄËÄ‚€Î»ÖÃ
+    [SerializeField] private GameObject[] models; // å­˜å„²æ¨¡å‹çš„é™£åˆ—
+    [SerializeField] private Transform[] spawnPoints; // æŒ‡å®šçš„å››å€‹ä½ç½®
 
     void Start()
     {
         if (models.Length == 0 || spawnPoints.Length < 4)
         {
-            Debug.LogError("Õˆ´_±£Ä£ĞÍºÍÉú³ÉücÕı´_ÔOÖÃ£¡");
+            Debug.LogError("è«‹ç¢ºä¿æ¨¡å‹å’Œç”Ÿæˆé»æ­£ç¢ºè¨­ç½®ï¼");
             return;
         }
 
@@ -19,30 +19,30 @@ public class RandomModelSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// ÔÚÖ¸¶¨Î»ÖÃëS™CÉú³ÉÄ£ĞÍ
+    /// åœ¨æŒ‡å®šä½ç½®éš¨æ©Ÿç”Ÿæˆæ¨¡å‹
     /// </summary>
     public void SpawnRandomModels()
     {
-        // ÓÃì¶´_±£²»ÖØÑ}Éú³ÉµÄÄ£ĞÍÁĞ±í
+        // ç”¨æ–¼ç¢ºä¿ä¸é‡è¤‡ç”Ÿæˆçš„æ¨¡å‹åˆ—è¡¨
         var availableModels = new System.Collections.Generic.List<GameObject>(models);
 
-        // ëS™Cßx“ñKŒÀı»¯Ä£ĞÍ
+        // éš¨æ©Ÿé¸æ“‡ä¸¦å¯¦ä¾‹åŒ–æ¨¡å‹
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             if (availableModels.Count == 0)
             {
-                Debug.LogWarning("Ä£ĞÍ”µÁ¿²»×ãÒÔM×ãÉú³ÉĞèÇó£¡");
+                Debug.LogWarning("æ¨¡å‹æ•¸é‡ä¸è¶³ä»¥æ»¿è¶³ç”Ÿæˆéœ€æ±‚ï¼");
                 break;
             }
 
-            // ëS™Cßx“ñÄ£ĞÍ
+            // éš¨æ©Ÿé¸æ“‡æ¨¡å‹
             int randomIndex = Random.Range(0, availableModels.Count);
             GameObject selectedModel = availableModels[randomIndex];
 
-            // ÔÚŒ¦‘ªÉú³ÉücÉú³ÉÄ£ĞÍ
+            // åœ¨å°æ‡‰ç”Ÿæˆé»ç”Ÿæˆæ¨¡å‹
             Instantiate(selectedModel, spawnPoints[i].position, Quaternion.identity);
 
-            // ÒÆ³ıÒÑÊ¹ÓÃµÄÄ£ĞÍ£¬±ÜÃâÖØÑ}
+            // ç§»é™¤å·²ä½¿ç”¨çš„æ¨¡å‹ï¼Œé¿å…é‡è¤‡
             availableModels.RemoveAt(randomIndex);
         }
     }

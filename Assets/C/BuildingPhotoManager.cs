@@ -9,44 +9,44 @@ public class BuildingPhotoManager : MonoBehaviour
     [System.Serializable]
     public class BuildingPhotoPair
     {
-        public Transform building;      // ½¨ºBÎïµÄ Transform
-        public GameObject photoObject;  // Œ¦‘ªµÄÕÕÆ¬Îï¼ş
-        public string sceneName;        // êP¿¨Ãû·Q£¨Œ¦‘ªµÄ Unity ˆö¾°£©
+        public Transform building;      // å»ºç¯‰ç‰©çš„ Transform
+        public GameObject photoObject;  // å°æ‡‰çš„ç…§ç‰‡ç‰©ä»¶
+        public string sceneName;        // é—œå¡åç¨±ï¼ˆå°æ‡‰çš„ Unity å ´æ™¯ï¼‰
     }
 
-    public GameObject tip;              // ÌáÊ¾ UI Îï¼ş
-    public Text tipText;                // ÌáÊ¾ÎÄ±¾Ôª¼ş
-    public List<BuildingPhotoPair> buildingPhotoPairs; // ´æƒ¦½¨ºBÅcÕÕÆ¬µÄÅäŒ¦
-    public Transform player;            // Íæ¼ÒÎï¼şµÄ Transform
-    public float detectionRange = 8f;   // ™zœy¾àëx¹ ‡ú
+    public GameObject tip;              // æç¤º UI ç‰©ä»¶
+    public Text tipText;                // æç¤ºæ–‡æœ¬å…ƒä»¶
+    public List<BuildingPhotoPair> buildingPhotoPairs; // å­˜å„²å»ºç¯‰èˆ‡ç…§ç‰‡çš„é…å°
+    public Transform player;            // ç©å®¶ç‰©ä»¶çš„ Transform
+    public float detectionRange = 8f;   // æª¢æ¸¬è·é›¢ç¯„åœ
 
     private void Update()
     {
-        bool isTipActive = false;       // ×·Û™ÌáÊ¾ï@Ê¾ î‘B
+        bool isTipActive = false;       // è¿½è¹¤æç¤ºé¡¯ç¤ºç‹€æ…‹
 
         foreach (var pair in buildingPhotoPairs)
         {
-            // Ó‹ËãÍæ¼ÒÅcÃ¿‚€½¨ºBÎïÖ®égµÄ¾àëx
+            // è¨ˆç®—ç©å®¶èˆ‡æ¯å€‹å»ºç¯‰ç‰©ä¹‹é–“çš„è·é›¢
             float distanceToPlayer = Vector3.Distance(pair.building.position, player.position);
 
-            // Èç¹ûÍæ¼ÒÔÚ™zœy¹ ‡úƒÈ£¬ï@Ê¾Œ¦‘ªµÄÕÕÆ¬£»·ñ„të[²Ø
+            // å¦‚æœç©å®¶åœ¨æª¢æ¸¬ç¯„åœå…§ï¼Œé¡¯ç¤ºå°æ‡‰çš„ç…§ç‰‡ï¼›å¦å‰‡éš±è—
             if (distanceToPlayer <= detectionRange)
             {
-                pair.photoObject.SetActive(true);  // ï@Ê¾ÕÕÆ¬
+                pair.photoObject.SetActive(true);  // é¡¯ç¤ºç…§ç‰‡
 
-                // «@È¡Ô“êP¿¨µÄÃû·QºÍêP¿¨”µ×Ö£¨ÀıÈç "LV1"£©
+                // ç²å–è©²é—œå¡çš„åç¨±å’Œé—œå¡æ•¸å­—ï¼ˆä¾‹å¦‚ "LV1"ï¼‰
                 string currentLevel = pair.sceneName;
 
-                // ™z²éÇ°Ò»êP¿¨µÄĞÇĞÇ”µÁ¿
+                // æª¢æŸ¥å‰ä¸€é—œå¡çš„æ˜Ÿæ˜Ÿæ•¸é‡
                 bool canEnterLevel = true;
                 int previousLevelStars = 0;
 
-                // ÔOÖÃÀıÍâÇé›r£¬ÈôêP¿¨Ãû·Qé "clothshop" »ò "motoshop"£¬ÔÊÔSßMÈë
+                // è¨­ç½®ä¾‹å¤–æƒ…æ³ï¼Œè‹¥é—œå¡åç¨±ç‚º "clothshop" æˆ– "motoshop"ï¼Œå…è¨±é€²å…¥
                 if (currentLevel == "clothshop" || currentLevel == "motoshop")
                 {
                     canEnterLevel = true;
                 }
-                else if (currentLevel != "LV1") // LV2 ¼°ÒÔááµÄêP¿¨ĞèÒª™z²é
+                else if (currentLevel != "LV1") // LV2 åŠä»¥å¾Œçš„é—œå¡éœ€è¦æª¢æŸ¥
                 {
                     string previousLevel = "LV" + (int.Parse(currentLevel.Substring(2)) - 1);
                     if (PlayerManager.instance.playerData.levelStars.TryGetValue(previousLevel, out previousLevelStars))
@@ -55,20 +55,20 @@ public class BuildingPhotoManager : MonoBehaviour
                     }
                     else
                     {
-                        canEnterLevel = false; // Èç¹ûÕÒ²»µ½Ç°Ò»êPµÄĞÇĞÇ”µ“ş£¬„tÒ•éÎ´½âæi
+                        canEnterLevel = false; // å¦‚æœæ‰¾ä¸åˆ°å‰ä¸€é—œçš„æ˜Ÿæ˜Ÿæ•¸æ“šï¼Œå‰‡è¦–ç‚ºæœªè§£é–
                     }
                 }
 
-                // ¸ù“şÊÇ·ñ½âæiíï@Ê¾ÌáÊ¾
+                // æ ¹æ“šæ˜¯å¦è§£é–ä¾†é¡¯ç¤ºæç¤º
                 if (canEnterLevel)
                 {
-                    tipText.text = "°´ÏÂFßMÈë";
+                    tipText.text = "æŒ‰ä¸‹Fé€²å…¥";
                     isTipActive = true;
 
-                    // ™zœy F æIÊÇ·ñ±»°´ÏÂKÇÒ¿ÉÒÔßMÈëêP¿¨
+                    // æª¢æ¸¬ F éµæ˜¯å¦è¢«æŒ‰ä¸‹ä¸¦ä¸”å¯ä»¥é€²å…¥é—œå¡
                     if (Input.GetKeyDown(KeyCode.F))
                     {
-                        // ¼Óİdˆö¾°
+                        // åŠ è¼‰å ´æ™¯
                         Debug.Log($"Loading level: {pair.sceneName}");
                         AudioManager.Instance.PlaySound("tap");
                         SceneTransitionManager transitionManager = FindObjectOfType<SceneTransitionManager>();
@@ -79,25 +79,25 @@ public class BuildingPhotoManager : MonoBehaviour
                 }
                 else
                 {
-                    tipText.text = "Î´½âæi";
+                    tipText.text = "æœªè§£é–";
                     isTipActive = true;
                 }
             }
             else
             {
-                pair.photoObject.SetActive(false); // ë[²ØÕÕÆ¬
+                pair.photoObject.SetActive(false); // éš±è—ç…§ç‰‡
             }
         }
 
-        // ×îáá½yÒ»ÔOÖÃÌáÊ¾µÄï@Ê¾ î‘B
+        // æœ€å¾Œçµ±ä¸€è¨­ç½®æç¤ºçš„é¡¯ç¤ºç‹€æ…‹
         tip.SetActive(isTipActive);
     }
     IEnumerator Delay()
     {
-        // ÑÓßtƒÉÃë
+        // å»¶é²å…©ç§’
         yield return new WaitForSeconds(2f);
 
-        // ˆÌĞĞÑÓßtááµÄ„Ó×÷
+        // åŸ·è¡Œå»¶é²å¾Œçš„å‹•ä½œ
         
     }
 

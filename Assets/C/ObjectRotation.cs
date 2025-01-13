@@ -3,31 +3,31 @@ using UnityEngine;
 
 public class ObjectRotation : MonoBehaviour
 {
-    private float rotationSpeed = 100f;  // ĞıŞDËÙ¶È
-    private bool isDragging = false;     // ™z²éÊÇ·ñÕıÔÚÍÏ„Ó
-    private float previousMouseX = 0f;   // ƒ¦´æÉÏÒ»´Î»¬ÊóÎ»ÖÃ
+    private float rotationSpeed = 100f;  // æ—‹è½‰é€Ÿåº¦
+    private bool isDragging = false;     // æª¢æŸ¥æ˜¯å¦æ­£åœ¨æ‹–å‹•
+    private float previousMouseX = 0f;   // å„²å­˜ä¸Šä¸€æ¬¡æ»‘é¼ ä½ç½®
 
     void Update()
     {
-        // ™z²éÊÇ·ñ°´ÏÂ×óæI
+        // æª¢æŸ¥æ˜¯å¦æŒ‰ä¸‹å·¦éµ
         if (Input.GetMouseButtonDown(0))
         {
-            // Èç¹û»¬ÊóÔÚÎï¼şÉÏ£¬é_Ê¼ÍÏ„Ó
+            // å¦‚æœæ»‘é¼ åœ¨ç‰©ä»¶ä¸Šï¼Œé–‹å§‹æ‹–å‹•
             isDragging = true;
-            previousMouseX = Input.mousePosition.x;  // Ó›ä›®”Ç°µÄ»¬Êó X ×ø˜Ë
+            previousMouseX = Input.mousePosition.x;  // è¨˜éŒ„ç•¶å‰çš„æ»‘é¼  X åæ¨™
         }
 
-        // Èç¹û»¬Êó°´×¡KÍÏ„Ó
+        // å¦‚æœæ»‘é¼ æŒ‰ä½ä¸¦æ‹–å‹•
         if (isDragging)
         {
-            float deltaX = Input.mousePosition.x - previousMouseX;  // Ó‹Ëã»¬ÊóÒÆ„ÓµÄ¾àëx
-            float rotationAmount = deltaX * rotationSpeed * Time.deltaTime;  // Ó‹ËãĞıŞDµÄ½Ç¶È
-            transform.Rotate(0f, -rotationAmount, 0f, Space.World);  // ¸ù“ş X İSµÄÒÆ„ÓÁ¿ĞıŞDÎï¼ş
+            float deltaX = Input.mousePosition.x - previousMouseX;  // è¨ˆç®—æ»‘é¼ ç§»å‹•çš„è·é›¢
+            float rotationAmount = deltaX * rotationSpeed * Time.deltaTime;  // è¨ˆç®—æ—‹è½‰çš„è§’åº¦
+            transform.Rotate(0f, -rotationAmount, 0f, Space.World);  // æ ¹æ“š X è»¸çš„ç§»å‹•é‡æ—‹è½‰ç‰©ä»¶
 
-            previousMouseX = Input.mousePosition.x;  // ¸üĞÂÉÏÒ»´Î»¬ÊóÎ»ÖÃ
+            previousMouseX = Input.mousePosition.x;  // æ›´æ–°ä¸Šä¸€æ¬¡æ»‘é¼ ä½ç½®
         }
 
-        // ®”»¬Êó×óæIó é_•rÍ£Ö¹ÍÏ„Ó
+        // ç•¶æ»‘é¼ å·¦éµé¬†é–‹æ™‚åœæ­¢æ‹–å‹•
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;

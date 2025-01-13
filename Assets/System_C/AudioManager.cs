@@ -8,14 +8,14 @@ using UnityEngine.UI;
 /// </summary>
 public class AudioManager : MonoBehaviour
 {
-    // †ÎÀıÄ£Ê½
+    // å–®ä¾‹æ¨¡å¼
     public static AudioManager Instance;
 
-    // ×Öµäíƒ¦´æÒôĞ§
+    // å­—å…¸ä¾†å„²å­˜éŸ³æ•ˆ
     private Dictionary<string, AudioClip> soundDictionary = new Dictionary<string, AudioClip>();
-    public AudioSource audioSource; // ÓÃì¶²¥·ÅÒôĞ§µÄ AudioSource
+    public AudioSource audioSource; // ç”¨æ–¼æ’­æ”¾éŸ³æ•ˆçš„ AudioSource
 
-    // ÔO¶¨ÒôĞ§ÁĞ±í
+    // è¨­å®šéŸ³æ•ˆåˆ—è¡¨
     [System.Serializable]
     public class Sound
     {
@@ -25,13 +25,13 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] sounds;
 
-    // Slider ÓÃì¶¿ØÖÆÒôÁ¿
+    // Slider ç”¨æ–¼æ§åˆ¶éŸ³é‡
     private Slider volumeSlider;
 
 
     private Coroutine motoCoroutine;
 
-    // PlayerManager ÒıÓÃ
+    // PlayerManager å¼•ç”¨
     private PlayerManager playerManager;
     //public PlayerData playerData;
     private void Update()
@@ -41,11 +41,11 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        // ³õÊ¼»¯†ÎÀı
+        // åˆå§‹åŒ–å–®ä¾‹
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ÇĞ“Qˆö¾°²»äNš§
+            DontDestroyOnLoad(gameObject); // åˆ‡æ›å ´æ™¯ä¸éŠ·æ¯€
         }
         else
         {
@@ -53,7 +53,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        // Œ¢ÒôĞ§¼ÓÈë×Öµä
+        // å°‡éŸ³æ•ˆåŠ å…¥å­—å…¸
         foreach (Sound sound in sounds)
         {
             if (!soundDictionary.ContainsKey(sound.name))
@@ -62,25 +62,25 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        // ³õÊ¼»¯ PlayerManager
+        // åˆå§‹åŒ– PlayerManager
         GameObject playerSys = GameObject.Find("PlayerSys");
         if (playerSys != null)
         {
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
         BindVolumeSlider();
 
-        // ÔOÖÃÒôÁ¿»¬—U
+        // è¨­ç½®éŸ³é‡æ»‘æ¡¿
         InitializeVolumeSlider();
 
     }
@@ -89,24 +89,24 @@ public class AudioManager : MonoBehaviour
     {
         if (volumeSlider != null)
         {
-            // Ä PlayerData ¼ÓİdÒôÁ¿£¬ÈôŸo„tîAÔOé 1£¨×î´óÒôÁ¿£©
+            // å¾ PlayerData åŠ è¼‰éŸ³é‡ï¼Œè‹¥ç„¡å‰‡é è¨­ç‚º 1ï¼ˆæœ€å¤§éŸ³é‡ï¼‰
             float savedVolume = playerManager.playerData.Volume;
             audioSource.volume = savedVolume;
             volumeSlider.value = savedVolume;
             Debug.Log("savedVolume:" + savedVolume);
-            // Ìí¼Ó»¬—UÊÂ¼ş±OÂ 
+            // æ·»åŠ æ»‘æ¡¿äº‹ä»¶ç›£è½
             volumeSlider.onValueChanged.AddListener(UpdateVolume);
 
         }
         else
         {
-            Debug.LogError("Î´ÔOÖÃÒôÁ¿»¬—U£¨Slider£©£¡");
+            Debug.LogError("æœªè¨­ç½®éŸ³é‡æ»‘æ¡¿ï¼ˆSliderï¼‰ï¼");
         }
     }
 
     private void BindVolumeSlider()
     {
-        // „Ó‘BŒ¤ÕÒ»¬—UÎï¼ş
+        // å‹•æ…‹å°‹æ‰¾æ»‘æ¡¿ç‰©ä»¶
         //GameObject sliderObject = GameObject.Find("vfx_Slider");
         GameObject sliderObject = FindInactiveObjectByName("vfx_Slider");
         if (sliderObject != null)
@@ -116,25 +116,25 @@ public class AudioManager : MonoBehaviour
             {
                 volumeSlider = newSlider;
 
-                // ÔOÖÃ»¬—UµÄ³õÊ¼Öµ
+                // è¨­ç½®æ»‘æ¡¿çš„åˆå§‹å€¼
                 float savedVolume = playerManager != null ? playerManager.playerData.Volume : 1f;
                 audioSource.volume = savedVolume;
                 volumeSlider.value = savedVolume;
 
-                // ÒÆ³ıÅfµÄ±OÂ Æ÷£¬±ÜÃâÖØÑ}½‰¶¨
+                // ç§»é™¤èˆŠçš„ç›£è½å™¨ï¼Œé¿å…é‡è¤‡ç¶å®š
                 volumeSlider.onValueChanged.RemoveAllListeners();
 
-                // Ìí¼Ó»¬—UÊÂ¼ş±OÂ 
+                // æ·»åŠ æ»‘æ¡¿äº‹ä»¶ç›£è½
                 volumeSlider.onValueChanged.AddListener(UpdateVolume);
             }
             else
             {
-                Debug.LogError("Œ¤ÕÒµ½µÄÎï¼şÉÏ›]ÓĞ Slider ½M¼ş£¡");
+                Debug.LogError("å°‹æ‰¾åˆ°çš„ç‰©ä»¶ä¸Šæ²’æœ‰ Slider çµ„ä»¶ï¼");
             }
         }
         else
         {
-            Debug.LogWarning("Î´ÕÒµ½Ãû·Qé 'VolumeSlider' µÄÒôÁ¿»¬—UÎï¼ş£¡");
+            Debug.LogWarning("æœªæ‰¾åˆ°åç¨±ç‚º 'VolumeSlider' çš„éŸ³é‡æ»‘æ¡¿ç‰©ä»¶ï¼");
         }
     }
     private GameObject FindInactiveObjectByName(string name)
@@ -142,12 +142,12 @@ public class AudioManager : MonoBehaviour
         GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
         foreach (GameObject obj in allObjects)
         {
-            if (obj.name == name && obj.hideFlags == HideFlags.None) // ´_±£²»ÊÇë[²ØÎï¼ş
+            if (obj.name == name && obj.hideFlags == HideFlags.None) // ç¢ºä¿ä¸æ˜¯éš±è—ç‰©ä»¶
             {
                 return obj;
             }
         }
-        Debug.LogError($"Î´ÕÒµ½Ãûé '{name}' µÄÎï¼ş£¡");
+        Debug.LogError($"æœªæ‰¾åˆ°åç‚º '{name}' çš„ç‰©ä»¶ï¼");
         return null;
     }
 
@@ -155,7 +155,7 @@ public class AudioManager : MonoBehaviour
     {
         audioSource.volume = volume;
 
-        // ¸üĞÂ PlayerData µÄÒôÁ¿ÔOÖÃ
+        // æ›´æ–° PlayerData çš„éŸ³é‡è¨­ç½®
         if (playerManager != null )
         {
             playerManager.playerData.Volume = volume;
@@ -163,11 +163,11 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Ÿo·¨´æƒ¦ÒôÁ¿ÖÁ PlayerData£¡");
+            Debug.LogError("ç„¡æ³•å­˜å„²éŸ³é‡è‡³ PlayerDataï¼");
         }
     }
 
-    // “Ü·ÅÒôĞ§
+    // æ’¥æ”¾éŸ³æ•ˆ
     public void PlaySound(string soundName)
     {
         if (soundDictionary.TryGetValue(soundName, out AudioClip clip))
@@ -176,10 +176,10 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"ÒôĞ§Ãû·Q '{soundName}' ²»´æÔÚ£¡");
+            Debug.LogWarning($"éŸ³æ•ˆåç¨± '{soundName}' ä¸å­˜åœ¨ï¼");
         }
     }
-    private bool isMotoPlaying = false; // ¼oä›®”Ç°ÊÇ·ñÔÚ²¥·ÅÄ¦ÍĞÒôĞ§
+    private bool isMotoPlaying = false; // ç´€éŒ„ç•¶å‰æ˜¯å¦åœ¨æ’­æ”¾æ‘©æ‰˜éŸ³æ•ˆ
 
     public void UpdateMotoSound()
     {
@@ -206,7 +206,7 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("ÒôĞ§ 'moto' ²»´æÔÚì¶×ÖµäÖĞ£¡");
+                Debug.LogError("éŸ³æ•ˆ 'moto' ä¸å­˜åœ¨æ–¼å­—å…¸ä¸­ï¼");
             }
         }
     }
@@ -216,7 +216,7 @@ public class AudioManager : MonoBehaviour
         if (audioSource.isPlaying && audioSource.clip == soundDictionary["moto"])
         {
             audioSource.Stop();
-            audioSource.clip = null; // Çå³ıÒôĞ§
+            audioSource.clip = null; // æ¸…é™¤éŸ³æ•ˆ
             isMotoPlaying = false;
         }
     }

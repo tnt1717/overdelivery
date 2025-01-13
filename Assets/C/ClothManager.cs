@@ -8,47 +8,47 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Model
 {
-    public int price;            // Ä£ĞÍƒr¸ñ
-    public GameObject modelObject; // Ä£ĞÍŒ¦‘ªµÄÎï¼ş
+    public int price;            // æ¨¡å‹åƒ¹æ ¼
+    public GameObject modelObject; // æ¨¡å‹å°æ‡‰çš„ç‰©ä»¶
 }
 [System.Serializable]
 public class TextureItem
 {
-    public string textureName; // ÙNˆDÃû·Q
-    public int price; // ÙNˆDƒr¸ñ
-    public bool isUnlocked; // ÊÇ·ñÒÑ½âæi
-    public bool isPurchased; // ÊÇ·ñÒÑÙÙI
+    public string textureName; // è²¼åœ–åç¨±
+    public int price; // è²¼åœ–åƒ¹æ ¼
+    public bool isUnlocked; // æ˜¯å¦å·²è§£é–
+    public bool isPurchased; // æ˜¯å¦å·²è³¼è²·
 
-    // ¿Éßx£¬¸ù“şĞèÇó¿ÉÒÔ¶¨Áx¸ü¶àŒÙĞÔ
-    public Texture texture; // ÙNˆD±¾Éí
+    // å¯é¸ï¼Œæ ¹æ“šéœ€æ±‚å¯ä»¥å®šç¾©æ›´å¤šå±¬æ€§
+    public Texture texture; // è²¼åœ–æœ¬èº«
 
-    // ½¨˜‹º¯Ê½
+    // å»ºæ§‹å‡½å¼
     public TextureItem(string name, int price, Texture texture)
     {
         this.textureName = name;
         this.price = price;
         this.texture = texture;
-        this.isUnlocked = false; // Ä¬ÕJéÎ´½âæi
-        this.isPurchased = false; // Ä¬ÕJéÎ´ÙÙI
+        this.isUnlocked = false; // é»˜èªç‚ºæœªè§£é–
+        this.isPurchased = false; // é»˜èªç‚ºæœªè³¼è²·
     }
 }
 public class ClothManager : MonoBehaviour
 {
 
-    // UI ÔªËØ
+    // UI å…ƒç´ 
     public Button textureLeftButton, textureRightButton, modelLeftButton, modelRightButton;
-    public Button buyTextureButton, buyModelButton; // ÙÙI°´âo
-    public Text textureInfoText, modelInfoText; // ï@Ê¾®”Ç° î‘B
-    public Text buyTextureButtonText; // ï@Ê¾ÙÙIÙNˆD°´âoµÄÎÄ×Ö
+    public Button buyTextureButton, buyModelButton; // è³¼è²·æŒ‰éˆ•
+    public Text textureInfoText, modelInfoText; // é¡¯ç¤ºç•¶å‰ç‹€æ…‹
+    public Text buyTextureButtonText; // é¡¯ç¤ºè³¼è²·è²¼åœ–æŒ‰éˆ•çš„æ–‡å­—
 
-    // ÙNˆDÏàêP
+    // è²¼åœ–ç›¸é—œ
     public Material targetMaterial;
-    public TextureItem[] textureItems; // ƒ¦´æÙNˆDµÄê‡ÁĞ
+    public TextureItem[] textureItems; // å„²å­˜è²¼åœ–çš„é™£åˆ—
     private int currentTextureIndex = 0;
 
-    // Ä£ĞÍÏàêP
+    // æ¨¡å‹ç›¸é—œ
     //public GameObject[] playerModels;
-    public Model[] models; // ƒ¦´æËùÓĞÄ£ĞÍµÄê‡ÁĞ
+    public Model[] models; // å„²å­˜æ‰€æœ‰æ¨¡å‹çš„é™£åˆ—
 
     private int currentModelIndex = 0;
     private GameObject activeModel;
@@ -60,20 +60,20 @@ public class ClothManager : MonoBehaviour
     void Start()
     {
 
-        // «@È¡ PlayerManager
+        // ç²å– PlayerManager
         GameObject playerSys = GameObject.Find("PlayerSys");
         if (playerSys != null)
         {
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
         if (textureItems.Length > 0 && targetMaterial != null)
@@ -85,7 +85,7 @@ public class ClothManager : MonoBehaviour
         UpdateModelUI();
         UpdateTextureUI();
 
-        // ½‰¶¨°´âoÊÂ¼ş
+        // ç¶å®šæŒ‰éˆ•äº‹ä»¶
         textureLeftButton.onClick.AddListener(OnTextureLeft);
         textureRightButton.onClick.AddListener(OnTextureRight);
         modelLeftButton.onClick.AddListener(OnModelLeft);
@@ -98,77 +98,77 @@ public class ClothManager : MonoBehaviour
         string textureName = textureItems[currentTextureIndex].textureName;
         int texturePrice = textureItems[currentTextureIndex].price;
 
-        if (currentTextureIndex < 10) // Ç°Ê®‚€ÙNˆD
+        if (currentTextureIndex < 10) // å‰åå€‹è²¼åœ–
         {
-            if (!textureItems[currentTextureIndex].isPurchased) // Íæ¼ÒÎ´“íÓĞÔ“ÙNˆD
+            if (!textureItems[currentTextureIndex].isPurchased) // ç©å®¶æœªæ“æœ‰è©²è²¼åœ–
             {
                 if (playerManager.playerData.coins >= texturePrice)
                 {
-                    playerManager.playerData.coins -= texturePrice; // ¿Û³ı½ğÅ
-                    textureItems[currentTextureIndex].isPurchased = true; // ÔOÖÃéÒÑ“íÓĞ
-                    Debug.Log($"ÒÑÙÙIÙNˆD: {textureName}");
-                    UpdateTextureUI(); // ¸üĞÂ°´âoÎÄ×Ö
+                    playerManager.playerData.coins -= texturePrice; // æ‰£é™¤é‡‘å¹£
+                    textureItems[currentTextureIndex].isPurchased = true; // è¨­ç½®ç‚ºå·²æ“æœ‰
+                    Debug.Log($"å·²è³¼è²·è²¼åœ–: {textureName}");
+                    UpdateTextureUI(); // æ›´æ–°æŒ‰éˆ•æ–‡å­—
                 }
                 else
                 {
-                    Debug.Log("½ğÅ²»×ã£¬Ÿo·¨ÙÙIÔ“ÙNˆD£¡");
+                    Debug.Log("é‡‘å¹£ä¸è¶³ï¼Œç„¡æ³•è³¼è²·è©²è²¼åœ–ï¼");
                 }
             }
         }
-        else // ááÊ®‚€ÙNˆDĞèÒª½âæi
+        else // å¾Œåå€‹è²¼åœ–éœ€è¦è§£é–
         {
-            if (textureItems[currentTextureIndex].isUnlocked) // Èç¹ûÒÑ½âæi
+            if (textureItems[currentTextureIndex].isUnlocked) // å¦‚æœå·²è§£é–
             {
-                Debug.Log("ÙNˆDÒÑ½âæi£¡");
+                Debug.Log("è²¼åœ–å·²è§£é–ï¼");
             }
             else
             {
-                Debug.Log("ÙNˆDÉĞÎ´½âæi£¡");
+                Debug.Log("è²¼åœ–å°šæœªè§£é–ï¼");
             }
         }
     }
 
     //public void OnBuyTexture()
     //{
-    //    string textureName = textures[currentTextureIndex].name; // Ê¹ÓÃ®”Ç°ÙNˆDµÄÃû·Q
+    //    string textureName = textures[currentTextureIndex].name; // ä½¿ç”¨ç•¶å‰è²¼åœ–çš„åç¨±
 
-    //    // Èç¹ûÍæ¼ÒÎ´“íÓĞÔ“ÙNˆDÇÒÓĞ×ã‰ò½ğÅ£¬ßMĞĞÙÙI
+    //    // å¦‚æœç©å®¶æœªæ“æœ‰è©²è²¼åœ–ä¸”æœ‰è¶³å¤ é‡‘å¹£ï¼Œé€²è¡Œè³¼è²·
     //    if (!playerManager.playerData.expressions.ContainsKey(textureName))
     //    {
     //        if (playerManager.playerData.coins >= 100)
     //        {
-    //            playerManager.playerData.coins -= 100; // ¿Û³ı½ğÅ
-    //            playerManager.playerData.expressions[textureName] = true; // ÔOÖÃÔ“ÙNˆDéÒÑ“íÓĞ
-    //            playerManager.playerData.currentExpression = textureName; // ÔOÖÃé®”Ç°Ê¹ÓÃµÄÙNˆD
+    //            playerManager.playerData.coins -= 100; // æ‰£é™¤é‡‘å¹£
+    //            playerManager.playerData.expressions[textureName] = true; // è¨­ç½®è©²è²¼åœ–ç‚ºå·²æ“æœ‰
+    //            playerManager.playerData.currentExpression = textureName; // è¨­ç½®ç‚ºç•¶å‰ä½¿ç”¨çš„è²¼åœ–
 
-    //            Debug.Log($"ÒÑÙÙIKÔOÖÃÙNˆDéÊ¹ÓÃÖĞ: {textureName}");
+    //            Debug.Log($"å·²è³¼è²·ä¸¦è¨­ç½®è²¼åœ–ç‚ºä½¿ç”¨ä¸­: {textureName}");
     //        }
     //        else
     //        {
-    //            Debug.LogWarning("½ğÅ²»×ã£¬Ÿo·¨ÙÙIÔ“ÙNˆD£¡");
-    //            return; // ÌáÇ°½YÊø£¬Ÿo·¨ßMÒ»²½²Ù×÷
+    //            Debug.LogWarning("é‡‘å¹£ä¸è¶³ï¼Œç„¡æ³•è³¼è²·è©²è²¼åœ–ï¼");
+    //            return; // æå‰çµæŸï¼Œç„¡æ³•é€²ä¸€æ­¥æ“ä½œ
     //        }
     //    }
-    //    // Èç¹ûÍæ¼ÒÒÑ“íÓĞÔ“ÙNˆDµ«Î´Ñb‚ä£¬Œ¢ÆäÔOÖÃéÊ¹ÓÃÖĞ
+    //    // å¦‚æœç©å®¶å·²æ“æœ‰è©²è²¼åœ–ä½†æœªè£å‚™ï¼Œå°‡å…¶è¨­ç½®ç‚ºä½¿ç”¨ä¸­
     //    else if (playerManager.playerData.currentExpression != textureName)
     //    {
-    //        playerManager.playerData.currentExpression = textureName; // ÔOÖÃé®”Ç°Ê¹ÓÃµÄÙNˆD
-    //        Debug.Log($"ÙNˆDÒÑ“íÓĞ£¬¬FÔÚÔOÖÃéÊ¹ÓÃÖĞ: {textureName}");
+    //        playerManager.playerData.currentExpression = textureName; // è¨­ç½®ç‚ºç•¶å‰ä½¿ç”¨çš„è²¼åœ–
+    //        Debug.Log($"è²¼åœ–å·²æ“æœ‰ï¼Œç¾åœ¨è¨­ç½®ç‚ºä½¿ç”¨ä¸­: {textureName}");
     //    }
     //    else
     //    {
-    //        Debug.Log($"ÙNˆDÒÑ“íÓĞÇÒÕıÔÚÊ¹ÓÃ: {textureName}");
+    //        Debug.Log($"è²¼åœ–å·²æ“æœ‰ä¸”æ­£åœ¨ä½¿ç”¨: {textureName}");
     //    }
 
-    //    UpdateTextureUI(); // ¸üĞÂÙNˆDUI
+    //    UpdateTextureUI(); // æ›´æ–°è²¼åœ–UI
     //}
 
 
-    // ÙÙIÄ£ĞÍ
+    // è³¼è²·æ¨¡å‹
     public void OnBuyModel()
     {
-        string modelName = models[currentModelIndex].modelObject.name; // Ê¹ÓÃ®”Ç°Ä£ĞÍµÄÃû·Q
-        int modelPrice = models[currentModelIndex].price; // «@È¡®”Ç°Ä£ĞÍµÄƒr¸ñ
+        string modelName = models[currentModelIndex].modelObject.name; // ä½¿ç”¨ç•¶å‰æ¨¡å‹çš„åç¨±
+        int modelPrice = models[currentModelIndex].price; // ç²å–ç•¶å‰æ¨¡å‹çš„åƒ¹æ ¼
 
         if (playerManager.playerData.coins >= modelPrice && !playerManager.playerData.outfits.ContainsKey(modelName))
         {
@@ -176,7 +176,7 @@ public class ClothManager : MonoBehaviour
             playerManager.playerData.outfits[modelName] = true;
             playerManager.playerData.currentClothing = modelName;
 
-            Debug.Log($"ÒÑÙÙIKÔOÖÃÄ£ĞÍéÊ¹ÓÃÖĞ: {modelName}");
+            Debug.Log($"å·²è³¼è²·ä¸¦è¨­ç½®æ¨¡å‹ç‚ºä½¿ç”¨ä¸­: {modelName}");
             UpdateModelUI();
         }
         else if (playerManager.playerData.outfits.ContainsKey(modelName))
@@ -184,109 +184,109 @@ public class ClothManager : MonoBehaviour
             if (playerManager.playerData.currentClothing != modelName)
             {
                 playerManager.playerData.currentClothing = modelName;
-                Debug.Log($"Ä£ĞÍÒÑ“íÓĞ£¬¬FÔÚÔOÖÃéÊ¹ÓÃÖĞ: {modelName}");
+                Debug.Log($"æ¨¡å‹å·²æ“æœ‰ï¼Œç¾åœ¨è¨­ç½®ç‚ºä½¿ç”¨ä¸­: {modelName}");
             }
         }
         else
         {
-            Debug.Log("½ğÅ²»×ã£¬Ÿo·¨ÙÙIÔ“Ä£ĞÍ£¡");
+            Debug.Log("é‡‘å¹£ä¸è¶³ï¼Œç„¡æ³•è³¼è²·è©²æ¨¡å‹ï¼");
         }
-        UpdateModelUI(); // ¸üĞÂÄ£ĞÍUI
+        UpdateModelUI(); // æ›´æ–°æ¨¡å‹UI
     }
 
-    // ¸üĞÂÙNˆD²ÄÙ|
+    // æ›´æ–°è²¼åœ–æè³ª
     private void UpdateMaterialTexture()
     {
         targetMaterial.mainTexture = textureItems[currentTextureIndex].texture;
     }
 
-    // Éú³ÉÄ£ĞÍ
+    // ç”Ÿæˆæ¨¡å‹
     private void SpawnCurrentModel()
     {
         //activeModel = Instantiate(playerModels[currentModelIndex], spawnPosition, Quaternion.Euler(0, 180, 0));
         activeModel = Instantiate(models[currentModelIndex].modelObject, spawnPosition, Quaternion.Euler(0, 180, 0));
     }
 
-    // ¸üĞÂÙNˆD UI
-    // ¸üĞÂÙNˆD UI
+    // æ›´æ–°è²¼åœ– UI
+    // æ›´æ–°è²¼åœ– UI
     private void UpdateTextureUI()
     {
         string textureName = textureItems[currentTextureIndex].textureName;
         int texturePrice = textureItems[currentTextureIndex].price;
         coins.text = playerManager.playerData.coins.ToString();
 
-        // ÅĞ”àÊÇ·ñé½âæiµÄÙNˆD
-        if (currentTextureIndex < 10) // Ç°Ê®‚€ÙNˆDĞèÒªÙÙI
+        // åˆ¤æ–·æ˜¯å¦ç‚ºè§£é–çš„è²¼åœ–
+        if (currentTextureIndex < 10) // å‰åå€‹è²¼åœ–éœ€è¦è³¼è²·
         {
-            if (textureItems[currentTextureIndex].isPurchased) // Íæ¼ÒÒÑ½›“íÓĞÔ“ÙNˆD
+            if (textureItems[currentTextureIndex].isPurchased) // ç©å®¶å·²ç¶“æ“æœ‰è©²è²¼åœ–
             {
-                if (playerManager.playerData.currentExpression == textureName) // ÅĞ”àÊÇ·ñÑb‚äÖĞ
+                if (playerManager.playerData.currentExpression == textureName) // åˆ¤æ–·æ˜¯å¦è£å‚™ä¸­
                 {
-                    buyTextureButtonText.text = "Ñb‚äÖĞ"; 
+                    buyTextureButtonText.text = "è£å‚™ä¸­"; 
 
                 }
                 else
                 {
-                    buyTextureButtonText.text = "ÒÑ“íÓĞ";
+                    buyTextureButtonText.text = "å·²æ“æœ‰";
                 }
             }
             else
             {
-                buyTextureButtonText.text = "$" + texturePrice.ToString(); // ï@Ê¾ƒr¸ñ
+                buyTextureButtonText.text = "$" + texturePrice.ToString(); // é¡¯ç¤ºåƒ¹æ ¼
             }
         }
-        else // ááÊ®‚€ÙNˆDÊÇ½âæiĞÍ£¬¸ù“ş½âæi î‘Bï@Ê¾
+        else // å¾Œåå€‹è²¼åœ–æ˜¯è§£é–å‹ï¼Œæ ¹æ“šè§£é–ç‹€æ…‹é¡¯ç¤º
         {
-            bool isUnlocked = textureItems[currentTextureIndex].isUnlocked; // «@È¡½âæi î‘B
+            bool isUnlocked = textureItems[currentTextureIndex].isUnlocked; // ç²å–è§£é–ç‹€æ…‹
             if (isUnlocked)
             {
-                if (playerManager.playerData.currentExpression == textureName) // ÅĞ”àÊÇ·ñÑb‚äÖĞ
+                if (playerManager.playerData.currentExpression == textureName) // åˆ¤æ–·æ˜¯å¦è£å‚™ä¸­
                 {
-                    buyTextureButtonText.text = "Ñb‚äÖĞ";
+                    buyTextureButtonText.text = "è£å‚™ä¸­";
                 }
                 else
                 {
-                    buyTextureButtonText.text = "ÒÑ½âæi";
+                    buyTextureButtonText.text = "å·²è§£é–";
                 }
             }
             else
             {
-                buyTextureButtonText.text = "æi¶¨";
+                buyTextureButtonText.text = "é–å®š";
             }
         }
     }
 
 
-    // ¸üĞÂÄ£ĞÍ UI
+    // æ›´æ–°æ¨¡å‹ UI
     private void UpdateModelUI()
     {
         string modelName = models[currentModelIndex].modelObject.name;
-        int modelPrice = models[currentModelIndex].price; // «@È¡®”Ç°Ä£ĞÍµÄƒr¸ñ
+        int modelPrice = models[currentModelIndex].price; // ç²å–ç•¶å‰æ¨¡å‹çš„åƒ¹æ ¼
         coins.text = playerManager.playerData.coins.ToString();
 
 
-        // ÅĞ”àÍæ¼ÒÊÇ·ñ“íÓĞÔ“Ä£ĞÍ
+        // åˆ¤æ–·ç©å®¶æ˜¯å¦æ“æœ‰è©²æ¨¡å‹
         if (playerManager.playerData.outfits.ContainsKey(modelName))
         {
-            // Èç¹ûÍæ¼Ò“íÓĞÔ“Ä£ĞÍ
+            // å¦‚æœç©å®¶æ“æœ‰è©²æ¨¡å‹
             if (playerManager.playerData.currentClothing == modelName)
             {
-                modelInfoText.text = "Ñb‚äÖĞ";
+                modelInfoText.text = "è£å‚™ä¸­";
             }
             else
             {
-                modelInfoText.text = "ÒÑ“íÓĞ";
+                modelInfoText.text = "å·²æ“æœ‰";
             }
         }
         else
         {
-            // Èç¹ûÍæ¼Ò›]ÓĞ“íÓĞÔ“Ä£ĞÍ
+            // å¦‚æœç©å®¶æ²’æœ‰æ“æœ‰è©²æ¨¡å‹
             modelInfoText.text = "$" + modelPrice.ToString();
         }
     }
 
 
-    // ÙNˆD×ó°´âoÊÂ¼ş
+    // è²¼åœ–å·¦æŒ‰éˆ•äº‹ä»¶
     public void OnTextureLeft()
     {
         currentTextureIndex = (currentTextureIndex - 1 + textureItems.Length) % textureItems.Length;
@@ -294,7 +294,7 @@ public class ClothManager : MonoBehaviour
         UpdateTextureUI();
     }
 
-    // ÙNˆDÓÒ°´âoÊÂ¼ş
+    // è²¼åœ–å³æŒ‰éˆ•äº‹ä»¶
     public void OnTextureRight()
     {
         currentTextureIndex = (currentTextureIndex + 1) % textureItems.Length;
@@ -302,22 +302,22 @@ public class ClothManager : MonoBehaviour
         UpdateTextureUI();
     }
 
-    // Ä£ĞÍ×ó°´âoÊÂ¼ş
+    // æ¨¡å‹å·¦æŒ‰éˆ•äº‹ä»¶
     public void OnModelLeft()
     {
-        Destroy(activeModel);  // „h³ı®”Ç°ï@Ê¾µÄÄ£ĞÍ
+        Destroy(activeModel);  // åˆªé™¤ç•¶å‰é¡¯ç¤ºçš„æ¨¡å‹
         currentModelIndex = (currentModelIndex - 1 + models.Length) % models.Length;
         SpawnCurrentModel();
-        UpdateModelUI(); // ¸üĞÂÄ£ĞÍ“íÓĞ î‘B
+        UpdateModelUI(); // æ›´æ–°æ¨¡å‹æ“æœ‰ç‹€æ…‹
 
     }
 
-    // Ä£ĞÍÓÒ°´âoÊÂ¼ş
+    // æ¨¡å‹å³æŒ‰éˆ•äº‹ä»¶
     public void OnModelRight()
     {
-        Destroy(activeModel);  // „h³ı®”Ç°ï@Ê¾µÄÄ£ĞÍ
+        Destroy(activeModel);  // åˆªé™¤ç•¶å‰é¡¯ç¤ºçš„æ¨¡å‹
         currentModelIndex = (currentModelIndex + 1) % models.Length;
         SpawnCurrentModel();
-        UpdateModelUI(); // ¸üĞÂÄ£ĞÍ“íÓĞ î‘B
+        UpdateModelUI(); // æ›´æ–°æ¨¡å‹æ“æœ‰ç‹€æ…‹
     }
 }

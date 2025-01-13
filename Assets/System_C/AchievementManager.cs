@@ -9,22 +9,22 @@ public class AchievementManager : MonoBehaviour
         
 
     }
-    public static AchievementManager Instance { get; private set; } // †ÎÀıÄ£Ê½
+    public static AchievementManager Instance { get; private set; } // å–®ä¾‹æ¨¡å¼
 
     private void Awake()
     {
-        // ´_±£Ö»ÓĞÒ»‚€ AchievementManager ´æÔÚ
+        // ç¢ºä¿åªæœ‰ä¸€å€‹ AchievementManager å­˜åœ¨
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject); // ±£Áô´ËÎï¼şÔÚˆö¾°ÇĞ“QÖĞ
+        DontDestroyOnLoad(gameObject); // ä¿ç•™æ­¤ç‰©ä»¶åœ¨å ´æ™¯åˆ‡æ›ä¸­
     }
 
     /// <summary>
-    /// ½âæi³É¾Í1£ºÍê³ÉµÚÒ»êP
+    /// è§£é–æˆå°±1ï¼šå®Œæˆç¬¬ä¸€é—œ
     /// </summary>
     //public void UnlockAchievement0()
     //{
@@ -32,33 +32,33 @@ public class AchievementManager : MonoBehaviour
     //    AchievementUIManager.Instance.ShowAchievement("Achievement0");
     //}
     /// <summary>
-    /// ½âæi³É¾ÍµÄÍ¨ÓÃ·½·¨
+    /// è§£é–æˆå°±çš„é€šç”¨æ–¹æ³•
     /// </summary>
-    /// <param name="achievementKey">³É¾ÍµÄæIÖµ</param>
+    /// <param name="achievementKey">æˆå°±çš„éµå€¼</param>
     public void UnlockAchievement(string achievementKey)
     {
         var playerData = PlayerManager.instance.playerData;
 
-        // ´_±£³É¾ÍæI´æÔÚì¶Íæ¼Ò”µ“şÖĞ
+        // ç¢ºä¿æˆå°±éµå­˜åœ¨æ–¼ç©å®¶æ•¸æ“šä¸­
         if (playerData.achievements.ContainsKey(achievementKey))
         {
-            // Èç¹ûÉĞÎ´½âæi£¬„t½âæiK±£´æ
+            // å¦‚æœå°šæœªè§£é–ï¼Œå‰‡è§£é–ä¸¦ä¿å­˜
             if (!playerData.achievements[achievementKey])
             {
                 playerData.achievements[achievementKey] = true;
                 //PlayerManager.instance.SavePlayerData();
                 Debug.LogWarning("Achievement" + achievementKey);
                 AchievementUIManager.Instance.ShowAchievement(achievementKey);
-                Debug.Log($"³É¾Í½âæi: {achievementKey}");
+                Debug.Log($"æˆå°±è§£é–: {achievementKey}");
             }
             else
             {
-                Debug.Log($"³É¾Í {achievementKey} ÒÑ½âæi¡£");
+                Debug.Log($"æˆå°± {achievementKey} å·²è§£é–ã€‚");
             }
         }
         else
         {
-            Debug.LogWarning($"³É¾ÍæI {achievementKey} ²»´æÔÚì¶Íæ¼Ò”µ“şÖĞ£¡");
+            Debug.LogWarning($"æˆå°±éµ {achievementKey} ä¸å­˜åœ¨æ–¼ç©å®¶æ•¸æ“šä¸­ï¼");
         }
     }
 }

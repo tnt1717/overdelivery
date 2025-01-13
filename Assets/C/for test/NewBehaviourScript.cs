@@ -8,17 +8,17 @@ public class NewBehaviourScript : MonoBehaviour
     
     public class Vehicle
     {
-        public string vehicleName;       // Ü‡İvÃû·Q£¨¿Éßx£©
-        public Mesh headMesh;            // Ü‡î^µÄ Mesh
-        public Mesh bodyMesh;            // Ü‡ÉíµÄ Mesh
+        public string vehicleName;       // è»Šè¼›åç¨±ï¼ˆå¯é¸ï¼‰
+        public Mesh headMesh;            // è»Šé ­çš„ Mesh
+        public Mesh bodyMesh;            // è»Šèº«çš„ Mesh
         public Material material;
     }
-    public Vehicle[] vehicles;          // Ü‡İvÙYÁÏê‡ÁĞ
-    public MeshFilter headMeshFilter;   // Ü‡î^µÄ MeshFilter
-    public MeshFilter bodyMeshFilter;   // Ü‡ÉíµÄ MeshFilter
+    public Vehicle[] vehicles;          // è»Šè¼›è³‡æ–™é™£åˆ—
+    public MeshFilter headMeshFilter;   // è»Šé ­çš„ MeshFilter
+    public MeshFilter bodyMeshFilter;   // è»Šèº«çš„ MeshFilter
     public GameObject headmaterialmain;
     public GameObject bodymaterialmain;
-    private PlayerManager playerManager; // ßB½Y PlayerManager ÓÃì¶´æÈ¡ PlayerData
+    private PlayerManager playerManager; // é€£çµ PlayerManager ç”¨æ–¼å­˜å– PlayerData
 
 
     private void Start()
@@ -29,13 +29,13 @@ public class NewBehaviourScript : MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
 
@@ -46,7 +46,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         string currentVehicleName = playerManager.playerData.currentVehicle;
 
-        // ÕÒµ½Œ¦‘ªµÄÜ‡İvÙYÁÏ
+        // æ‰¾åˆ°å°æ‡‰çš„è»Šè¼›è³‡æ–™
         Vehicle selectedVehicle = null;
         foreach (var vehicle in vehicles)
         {
@@ -59,19 +59,19 @@ public class NewBehaviourScript : MonoBehaviour
 
         if (selectedVehicle != null)
         {
-            // ¼ÓİdÜ‡İv Mesh
+            // åŠ è¼‰è»Šè¼› Mesh
             LoadVehicleMesh(selectedVehicle);
-           // Debug.Log($"ÒÑ³õÊ¼»¯Ü‡İv£º{selectedVehicle.vehicleName}");
+           // Debug.Log($"å·²åˆå§‹åŒ–è»Šè¼›ï¼š{selectedVehicle.vehicleName}");
         }
         else
         {
-            Debug.LogError($"Î´ÕÒµ½Ãû·Qé {currentVehicleName} µÄÜ‡İv£¡Õˆ´_ÕJÙYÁÏÊÇ·ñÕı´_¡£");
+            Debug.LogError($"æœªæ‰¾åˆ°åç¨±ç‚º {currentVehicleName} çš„è»Šè¼›ï¼è«‹ç¢ºèªè³‡æ–™æ˜¯å¦æ­£ç¢ºã€‚");
         }
     }
 
     private void LoadVehicleMesh(Vehicle vehicle)
     {
-        // ¸üĞÂ MeshFilter µÄ mesh
+        // æ›´æ–° MeshFilter çš„ mesh
         Renderer renderera = headmaterialmain.GetComponent<Renderer>();
         Renderer rendererb = bodymaterialmain.GetComponent<Renderer>();
 
@@ -81,18 +81,18 @@ public class NewBehaviourScript : MonoBehaviour
         rendererb.material = vehicle.material;
 
 
-        //Debug.Log($"Ü‡î^ºÍÜ‡ÉíÒÑÇĞ“Qé£º{vehicle.vehicleName}");
+        //Debug.Log($"è»Šé ­å’Œè»Šèº«å·²åˆ‡æ›ç‚ºï¼š{vehicle.vehicleName}");
     }
 
     public void UpdateVehicle(string newVehicleName)
     {
-        // ¸üĞÂ PlayerData µÄÜ‡İvÃû·Q
+        // æ›´æ–° PlayerData çš„è»Šè¼›åç¨±
         playerManager.playerData.currentVehicle = newVehicleName;
 
-        // ÔÙ´ÎÕÒµ½K¼ÓİdŒ¦‘ªµÄÜ‡İvÙYÁÏ
+        // å†æ¬¡æ‰¾åˆ°ä¸¦åŠ è¼‰å°æ‡‰çš„è»Šè¼›è³‡æ–™
         InitializeVehicle();
 
-        // ±£´æ”µ“ş£¨¼ÙÔOÓĞ±£´æ¹¦ÄÜ£©
+        // ä¿å­˜æ•¸æ“šï¼ˆå‡è¨­æœ‰ä¿å­˜åŠŸèƒ½ï¼‰
         SavePlayerData();
     }
 
@@ -100,6 +100,6 @@ public class NewBehaviourScript : MonoBehaviour
     {
         PlayerPrefs.SetString("currentVehicle", playerManager.playerData.currentVehicle);
         PlayerPrefs.Save();
-        Debug.Log("Íæ¼ÒÜ‡İv”µ“şÒÑ±£´æ£¡");
+        Debug.Log("ç©å®¶è»Šè¼›æ•¸æ“šå·²ä¿å­˜ï¼");
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LookAtPlayer : MonoBehaviour
 {
-    private GameObject player; // Íæ¼ÒÎï¼şµÄ Transform
+    private GameObject player; // ç©å®¶ç‰©ä»¶çš„ Transform
 
 
     private void Start()
@@ -15,16 +15,16 @@ public class LookAtPlayer : MonoBehaviour
     {
         if (player != null)
         {
-            // Ó‹ËãÄ×ÔÉíµ½Íæ¼ÒµÄ·½Ïò
+            // è¨ˆç®—å¾è‡ªèº«åˆ°ç©å®¶çš„æ–¹å‘
             Vector3 direction = player.transform.position - transform.position;
 
-            // ÒÆ³ı´¹Ö±·½Ïò (y İS) µÄÓ°í‘£¬±£³ÖË®Æ½ÃæĞıŞD
+            // ç§»é™¤å‚ç›´æ–¹å‘ (y è»¸) çš„å½±éŸ¿ï¼Œä¿æŒæ°´å¹³é¢æ—‹è½‰
             direction.y = 0;
 
-            // ´_±£·½Ïò²»ÊÇÁãÏòÁ¿£¬±ÜÃâåeÕ`
+            // ç¢ºä¿æ–¹å‘ä¸æ˜¯é›¶å‘é‡ï¼Œé¿å…éŒ¯èª¤
             if (direction != Vector3.zero)
             {
-                // Ê¹Îï¼şÃæ³¯Íæ¼Ò
+                // ä½¿ç‰©ä»¶é¢æœç©å®¶
                 transform.rotation = Quaternion.LookRotation(direction);
             }
         }

@@ -4,35 +4,35 @@ using UnityEngine;
 
 public class TransitionController : MonoBehaviour
 {
-    public Material skyboxMaterial;  // ÓÃí…¢¿¼ÄúµÄÌì¿ÕºĞ²ÄÙ|
-    public float transitionSpeed = 2f; // ×ƒ»¯ËÙ¶È (Ã¿·ÖçŠ×ƒ»¯µÄ´Î”µ)
+    public Material skyboxMaterial;  // ç”¨ä¾†åƒè€ƒæ‚¨çš„å¤©ç©ºç›’æè³ª
+    public float transitionSpeed = 2f; // è®ŠåŒ–é€Ÿåº¦ (æ¯åˆ†é˜è®ŠåŒ–çš„æ¬¡æ•¸)
 
-    private float transitionValue = 0f; // ®”Ç°µÄß^¶ÉÖµ
-    private bool isIncreasing = true; // ÓÃí¿ØÖÆÊÇÔö¼Óß€ÊÇœpÉÙ
+    private float transitionValue = 0f; // ç•¶å‰çš„éæ¸¡å€¼
+    private bool isIncreasing = true; // ç”¨ä¾†æ§åˆ¶æ˜¯å¢åŠ é‚„æ˜¯æ¸›å°‘
 
     void Update()
     {
-        // Ã¿¬Ó‹Ëãß^¶ÉÖµ
+        // æ¯å¹€è¨ˆç®—éæ¸¡å€¼
         if (isIncreasing)
         {
-            transitionValue += Time.deltaTime * transitionSpeed / 60f; // Œ¢•régŞD“Qé·ÖçŠ
+            transitionValue += Time.deltaTime * transitionSpeed / 60f; // å°‡æ™‚é–“è½‰æ›ç‚ºåˆ†é˜
             if (transitionValue >= 0.8f)
             {
-                transitionValue = 0.8f; // ´_±£²»³¬ß^0.6
-                isIncreasing = false; // ¸Ä×ƒ î‘BéœpÉÙ
+                transitionValue = 0.8f; // ç¢ºä¿ä¸è¶…é0.6
+                isIncreasing = false; // æ”¹è®Šç‹€æ…‹ç‚ºæ¸›å°‘
             }
         }
         else
         {
-            transitionValue -= Time.deltaTime * transitionSpeed / 60f; // Œ¢•régŞD“Qé·ÖçŠ
+            transitionValue -= Time.deltaTime * transitionSpeed / 60f; // å°‡æ™‚é–“è½‰æ›ç‚ºåˆ†é˜
             if (transitionValue <= 0.4f)
             {
-                transitionValue = 0.4f; // ´_±£²»µÍì¶0
-                isIncreasing = true; // ¸Ä×ƒ î‘BéÔö¼Ó
+                transitionValue = 0.4f; // ç¢ºä¿ä¸ä½æ–¼0
+                isIncreasing = true; // æ”¹è®Šç‹€æ…‹ç‚ºå¢åŠ 
             }
         }
 
-        // ¸üĞÂÌì¿ÕºĞµÄ CubemapTransition Öµ
+        // æ›´æ–°å¤©ç©ºç›’çš„ CubemapTransition å€¼
         if (skyboxMaterial != null)
         {
             skyboxMaterial.SetFloat("_CubemapTransition", transitionValue);

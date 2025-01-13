@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class NPCSpawner : MonoBehaviour
 {
-    public GameObject[] npcPrefabs;     // NPC Ä£ĞÍê‡ÁĞ
-    public GameObject navMeshObject;   // °üº¬ NavMesh µÄÎï¼ş
-    public Transform parentFolder;     // Ä¸ÙYÁÏŠA£¬ÓÃì¶½M¿—Éú³ÉµÄ NPC
-    public float spawnRadius = 20f;    // Éú³É¹ ‡ú°ë½
-    public float spawnInterval = 10f;  // Ã¿´ÎÉú³ÉµÄég¸ô•rég
+    public GameObject[] npcPrefabs;     // NPC æ¨¡å‹é™£åˆ—
+    public GameObject navMeshObject;   // åŒ…å« NavMesh çš„ç‰©ä»¶
+    public Transform parentFolder;     // æ¯è³‡æ–™å¤¾ï¼Œç”¨æ–¼çµ„ç¹”ç”Ÿæˆçš„ NPC
+    public float spawnRadius = 20f;    // ç”Ÿæˆç¯„åœåŠå¾‘
+    public float spawnInterval = 10f;  // æ¯æ¬¡ç”Ÿæˆçš„é–“éš”æ™‚é–“
 
     private float timer = 0f;
 
@@ -17,7 +17,7 @@ public class NPCSpawner : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        // Ã¿¸ôÖ¸¶¨•régÉú³É NPC
+        // æ¯éš”æŒ‡å®šæ™‚é–“ç”Ÿæˆ NPC
         if (timer >= spawnInterval)
         {
             SpawnNPC();
@@ -27,18 +27,18 @@ public class NPCSpawner : MonoBehaviour
 
     void SpawnNPC()
     {
-        // ëS™Cßx“ñÒ»‚€ NPC Ä£ĞÍ
+        // éš¨æ©Ÿé¸æ“‡ä¸€å€‹ NPC æ¨¡å‹
         GameObject selectedNPC = npcPrefabs[Random.Range(0, npcPrefabs.Length)];
 
-        // «@È¡ NavMesh ÉÏµÄëS™Cüc
+        // ç²å– NavMesh ä¸Šçš„éš¨æ©Ÿé»
         Vector3 spawnPosition = GetRandomPointOnNavMesh();
 
         if (spawnPosition != Vector3.zero)
         {
-            // ÔÚ NavMesh ÉÏÉú³É NPC£¬KÔOÖÃéÄ¸ÙYÁÏŠAµÄ×ÓÎï¼ş
+            // åœ¨ NavMesh ä¸Šç”Ÿæˆ NPCï¼Œä¸¦è¨­ç½®ç‚ºæ¯è³‡æ–™å¤¾çš„å­ç‰©ä»¶
             GameObject newNPC = Instantiate(selectedNPC, spawnPosition, Quaternion.identity, parentFolder);
 
-            // ™z²éÊÇ·ñÓĞ NavMeshAgent K†¢ÓÃ
+            // æª¢æŸ¥æ˜¯å¦æœ‰ NavMeshAgent ä¸¦å•Ÿç”¨
             NavMeshAgent agent = newNPC.GetComponent<NavMeshAgent>();
             if (agent != null && agent.isOnNavMesh)
             {
@@ -47,7 +47,7 @@ public class NPCSpawner : MonoBehaviour
             else
             {
                 Debug.LogWarning($"Failed to place NPC '{newNPC.name}' on NavMesh. Destroying it.");
-                Destroy(newNPC); // Èç¹ûÉú³ÉÊ§”¡£¬äNš§Îï¼ş
+                Destroy(newNPC); // å¦‚æœç”Ÿæˆå¤±æ•—ï¼ŒéŠ·æ¯€ç‰©ä»¶
             }
         }
         else
@@ -58,17 +58,17 @@ public class NPCSpawner : MonoBehaviour
 
     Vector3 GetRandomPointOnNavMesh()
     {
-        // ÔÚÖ¸¶¨¹ ‡úƒÈßxÈ¡Ò»‚€ëS™Cüc
+        // åœ¨æŒ‡å®šç¯„åœå…§é¸å–ä¸€å€‹éš¨æ©Ÿé»
         Vector3 randomPoint = Random.insideUnitSphere * spawnRadius;
-        randomPoint += navMeshObject.transform.position; // Œ¢ëS™CücÏàŒ¦ì¶ NavMesh Îï¼şµÄÖĞĞÄ
+        randomPoint += navMeshObject.transform.position; // å°‡éš¨æ©Ÿé»ç›¸å°æ–¼ NavMesh ç‰©ä»¶çš„ä¸­å¿ƒ
 
-        // ™z²éÔ“ücÊÇ·ñÔÚ NavMesh ÉÏ
+        // æª¢æŸ¥è©²é»æ˜¯å¦åœ¨ NavMesh ä¸Š
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, spawnRadius, NavMesh.AllAreas))
         {
             return hit.position;
         }
 
-        return Vector3.zero; // Èç¹û›]ÓĞÕÒµ½ÓĞĞ§üc£¬·µ»Ø Vector3.zero
+        return Vector3.zero; // å¦‚æœæ²’æœ‰æ‰¾åˆ°æœ‰æ•ˆé»ï¼Œè¿”å› Vector3.zero
     }
 }

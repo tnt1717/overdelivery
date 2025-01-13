@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ticketManager : MonoBehaviour
 {
-    // ÒıÓÃ UI µÄÎÄ×ÖÔª¼ş
+    // å¼•ç”¨ UI çš„æ–‡å­—å…ƒä»¶
     public Text sceneNameText;
     public GameObject ui;
     public GameObject pass;
@@ -23,28 +23,28 @@ public class ticketManager : MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
-        // ³õÊ¼»¯•r¸üĞÂÎÄ×Öé®”Ç°ˆö¾°Ãû·Q
+        // åˆå§‹åŒ–æ™‚æ›´æ–°æ–‡å­—ç‚ºç•¶å‰å ´æ™¯åç¨±
         UpdateSceneName();
     }
 
     void Update()
     {
-        // ™z²é°´æI F7 ÊÇ·ñ±»°´ÏÂ
+        // æª¢æŸ¥æŒ‰éµ F7 æ˜¯å¦è¢«æŒ‰ä¸‹
         if (Input.GetKeyDown(KeyCode.F7))
         {
             TriggerActionF7();
         }
 
-        // ™z²é°´æI F8 ÊÇ·ñ±»°´ÏÂ
+        // æª¢æŸ¥æŒ‰éµ F8 æ˜¯å¦è¢«æŒ‰ä¸‹
         if (Input.GetKeyDown(KeyCode.F8))
         {
             TriggerActionF8();
@@ -58,7 +58,7 @@ public class ticketManager : MonoBehaviour
         }
     }
 
-        // ¸üĞÂÎÄ×Öé®”Ç°ˆö¾°Ãû·Q
+        // æ›´æ–°æ–‡å­—ç‚ºç•¶å‰å ´æ™¯åç¨±
         private void UpdateSceneName()
     {
         if (sceneNameText != null)
@@ -68,7 +68,7 @@ public class ticketManager : MonoBehaviour
         
     }
 
-    // F7 °´æIÓ|°lµÄ·½·¨
+    // F7 æŒ‰éµè§¸ç™¼çš„æ–¹æ³•
     private void TriggerActionF7()
     {
         Debug.Log("F7 triggered: Perform your action here.");
@@ -76,10 +76,10 @@ public class ticketManager : MonoBehaviour
         AudioManager.Instance.PlaySound("coin");
         playerManager.playerData.coins -= 1500;
         
-        // ¿ÉÒÔÔÚß@Ñe¼ÓÈëÄãÏ£ÍûˆÌĞĞµÄĞĞé
+        // å¯ä»¥åœ¨é€™è£¡åŠ å…¥ä½ å¸Œæœ›åŸ·è¡Œçš„è¡Œç‚º
     }
 
-    // F8 °´æIÓ|°lµÄ·½·¨
+    // F8 æŒ‰éµè§¸ç™¼çš„æ–¹æ³•
     private void TriggerActionF8()
     {
         ui.active = true;
@@ -87,6 +87,6 @@ public class ticketManager : MonoBehaviour
         
         
         Debug.Log("F8 triggered: Perform your action here.");
-        // ¿ÉÒÔÔÚß@Ñe¼ÓÈëÁíÒ»·NĞĞé
+        // å¯ä»¥åœ¨é€™è£¡åŠ å…¥å¦ä¸€ç¨®è¡Œç‚º
     }
 }

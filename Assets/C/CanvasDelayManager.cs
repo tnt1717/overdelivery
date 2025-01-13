@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class CanvasDelayManager : MonoBehaviour
 {
-    public Canvas[] canvases; // ƒ¦´æËùÓĞ®‹²¼µÄê‡ÁĞ
+    public Canvas[] canvases; // å„²å­˜æ‰€æœ‰ç•«å¸ƒçš„é™£åˆ—
 
     void Start()
     {
-        // ½ûÓÃËùÓĞ®‹²¼
+        // ç¦ç”¨æ‰€æœ‰ç•«å¸ƒ
         foreach (Canvas canvas in canvases)
         {
             if (canvas != null)
                 canvas.enabled = false;
         }
 
-        // †¢„Ó…f³ÌÑÓßt†¢ÓÃ®‹²¼
+        // å•Ÿå‹•å”ç¨‹å»¶é²å•Ÿç”¨ç•«å¸ƒ
         StartCoroutine(EnableCanvasesAfterDelay(4f));
     }
 
     IEnumerator EnableCanvasesAfterDelay(float delay)
     {
-        // µÈ´ıÖ¸¶¨µÄÃë”µ
+        // ç­‰å¾…æŒ‡å®šçš„ç§’æ•¸
         yield return new WaitForSeconds(delay);
 
-        // †¢ÓÃËùÓĞ®‹²¼
+        // å•Ÿç”¨æ‰€æœ‰ç•«å¸ƒ
         foreach (Canvas canvas in canvases)
         {
             if (canvas != null)

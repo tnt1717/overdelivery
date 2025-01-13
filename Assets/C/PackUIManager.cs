@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PackUIManager : MonoBehaviour
 {
-    public GameObject uiPackCanvas; // ÓÃì¶´æƒ¦ UI_pack_canvas
-    private bool isPlayerInZone = false; // ÓÃì¶™zœyÍæ¼ÒÊÇ·ñÔÚÓ|°l…^ÓòƒÈ
-    private bool isUIPackCanvasOpen = false; // ÓÃì¶×·Û™ UI ÊÇ·ñÒÑé_†¢
+    public GameObject uiPackCanvas; // ç”¨æ–¼å­˜å„² UI_pack_canvas
+    private bool isPlayerInZone = false; // ç”¨æ–¼æª¢æ¸¬ç©å®¶æ˜¯å¦åœ¨è§¸ç™¼å€åŸŸå…§
+    private bool isUIPackCanvasOpen = false; // ç”¨æ–¼è¿½è¹¤ UI æ˜¯å¦å·²é–‹å•Ÿ
 
     public GameObject tipui;
 
@@ -30,7 +30,7 @@ public class PackUIManager : MonoBehaviour
 
         }
 
-        // Èç¹û UI ÒÑé_†¢£¬ÇÒÍæ¼Ò°´ÏÂ×óæI£¬ÑÓßtÒ»ÃëêPé] UI
+        // å¦‚æœ UI å·²é–‹å•Ÿï¼Œä¸”ç©å®¶æŒ‰ä¸‹å·¦éµï¼Œå»¶é²ä¸€ç§’é—œé–‰ UI
         if (isUIPackCanvasOpen && Input.GetMouseButtonDown(0))
         {
             StartCoroutine(CloseUIPackCanvasAfterDelay(1f));
@@ -39,7 +39,7 @@ public class PackUIManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Èç¹ûßMÈëÓ|°l…^µÄÎï¼şÊÇ "Player"
+        // å¦‚æœé€²å…¥è§¸ç™¼å€çš„ç‰©ä»¶æ˜¯ "Player"
         if (other.CompareTag("cus"))
         {
             isPlayerInZone = true;
@@ -50,7 +50,7 @@ public class PackUIManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // Èç¹ûëxé_Ó|°l…^µÄÎï¼şÊÇ "Player"
+        // å¦‚æœé›¢é–‹è§¸ç™¼å€çš„ç‰©ä»¶æ˜¯ "Player"
         if (other.CompareTag("cus"))
         {
             isPlayerInZone = false;

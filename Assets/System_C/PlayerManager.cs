@@ -35,8 +35,8 @@ public class PlayerManager : MonoBehaviour
 
             playerData = SaveSystem.LoadPlayerData();
             Debug.Log("PlayerManager: Loaded player data.");
-            Debug.Log("載入音量:"+playerData.Volume);
-            Debug.Log("載入音效:" + playerData.MusicVolume);
+            Debug.Log("杓夊叆闊抽噺:"+playerData.Volume);
+            Debug.Log("杓夊叆闊虫晥:" + playerData.MusicVolume);
 
 
 
@@ -51,8 +51,8 @@ public class PlayerManager : MonoBehaviour
     {
         SaveSystem.SavePlayerData(playerData);
         Debug.Log("PlayerManager: Saved player data on application quit.");
-        Debug.Log("存入音量:" + playerData.Volume);
-        Debug.Log("存入音效:" + playerData.MusicVolume);
+        Debug.Log("瀛樺叆闊抽噺:" + playerData.Volume);
+        Debug.Log("瀛樺叆闊虫晥:" + playerData.MusicVolume);
 
     }
 
@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
             playerData.achievements[achievementName] = true;
             AchievementUIManager.Instance.ShowAchievement(achievementName);
             SaveSystem.SavePlayerData(playerData);
-            Debug.Log($"玩家 {achievementName} unlocked and saved.");
+            Debug.Log($"鐜╁ {achievementName} unlocked and saved.");
         }
         else
         {

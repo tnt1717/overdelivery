@@ -5,26 +5,26 @@ using UnityEngine.UI;
 
 public class StarsUIUpdater : MonoBehaviour
 {
-    public Sprite noStarSprite; // ›]ÓĞĞÇĞÇµÄˆDÆ¬
-    public Sprite starSprite;   // ÓĞĞÇĞÇµÄˆDÆ¬
+    public Sprite noStarSprite; // æ²’æœ‰æ˜Ÿæ˜Ÿçš„åœ–ç‰‡
+    public Sprite starSprite;   // æœ‰æ˜Ÿæ˜Ÿçš„åœ–ç‰‡
 
     private void Start()
     {
         UpdateStarsUI("LV1");
         UpdateStarsUI("LV2");
         UpdateStarsUI("LV3");
-        // ÈôÓĞ¸ü¶àêP¿¨£¬ÒÀ´ÎÕ{ÓÃ
+        // è‹¥æœ‰æ›´å¤šé—œå¡ï¼Œä¾æ¬¡èª¿ç”¨
     }
 
     private void UpdateStarsUI(string level)
     {
-        // ´_ÕJPlayerManagerÒÑ¼Óİd£¬È¡µÃÍæ¼Ò”µ“ş
+        // ç¢ºèªPlayerManagerå·²åŠ è¼‰ï¼Œå–å¾—ç©å®¶æ•¸æ“š
         PlayerData playerData = PlayerManager.instance.playerData;
 
-        // È¡µÃÔ“êP¿¨µÄĞÇĞÇ”µÁ¿
+        // å–å¾—è©²é—œå¡çš„æ˜Ÿæ˜Ÿæ•¸é‡
         if (playerData.levelStars.TryGetValue(level, out int stars))
         {
-            // µü´úÔ“êP¿¨µÄĞÇĞÇUIÎï¼ş£¬ÃüÃû¸ñÊ½é "LV1_1", "LV1_2", "LV1_3" µÈ
+            // è¿­ä»£è©²é—œå¡çš„æ˜Ÿæ˜ŸUIç‰©ä»¶ï¼Œå‘½åæ ¼å¼ç‚º "LV1_1", "LV1_2", "LV1_3" ç­‰
             for (int i = 1; i <= 3; i++)
             {
                 string starObjectName = level + "_" + i;
@@ -36,23 +36,23 @@ public class StarsUIUpdater : MonoBehaviour
 
                     if (starImage != null)
                     {
-                        // ¸ù“şĞÇĞÇ”µÌæ“QˆDÆ¬
+                        // æ ¹æ“šæ˜Ÿæ˜Ÿæ•¸æ›¿æ›åœ–ç‰‡
                         starImage.sprite = i <= stars ? starSprite : noStarSprite;
                     }
                     else
                     {
-                        Debug.LogWarning($"{starObjectName} ›]ÓĞ Image ½M¼ş¡£");
+                        Debug.LogWarning($"{starObjectName} æ²’æœ‰ Image çµ„ä»¶ã€‚");
                     }
                 }
                 else
                 {
-                    Debug.LogWarning($"{starObjectName} Î´ÕÒµ½ì¶ˆö¾°ÖĞ¡£");
+                    Debug.LogWarning($"{starObjectName} æœªæ‰¾åˆ°æ–¼å ´æ™¯ä¸­ã€‚");
                 }
             }
         }
         else
         {
-            Debug.LogWarning($"êP¿¨ {level} µÄĞÇĞÇ”µÁ¿²»´æÔÚì¶Íæ¼ÒÙYÁÏÖĞ¡£");
+            Debug.LogWarning($"é—œå¡ {level} çš„æ˜Ÿæ˜Ÿæ•¸é‡ä¸å­˜åœ¨æ–¼ç©å®¶è³‡æ–™ä¸­ã€‚");
         }
     }
 }

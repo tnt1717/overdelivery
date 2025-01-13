@@ -11,17 +11,17 @@ public class LV1_tip_manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // �z�� logueManager �Ƿ�� null
+        // 檢查 logueManager 是否為 null
         if (logueManager == null)
         {
-            // ����� null���@ʾ�e�`ӍϢ���Kֹͣ�^�m����
-            Debug.LogError("logueManager ��δ�O�ã�Ո�� logueManager �ϵ� Inspector �еę�λ��");
-            return; // �@���Kֹ Start �����Ĉ���
+            // 如果為 null，顯示錯誤訊息，並停止繼續執行
+            Debug.LogError("logueManager 尚未設置！請將 logueManager 拖到 Inspector 中的欄位！");
+            return; // 這會終止 Start 方法的執行
         }
 
-        // �[�؈DƬ
+        // 隱藏圖片
         imageObject.SetActive(false);
-        Debug.Log("logueManager�O�ã���");
+        Debug.Log("logueManager設置！！");
 
         
 
@@ -34,22 +34,22 @@ public class LV1_tip_manager : MonoBehaviour
     }
     IEnumerator DisplayImageAndWait()
     {
-        // �@ʾ�DƬ
+        // 顯示圖片
         imageObject.gameObject.SetActive(true);
 
-        // �ȴ���Ұ��������I
+        // 等待玩家按下任意鍵
         yield return new WaitUntil(() => Input.anyKeyDown);
 
-        // ��Ұ��������I�ᣬ�P�]�DƬ���
+        // 玩家按下任意鍵後，關閉圖片物件
         imageObject.gameObject.SetActive(false);
     }
     IEnumerator WaitAndDoSomething()
     {
-        // �ȴ�����
+        // 等待三秒
         yield return new WaitForSeconds(3f);
 
-        // �ȴ��Y������еĲ���
-        Debug.Log("�����ѽ��^ȥ�ˣ�");
-        // ���������@�e�������m�Ĳ����������@ʾ�DƬ�򆢄���������
+        // 等待結束後執行的操作
+        Debug.Log("三秒已經過去了！");
+        // 您可以在這裡加入後續的操作，例如顯示圖片或啟動其他功能
     }
 }

@@ -8,22 +8,22 @@ public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance;
 
-    // ×ÖµäÓÃì¶´æ·Å¸÷ˆö¾°µÄÒô˜·
+    // å­—å…¸ç”¨æ–¼å­˜æ”¾å„å ´æ™¯çš„éŸ³æ¨‚
     private Dictionary<string, AudioClip> musicDictionary = new Dictionary<string, AudioClip>();
-    public AudioSource musicSource; // ÓÃì¶²¥·Å±³¾°Òô˜·µÄ AudioSource
+    public AudioSource musicSource; // ç”¨æ–¼æ’­æ”¾èƒŒæ™¯éŸ³æ¨‚çš„ AudioSource
 
     [System.Serializable]
     public class SceneMusic
     {
-        public string sceneName; // ˆö¾°Ãû·Q
-        public AudioClip musicClip; // Œ¦‘ªÒô˜·
+        public string sceneName; // å ´æ™¯åç¨±
+        public AudioClip musicClip; // å°æ‡‰éŸ³æ¨‚
     }
 
     public SceneMusic[] sceneMusicArray;
     private Slider musicVolumeSlider;
 
 
-    // PlayerManager ÒıÓÃ
+    // PlayerManager å¼•ç”¨
     private PlayerManager playerManager;
 
     private void Awake()
@@ -31,7 +31,7 @@ public class MusicManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ÇĞ“Qˆö¾°•r±£Áô
+            DontDestroyOnLoad(gameObject); // åˆ‡æ›å ´æ™¯æ™‚ä¿ç•™
         }
         else
         {
@@ -39,7 +39,7 @@ public class MusicManager : MonoBehaviour
             return;
         }
 
-        // Œ¢ˆö¾°Òô˜·¼ÓÈë×Öµä
+        // å°‡å ´æ™¯éŸ³æ¨‚åŠ å…¥å­—å…¸
         foreach (SceneMusic sceneMusic in sceneMusicArray)
         {
             if (!musicDictionary.ContainsKey(sceneMusic.sceneName))
@@ -48,28 +48,28 @@ public class MusicManager : MonoBehaviour
             }
         }
 
-        // ³õÊ¼»¯ PlayerManager
+        // åˆå§‹åŒ– PlayerManager
         GameObject playerSys = GameObject.Find("PlayerSys");
         if (playerSys != null)
         {
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
 
-        // ³õÊ¼»¯ÒôÁ¿»¬—U
+        // åˆå§‹åŒ–éŸ³é‡æ»‘æ¡¿
         BindMusicVolumeSlider();
         InitializeMusicVolumeSlider();
 
-        // ±OÂ ˆö¾°ÇĞ“QÊÂ¼ş
+        // ç›£è½å ´æ™¯åˆ‡æ›äº‹ä»¶
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -77,12 +77,12 @@ public class MusicManager : MonoBehaviour
     {
         if (musicVolumeSlider != null)
         {
-            // Ä PlayerData ¼ÓİdÒôÁ¿£¬ÈôŸo„tîAÔOé 1£¨×î´óÒôÁ¿£©
+            // å¾ PlayerData åŠ è¼‰éŸ³é‡ï¼Œè‹¥ç„¡å‰‡é è¨­ç‚º 1ï¼ˆæœ€å¤§éŸ³é‡ï¼‰
             float savedVolume = playerManager.playerData.MusicVolume;
             musicSource.volume = savedVolume;
             musicVolumeSlider.value = savedVolume;
 
-            // Ìí¼Ó»¬—UÊÂ¼ş±OÂ 
+            // æ·»åŠ æ»‘æ¡¿äº‹ä»¶ç›£è½
             musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
         }
         else
@@ -95,29 +95,29 @@ public class MusicManager : MonoBehaviour
     {
         musicSource.volume = volume;
 
-        // ¸üĞÂ PlayerData µÄÒôÁ¿ÔOÖÃ
+        // æ›´æ–° PlayerData çš„éŸ³é‡è¨­ç½®
         if (playerManager != null )
         {
             playerManager.playerData.MusicVolume = volume;
         }
         else
         {
-            Debug.LogError("Ÿo·¨´æƒ¦Òô˜·ÒôÁ¿ÖÁ PlayerData£¡");
+            Debug.LogError("ç„¡æ³•å­˜å„²éŸ³æ¨‚éŸ³é‡è‡³ PlayerDataï¼");
         }
     }
 
-    // ®”ˆö¾°İdÈë•rÓ|°l
+    // ç•¶å ´æ™¯è¼‰å…¥æ™‚è§¸ç™¼
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // ÇĞ“Qˆö¾°áá²¥·ÅŒ¦‘ªµÄÒô˜·
+        // åˆ‡æ›å ´æ™¯å¾Œæ’­æ”¾å°æ‡‰çš„éŸ³æ¨‚
         PlayMusicForScene(scene.name);
 
-        // „Ó‘BŒ¤ÕÒK½‰¶¨ĞÂµÄÒôÁ¿»¬—U
+        // å‹•æ…‹å°‹æ‰¾ä¸¦ç¶å®šæ–°çš„éŸ³é‡æ»‘æ¡¿
         BindMusicVolumeSlider();
     }
     private void BindMusicVolumeSlider()
     {
-        // ¸ù“şÃû·QŒ¤ÕÒ»¬—U
+        // æ ¹æ“šåç¨±å°‹æ‰¾æ»‘æ¡¿
         //GameObject sliderObject = GameObject.Find("BGM_Slider");
         GameObject sliderObject = FindInactiveObjectByName("BGM_Slider");
         if (sliderObject != null)
@@ -127,25 +127,25 @@ public class MusicManager : MonoBehaviour
             {
                 musicVolumeSlider = newSlider;
 
-                // ÔOÖÃ»¬—UµÄ³õÊ¼Öµ
+                // è¨­ç½®æ»‘æ¡¿çš„åˆå§‹å€¼
                 float savedVolume = playerManager.playerData.MusicVolume;
                 musicSource.volume = savedVolume;
                 musicVolumeSlider.value = savedVolume;
 
-                // ÒÆ³ıÅfµÄ±OÂ Æ÷£¬±ÜÃâÖØÑ}½‰¶¨
+                // ç§»é™¤èˆŠçš„ç›£è½å™¨ï¼Œé¿å…é‡è¤‡ç¶å®š
                 musicVolumeSlider.onValueChanged.RemoveAllListeners();
 
-                // Ìí¼Ó»¬—UÊÂ¼ş±OÂ 
+                // æ·»åŠ æ»‘æ¡¿äº‹ä»¶ç›£è½
                 musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
             }
             else
             {
-                Debug.LogError("Œ¤ÕÒµ½µÄÎï¼şÉÏ›]ÓĞ Slider ½M¼ş£¡");
+                Debug.LogError("å°‹æ‰¾åˆ°çš„ç‰©ä»¶ä¸Šæ²’æœ‰ Slider çµ„ä»¶ï¼");
             }
         }
         else
         {
-            Debug.LogWarning("Î´ÕÒµ½Ãû·Qé 'MusicVolumeSlider' µÄÒôÁ¿»¬—UÎï¼ş£¡");
+            Debug.LogWarning("æœªæ‰¾åˆ°åç¨±ç‚º 'MusicVolumeSlider' çš„éŸ³é‡æ»‘æ¡¿ç‰©ä»¶ï¼");
         }
     }
 
@@ -155,20 +155,20 @@ public class MusicManager : MonoBehaviour
         GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
         foreach (GameObject obj in allObjects)
         {
-            if (obj.name == name && obj.hideFlags == HideFlags.None) // ´_±£²»ÊÇë[²ØÎï¼ş
+            if (obj.name == name && obj.hideFlags == HideFlags.None) // ç¢ºä¿ä¸æ˜¯éš±è—ç‰©ä»¶
             {
                 return obj;
             }
         }
-        Debug.LogError($"Î´ÕÒµ½Ãûé '{name}' µÄÎï¼ş£¡");
+        Debug.LogError($"æœªæ‰¾åˆ°åç‚º '{name}' çš„ç‰©ä»¶ï¼");
         return null;
     }
-    // ²¥·ÅŒ¦‘ªˆö¾°µÄÒô˜·
+    // æ’­æ”¾å°æ‡‰å ´æ™¯çš„éŸ³æ¨‚
     private void PlayMusicForScene(string sceneName)
     {
         if (musicDictionary.TryGetValue(sceneName, out AudioClip clip))
         {
-            if (musicSource.clip != clip) // ´_±£²»ÖØÑ}²¥·ÅÏàÍ¬Òô˜·
+            if (musicSource.clip != clip) // ç¢ºä¿ä¸é‡è¤‡æ’­æ”¾ç›¸åŒéŸ³æ¨‚
             {
                 musicSource.clip = clip;
                 musicSource.loop = true;
@@ -177,7 +177,7 @@ public class MusicManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"ˆö¾° '{sceneName}' ›]ÓĞÖ¸¶¨µÄ±³¾°Òô˜·£¡");
+            Debug.LogWarning($"å ´æ™¯ '{sceneName}' æ²’æœ‰æŒ‡å®šçš„èƒŒæ™¯éŸ³æ¨‚ï¼");
         }
     }
 

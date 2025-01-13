@@ -4,39 +4,39 @@ using UnityEngine.UI;
 
 public class SceneTransitionManager : MonoBehaviour
 {
-    //Õ{ÓÃ:
+    //èª¿ç”¨:
     //SceneTransitionManager transitionManager = FindObjectOfType<SceneTransitionManager>();
     //transitionManager.StartSceneTransition();
 
-    public static SceneTransitionManager Instance { get; private set; } // †ÎÀıÄ£Ê½
+    public static SceneTransitionManager Instance { get; private set; } // å–®ä¾‹æ¨¡å¼
 
-    public Animator animator;        // ÒıÓÃ Animator ½M¼ş
-    public Text tipText;            // ÓÃíï@Ê¾ÌáÊ¾ÎÄ×ÖµÄ UI Text Ôª¼ş
-    public string[] tips;           // îAÔOµÄÌáÊ¾ÎÄ×Öê‡ÁĞ
+    public Animator animator;        // å¼•ç”¨ Animator çµ„ä»¶
+    public Text tipText;            // ç”¨ä¾†é¡¯ç¤ºæç¤ºæ–‡å­—çš„ UI Text å…ƒä»¶
+    public string[] tips;           // é è¨­çš„æç¤ºæ–‡å­—é™£åˆ—
     public GameObject UI;
-    public CanvasGroup fadeCanvasGroup; // ÓÃì¶µ­Èëµ­³öĞ§¹ûµÄ CanvasGroup
+    public CanvasGroup fadeCanvasGroup; // ç”¨æ–¼æ·¡å…¥æ·¡å‡ºæ•ˆæœçš„ CanvasGroup
 
     private void Awake()
     {
-        // ÔOÖÃ†ÎÀıÄ£Ê½
+        // è¨­ç½®å–®ä¾‹æ¨¡å¼
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ÇĞ“Qˆö¾°•r²»äNš§
+            DontDestroyOnLoad(gameObject); // åˆ‡æ›å ´æ™¯æ™‚ä¸éŠ·æ¯€
         }
         else
         {
-            Destroy(gameObject); // Èç¹ûÒÑ½›ÓĞŒÀı£¬äNš§ĞÂµÄŒÀı
+            Destroy(gameObject); // å¦‚æœå·²ç¶“æœ‰å¯¦ä¾‹ï¼ŒéŠ·æ¯€æ–°çš„å¯¦ä¾‹
         }
     }
 
     private void Start()
     {
-        UI.SetActive(false); // ³õÊ¼»¯ UI éë[²Ø î‘B
-        fadeCanvasGroup.alpha = 0; // é_Ê¼•rÍêÈ«Í¸Ã÷
+        UI.SetActive(false); // åˆå§‹åŒ– UI ç‚ºéš±è—ç‹€æ…‹
+        fadeCanvasGroup.alpha = 0; // é–‹å§‹æ™‚å®Œå…¨é€æ˜
     }
 
-    // ®”ˆö¾°ÇĞ“Q•rÕ{ÓÃ´Ë·½·¨
+    // ç•¶å ´æ™¯åˆ‡æ›æ™‚èª¿ç”¨æ­¤æ–¹æ³•
     public void StartSceneTransition()
     {
         StartCoroutine(PlayTransition());
@@ -44,29 +44,29 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator PlayTransition()
     {
-        // ï@Ê¾ UI KÁ¢¼´ÔO¶¨Í¸Ã÷¶Èé 1£¨ÍêÈ«²»Í¸Ã÷£©
+        // é¡¯ç¤º UI ä¸¦ç«‹å³è¨­å®šé€æ˜åº¦ç‚º 1ï¼ˆå®Œå…¨ä¸é€æ˜ï¼‰
         UI.SetActive(true);
-        fadeCanvasGroup.alpha = 1;  // Á¢¼´ï@Ê¾£¬œÊ‚äß^¶ÉĞ§¹û
+        fadeCanvasGroup.alpha = 1;  // ç«‹å³é¡¯ç¤ºï¼Œæº–å‚™éæ¸¡æ•ˆæœ
 
-        // ÔOÖÃ Animator ²¼ÁÖÖµé true
+        // è¨­ç½® Animator å¸ƒæ—å€¼ç‚º true
         animator.SetBool("play", true);
 
-        // ëS™CßxÈ¡Ò»¶ÎÌáÊ¾ÎÄ×ÖKï@Ê¾
+        // éš¨æ©Ÿé¸å–ä¸€æ®µæç¤ºæ–‡å­—ä¸¦é¡¯ç¤º
         if (tips.Length > 0)
         {
             int randomIndex = Random.Range(0, tips.Length);
             tipText.text = tips[randomIndex];
         }
 
-        // µÈ´ıÒ»¶Î•rég£¬ß@ÊÇß^¶É„Ó®‹µÄï@Ê¾•rég
-        yield return new WaitForSeconds(3.5f); // Õ{ÕûéÄãµÄÌáÊ¾ÎÄ×Öï@Ê¾•rég
+        // ç­‰å¾…ä¸€æ®µæ™‚é–“ï¼Œé€™æ˜¯éæ¸¡å‹•ç•«çš„é¡¯ç¤ºæ™‚é–“
+        yield return new WaitForSeconds(3.5f); // èª¿æ•´ç‚ºä½ çš„æç¤ºæ–‡å­—é¡¯ç¤ºæ™‚é–“
 
-        // µ­³öĞ§¹û£¬¿ØÖÆ CanvasGroup µÄ Alpha Öµ
-        float fadeDuration = 1.5f; // ÔO¶¨µ­³öµÄ•régéL¶È
+        // æ·¡å‡ºæ•ˆæœï¼Œæ§åˆ¶ CanvasGroup çš„ Alpha å€¼
+        float fadeDuration = 1.5f; // è¨­å®šæ·¡å‡ºçš„æ™‚é–“é•·åº¦
         float startAlpha = fadeCanvasGroup.alpha;
         float endAlpha = 0f;
 
-        // Ê¹ÓÃ¾€ĞÔ²åÖµ£¨Lerp£©Œ¬Fµ­³ö
+        // ä½¿ç”¨ç·šæ€§æ’å€¼ï¼ˆLerpï¼‰å¯¦ç¾æ·¡å‡º
         float timeElapsed = 0f;
         while (timeElapsed < fadeDuration)
         {
@@ -75,10 +75,10 @@ public class SceneTransitionManager : MonoBehaviour
             yield return null;
         }
 
-        // ×îáá´_±£Í¸Ã÷¶ÈÔOÖÃé 0
+        // æœ€å¾Œç¢ºä¿é€æ˜åº¦è¨­ç½®ç‚º 0
         fadeCanvasGroup.alpha = 0;
 
-        // ²¥·ÅÍê®…ááÔOÖÃ Animator ²¼ÁÖÖµé false Kë[²Ø UI
+        // æ’­æ”¾å®Œç•¢å¾Œè¨­ç½® Animator å¸ƒæ—å€¼ç‚º false ä¸¦éš±è— UI
         animator.SetBool("play", false);
         UI.SetActive(false);
     }

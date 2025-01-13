@@ -6,27 +6,27 @@ using UnityEngine.UI;
 
 public class CustomerController : MonoBehaviour
 {
-    public GameObject cam; // Íæ¼ÒÎï¼ş
-    //public GameObject camb; // Íæ¼ÒÎï¼ş
+    public GameObject cam; // ç©å®¶ç‰©ä»¶
+    //public GameObject camb; // ç©å®¶ç‰©ä»¶
 
-    public GameObject customerPrefab; // î™¿ÍÎï¼şPrefab
-    public GameObject cameraPrefab; // ÓÃí¸úëSî™¿ÍµÄ”zÓ°™CPrefab
-    public Transform pointA; // î™¿ÍÆğÊ¼ücA
-    public Transform pointB; // î™¿ÍÄ¿˜ËücB
-    public float speed = 3f; // î™¿ÍÒÆ„ÓµÄËÙ¶È
-    public float moveDuration = 2f; // î™¿ÍÒÆ„ÓµÄ•rég£¨„Ó®‹•rég£©
+    public GameObject customerPrefab; // é¡§å®¢ç‰©ä»¶Prefab
+    public GameObject cameraPrefab; // ç”¨ä¾†è·Ÿéš¨é¡§å®¢çš„æ”å½±æ©ŸPrefab
+    public Transform pointA; // é¡§å®¢èµ·å§‹é»A
+    public Transform pointB; // é¡§å®¢ç›®æ¨™é»B
+    public float speed = 3f; // é¡§å®¢ç§»å‹•çš„é€Ÿåº¦
+    public float moveDuration = 2f; // é¡§å®¢ç§»å‹•çš„æ™‚é–“ï¼ˆå‹•ç•«æ™‚é–“ï¼‰
 
     public LevelManager levelManager;
 
 
-    private List<GameObject> activeUIs = new List<GameObject>(); // Ó›ä›†¢ÓÃÖĞµÄ UI ÔªËØ
-    private bool isUIDisabled = false; // ×·Û™ UI ÊÇ·ñÒÑ½›±»êPé]
+    private List<GameObject> activeUIs = new List<GameObject>(); // è¨˜éŒ„å•Ÿç”¨ä¸­çš„ UI å…ƒç´ 
+    private bool isUIDisabled = false; // è¿½è¹¤ UI æ˜¯å¦å·²ç¶“è¢«é—œé–‰
     private void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
 
     }
-    // ß@ÊÇ¹«é_µÄº¯”µ£¬×ŒÆäËûÄ_±¾¿ÉÒÔÕ{ÓÃ
+    // é€™æ˜¯å…¬é–‹çš„å‡½æ•¸ï¼Œè®“å…¶ä»–è…³æœ¬å¯ä»¥èª¿ç”¨
     public void SpawnCustomerAndMove()
     {
         StartCoroutine(HandleCustomerSequence());
@@ -39,12 +39,12 @@ public class CustomerController : MonoBehaviour
 
     private IEnumerator HandleCustomerSequence()
     {
-        // 1. êPé]ËùÓĞ UI KÇĞ“Qµ½ÒıŒ§”zÓ°™C
+        // 1. é—œé–‰æ‰€æœ‰ UI ä¸¦åˆ‡æ›åˆ°å¼•å°æ”å½±æ©Ÿ
         DisableAllUI();
         cam.gameObject.SetActive(false);
         cameraPrefab.gameObject.SetActive(true);
 
-        // 2. Éú³Éî™¿ÍK†¢„ÓÒÆ„Ó„Ó®‹
+        // 2. ç”Ÿæˆé¡§å®¢ä¸¦å•Ÿå‹•ç§»å‹•å‹•ç•«
         //customerPrefab = Instantiate(customerPrefab, pointA.position, Quaternion.identity);
 
 
@@ -58,11 +58,11 @@ public class CustomerController : MonoBehaviour
         FindObjectOfType<NPCResponseManager>().ShowNPCResponse(0, 50, 100, 0);
 
 
-        // 3. ´_±£î™¿Í×î½Kµ½ß_Ä¿˜ËÎ»ÖÃK„h³ıî™¿ÍÅc”zÓ°™C
+        // 3. ç¢ºä¿é¡§å®¢æœ€çµ‚åˆ°é”ç›®æ¨™ä½ç½®ä¸¦åˆªé™¤é¡§å®¢èˆ‡æ”å½±æ©Ÿ
         //customerPrefab.transform.position = pointB.position;
        // Destroy(customerPrefab);
 
-        // 4. ÇĞ»ØÖ÷”zÓ°™CKß€Ô­ËùÓĞ UI
+        // 4. åˆ‡å›ä¸»æ”å½±æ©Ÿä¸¦é‚„åŸæ‰€æœ‰ UI
         cameraPrefab.gameObject.SetActive(false);
 
         cam.gameObject.SetActive(true);

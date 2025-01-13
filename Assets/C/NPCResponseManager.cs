@@ -8,33 +8,33 @@ public class NPCResponseManager : MonoBehaviour
     [System.Serializable]
     public class NPCDialogue
     {
-        public string npcName; // NPCÃû·Q
-        public List<string> normalResponses; // Õı³£»Ø‘ª
-        public List<string> delayResponses; // ÑÓßt»Ø‘ª
-        public List<string> errorResponses; // åeÕ`»Ø‘ª
-        public GameObject normalPrefab; // Õı³£ î‘B Prefab
-        public GameObject delayPrefab; // ÑÓßt î‘B Prefab
-        public GameObject errorPrefab; // åeÕ` î‘B Prefab
+        public string npcName; // NPCåç¨±
+        public List<string> normalResponses; // æ­£å¸¸å›æ‡‰
+        public List<string> delayResponses; // å»¶é²å›æ‡‰
+        public List<string> errorResponses; // éŒ¯èª¤å›æ‡‰
+        public GameObject normalPrefab; // æ­£å¸¸ç‹€æ…‹ Prefab
+        public GameObject delayPrefab; // å»¶é²ç‹€æ…‹ Prefab
+        public GameObject errorPrefab; // éŒ¯èª¤ç‹€æ…‹ Prefab
     }
 
     public LevelManager levelManager;
-    public List<NPCDialogue> npcDialogues = new List<NPCDialogue>(); // NPCŒ¦Ô’ÙYÁÏ
-    public Canvas responseCanvas; // »Ø‘ª®‹²¼
-    public Text responseText; // Œ¦Ô’ï@Ê¾ÎÄ±¾
-    public Camera closeUpCamera; // ÌØŒ‘”zÓ°™C
+    public List<NPCDialogue> npcDialogues = new List<NPCDialogue>(); // NPCå°è©±è³‡æ–™
+    public Canvas responseCanvas; // å›æ‡‰ç•«å¸ƒ
+    public Text responseText; // å°è©±é¡¯ç¤ºæ–‡æœ¬
+    public Camera closeUpCamera; // ç‰¹å¯«æ”å½±æ©Ÿ
 
-    public Transform spawnPosition; // Î»ÖÃÔO¶¨£º¿ÕÎï¼ş£¨Transform£©í›Q¶¨Éú³Éüc
+    public Transform spawnPosition; // ä½ç½®è¨­å®šï¼šç©ºç‰©ä»¶ï¼ˆTransformï¼‰ä¾†æ±ºå®šç”Ÿæˆé»
 
-    private List<GameObject> activeUIs = new List<GameObject>(); // ×·Û™†¢ÓÃµÄUI
-    private bool isUIDisabled = false; // UIÊÇ·ñÒÑ±»êPé]
+    private List<GameObject> activeUIs = new List<GameObject>(); // è¿½è¹¤å•Ÿç”¨çš„UI
+    private bool isUIDisabled = false; // UIæ˜¯å¦å·²è¢«é—œé–‰
     public Camera mainCamera;
 
     void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
-        responseCanvas.enabled = false; // ´_±£³õÊ¼®‹²¼éêPé]
-        closeUpCamera.enabled = false; // ³õÊ¼êPé]ÌØŒ‘”zÓ°™C
-        InitializeNPCDialogues(); // ³õÊ¼»¯NPCŒ¦Ô’ÙYÁÏ
+        responseCanvas.enabled = false; // ç¢ºä¿åˆå§‹ç•«å¸ƒç‚ºé—œé–‰
+        closeUpCamera.enabled = false; // åˆå§‹é—œé–‰ç‰¹å¯«æ”å½±æ©Ÿ
+        InitializeNPCDialogues(); // åˆå§‹åŒ–NPCå°è©±è³‡æ–™
     }
 
     public void ShowNPCResponse(int npcIndex, float completionTime, float thresholdTime, int errors)
@@ -47,7 +47,7 @@ public class NPCResponseManager : MonoBehaviour
 
         if (npcIndex < 0 || npcIndex >= npcDialogues.Count)
         {
-            Debug.LogError("NPCË÷ÒıŸoĞ§£¡");
+            Debug.LogError("NPCç´¢å¼•ç„¡æ•ˆï¼");
             return;
         }
 
@@ -74,29 +74,29 @@ public class NPCResponseManager : MonoBehaviour
         responseCanvas.enabled = true;
         responseText.text = response;
 
-        // Éú³ÉPrefabK·ÅÖÃì¶ÔO¶¨µÄÎ»ÖÃ
+        // ç”ŸæˆPrefabä¸¦æ”¾ç½®æ–¼è¨­å®šçš„ä½ç½®
         if (npcPrefab != null && spawnPosition != null)
         {
             Instantiate(npcPrefab, spawnPosition.position, Quaternion.Euler(0f, -90f, 0f));//Quaternion.identity
         }
         StartCoroutine(wait());
 
-        // é_Ê¼ÑÓßtááë[²ØŒ¦Ô’ºÍêPé]”zÓ°™C
+        // é–‹å§‹å»¶é²å¾Œéš±è—å°è©±å’Œé—œé–‰æ”å½±æ©Ÿ
         StartCoroutine(HideResultAfterDelay(5f));
     }
     IEnumerator wait()
     {
         while (Input.anyKey)
         {
-            yield return null; // Ã¿Ö¡¼ì²éÒ»´Î
+            yield return null; // æ¯å¸§æ£€æŸ¥ä¸€æ¬¡
         }
     }
 
         private IEnumerator HideResultAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        levelManager.ShowResultUI("1/1", "0/0", "10/10", 300); // ²¥·Å½YËã UI
-        closeUpCamera.enabled = false; // êPé]ÌØŒ‘”zÓ°™C
+        levelManager.ShowResultUI("1/1", "0/0", "10/10", 300); // æ’­æ”¾çµç®— UI
+        closeUpCamera.enabled = false; // é—œé–‰ç‰¹å¯«æ”å½±æ©Ÿ
         closeUpCamera.depth = 0;
 
         mainCamera.enabled = true;
@@ -141,30 +141,30 @@ public class NPCResponseManager : MonoBehaviour
     {
         npcDialogues.Add(new NPCDialogue
         {
-            npcName = "ëu¸ç",
+            npcName = "é›å“¥",
             normalResponses = new List<string>
             {
-                "¡¸–|Î÷¿ì½oÎÒ°É£¬ÎÒß@ß…ß€ÓĞüc¼±ÊÂ£¬ÕæµÄ›]•régµÈÌ«¾ÃÁË¡£¡¹",
-                "¡¸¿©¿©£¬Ì«ºÃÁË£¡ÕıºÃ³öéTGÀ¬»ø£¬½Y¹ûÍâËÍ¾ÍËÍíÁË£¬ÕæÊÇÌ«·½±ãÁË£¬¸ĞÖxÄã£¡¡¹",
-                "¡¸Äã‚ƒµÄÍâËÍËÙ¶ÈÒ²Ì«ÂıÁË°É£¿\nÎÒµÈÁËß@üN¾Ã£¬ÕæµÄÊÇ×ŒÈËÓĞĞ©²»M£¬¿ÉÄÜÄã‚ƒµÄÅäËÍ°²ÅÅĞèÒª¸ÄßMÒ»ÏÂÁË¡£¡¹"
+                "ã€Œæ±è¥¿å¿«çµ¦æˆ‘å§ï¼Œæˆ‘é€™é‚Šé‚„æœ‰é»æ€¥äº‹ï¼ŒçœŸçš„æ²’æ™‚é–“ç­‰å¤ªä¹…äº†ã€‚ã€",
+                "ã€Œå’¯å’¯ï¼Œå¤ªå¥½äº†ï¼æ­£å¥½å‡ºé–€ä¸Ÿåƒåœ¾ï¼Œçµæœå¤–é€å°±é€ä¾†äº†ï¼ŒçœŸæ˜¯å¤ªæ–¹ä¾¿äº†ï¼Œæ„Ÿè¬ä½ ï¼ã€",
+                "ã€Œä½ å€‘çš„å¤–é€é€Ÿåº¦ä¹Ÿå¤ªæ…¢äº†å§ï¼Ÿ\næˆ‘ç­‰äº†é€™éº¼ä¹…ï¼ŒçœŸçš„æ˜¯è®“äººæœ‰äº›ä¸æ»¿ï¼Œå¯èƒ½ä½ å€‘çš„é…é€å®‰æ’éœ€è¦æ”¹é€²ä¸€ä¸‹äº†ã€‚ã€"
             },
             delayResponses = new List<string>
             {
-                "¡¸ß@Ò²Ì«ÍíÁË°É£¿\nß@üNÍí²ÅËÍµ½£¬ÔõüN¸ãµÄ£¬ß€ÊÇÎÒ×Ô¼ºÈ¥²Íd³ÔËãÁË£¬Ê¡µÃÀËÙM•rég¡£¡¹",
-                "¡¸ÎÒ¶¼œÊ‚äË¯ÓXÁË£¬Äã²ÅËÍí£¬ÄãÊÇÒªÎÒÔÚ‰ôÑe³Ôïˆ†á¡£¡¹",
-                "¡¸ß@ËÙ¶È¿ÉÕæ²»¸Ò¹§¾S£¬¿©¿©£¡ÎÒµÈïˆµÄÄÍĞÄ¿É›]ß@üNºÃ£¡\nÏÂ´Î„Õ±Ø¸ü¿ìüc£¡¡¹"
+                "ã€Œé€™ä¹Ÿå¤ªæ™šäº†å§ï¼Ÿ\né€™éº¼æ™šæ‰é€åˆ°ï¼Œæ€éº¼æçš„ï¼Œé‚„æ˜¯æˆ‘è‡ªå·±å»é¤å»³åƒç®—äº†ï¼Œçœå¾—æµªè²»æ™‚é–“ã€‚ã€",
+                "ã€Œæˆ‘éƒ½æº–å‚™ç¡è¦ºäº†ï¼Œä½ æ‰é€ä¾†ï¼Œä½ æ˜¯è¦æˆ‘åœ¨å¤¢è£¡åƒé£¯å—ã€‚ã€",
+                "ã€Œé€™é€Ÿåº¦å¯çœŸä¸æ•¢æ­ç¶­ï¼Œå’¯å’¯ï¼æˆ‘ç­‰é£¯çš„è€å¿ƒå¯æ²’é€™éº¼å¥½ï¼\nä¸‹æ¬¡å‹™å¿…æ›´å¿«é»ï¼ã€"
             },
             errorResponses = new List<string>
             {
-                "¡¸ß@‚€²ÍücºÃÏñ²»ÊÇÎÒücµÄ°É£¿\nÔõüN•ş°lÉúß@üNµÍ¼‰µÄåeÕ`£¿ÊÇ²»ÊÇÄã‚ƒ¸ãåeÁË£¿¡¹",
-                "¡¸ß@ÊÇËÍ½o¡¸¸ô±ÚÀÏÍõ¡¹µÄ°É£¿\n°İÓšÔÙÕJÕæÒ»üc£¬ÏÂ´Î„e¸ãõıˆÁË¡£¡¹",
-                "¡¸ß@‚€²Íüc²»Œ¦°É£¡\n¸çµÄÆ·Î¶¿ÉÊÇªšÒ»Ÿo¶ş£¬„e½oÎÒyí¡£¡¹"
+                "ã€Œé€™å€‹é¤é»å¥½åƒä¸æ˜¯æˆ‘é»çš„å§ï¼Ÿ\næ€éº¼æœƒç™¼ç”Ÿé€™éº¼ä½ç´šçš„éŒ¯èª¤ï¼Ÿæ˜¯ä¸æ˜¯ä½ å€‘æéŒ¯äº†ï¼Ÿã€",
+                "ã€Œé€™æ˜¯é€çµ¦ã€Œéš”å£è€ç‹ã€çš„å§ï¼Ÿ\næ‹œè¨—å†èªçœŸä¸€é»ï¼Œä¸‹æ¬¡åˆ¥æçƒé¾äº†ã€‚ã€",
+                "ã€Œé€™å€‹é¤é»ä¸å°å§ï¼\nå“¥çš„å“å‘³å¯æ˜¯ç¨ä¸€ç„¡äºŒï¼Œåˆ¥çµ¦æˆ‘äº‚ä¾†ã€‚ã€"
             },
-            normalPrefab = null, // Äú¿ÉÒÔÔÚ¾İ‹Æ÷ÖĞ·ÖÅä Prefab
+            normalPrefab = null, // æ‚¨å¯ä»¥åœ¨ç·¨è¼¯å™¨ä¸­åˆ†é… Prefab
             delayPrefab = null,
             errorPrefab = null
         });
 
-        // ß@Ñe¿ÉÒÔÀ^ÀmĞÂÔöÆäËûNPCÙYÁÏ
+        // é€™è£¡å¯ä»¥ç¹¼çºŒæ–°å¢å…¶ä»–NPCè³‡æ–™
     }
 }

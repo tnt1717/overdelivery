@@ -5,19 +5,19 @@ using UnityEngine.AI;
 
 public class SpawnRandom : MonoBehaviour
 {
-    public GameObject[] objectPrefabs; // ÒªÉú³ÉµÄÎï¼şê‡ÁĞ
-    public float spawnInterval = 10f;  // Éú³Éég¸ô•rég
-    public float radius = 20f;         // NavMesh ëS™CÎ»ÖÃµÄ°ë½
-    public int maxRetries = 5;         // Ã¿´ÎÉú³ÉµÄ×î´óÖØÔ‡´Î”µ
+    public GameObject[] objectPrefabs; // è¦ç”Ÿæˆçš„ç‰©ä»¶é™£åˆ—
+    public float spawnInterval = 10f;  // ç”Ÿæˆé–“éš”æ™‚é–“
+    public float radius = 20f;         // NavMesh éš¨æ©Ÿä½ç½®çš„åŠå¾‘
+    public int maxRetries = 5;         // æ¯æ¬¡ç”Ÿæˆçš„æœ€å¤§é‡è©¦æ¬¡æ•¸
 
     private float timer = 0f;
-    private int failedSpawnAttempts = 0; // Ó›ä›Éú³ÉÊ§”¡µÄ´Î”µ
+    private int failedSpawnAttempts = 0; // è¨˜éŒ„ç”Ÿæˆå¤±æ•—çš„æ¬¡æ•¸
 
     void Update()
     {
         timer += Time.deltaTime;
 
-        // Ã¿¸ôÖ¸¶¨•régÉú³ÉÒ»‚€ĞÂµÄÎï¼ş
+        // æ¯éš”æŒ‡å®šæ™‚é–“ç”Ÿæˆä¸€å€‹æ–°çš„ç‰©ä»¶
         if (timer >= spawnInterval)
         {
             SpawnObject();
@@ -27,21 +27,21 @@ public class SpawnRandom : MonoBehaviour
 
     void SpawnObject()
     {
-        int retries = 0; // ÖØÔ‡´Î”µÓ‹”µ
+        int retries = 0; // é‡è©¦æ¬¡æ•¸è¨ˆæ•¸
 
         while (retries < maxRetries)
         {
-            // ÔÚ NavMesh ÉÏÕÒµ½Ò»‚€ëS™CÎ»ÖÃ
+            // åœ¨ NavMesh ä¸Šæ‰¾åˆ°ä¸€å€‹éš¨æ©Ÿä½ç½®
             Vector3 randomPosition = GetRandomPointOnNavMesh();
             if (randomPosition != Vector3.zero)
             {
-                // ëS™Cßx“ñÒ»‚€Îï¼ş
+                // éš¨æ©Ÿé¸æ“‡ä¸€å€‹ç‰©ä»¶
                 GameObject prefabToSpawn = objectPrefabs[Random.Range(0, objectPrefabs.Length)];
 
-                // Éú³ÉëS™CßxÖĞµÄÎï¼ş
+                // ç”Ÿæˆéš¨æ©Ÿé¸ä¸­çš„ç‰©ä»¶
                 GameObject newObject = Instantiate(prefabToSpawn, randomPosition, Quaternion.identity);
 
-                // ‡LÔ‡³õÊ¼»¯ NavMeshAgent
+                // å˜—è©¦åˆå§‹åŒ– NavMeshAgent
                 NavMeshAgent agent = newObject.GetComponent<NavMeshAgent>();
                 if (agent != null && agent.isOnNavMesh)
                 {
@@ -50,28 +50,28 @@ public class SpawnRandom : MonoBehaviour
                     {
                         agent.SetDestination(randomDestination);
 
-                        // ¸½¼ÓäNš§™z²éÄ_±¾
+                        // é™„åŠ éŠ·æ¯€æª¢æŸ¥è…³æœ¬
                         var destroyer = newObject.AddComponent<ObjectDestroyer>();
                         destroyer.Initialize(agent);
                     }
-                    return; // ³É¹¦Éú³ÉááÍË³ö
+                    return; // æˆåŠŸç”Ÿæˆå¾Œé€€å‡º
                 }
                 else
                 {
                     Debug.LogWarning("Failed to initialize NavMeshAgent. Destroying object.");
-                    Destroy(newObject); // Èç¹ûÎï¼şŸo·¨·ÅÖÃì¶ NavMesh£¬äNš§Ëü
+                    Destroy(newObject); // å¦‚æœç‰©ä»¶ç„¡æ³•æ”¾ç½®æ–¼ NavMeshï¼ŒéŠ·æ¯€å®ƒ
                 }
             }
 
             retries++;
         }
 
-        // Èç¹ûÖØÔ‡ß_µ½ÉÏÏŞÈÔÈ»Ê§”¡£¬Ôö¼ÓÊ§”¡Ó‹”µ
+        // å¦‚æœé‡è©¦é”åˆ°ä¸Šé™ä»ç„¶å¤±æ•—ï¼Œå¢åŠ å¤±æ•—è¨ˆæ•¸
         failedSpawnAttempts++;
         Debug.LogWarning($"Spawn failed! Total failed attempts: {failedSpawnAttempts}");
     }
 
-    // «@È¡ NavMesh ÉÏµÄëS™Cüc
+    // ç²å– NavMesh ä¸Šçš„éš¨æ©Ÿé»
     Vector3 GetRandomPointOnNavMesh()
     {
         Vector3 randomPoint = Random.insideUnitSphere * radius;
@@ -80,17 +80,17 @@ public class SpawnRandom : MonoBehaviour
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, radius, NavMesh.AllAreas))
         {
-            // ™z²éücÊÇ·ñ×ã‰ò¿¿½ü NavMesh ÇÒÓĞĞ§
+            // æª¢æŸ¥é»æ˜¯å¦è¶³å¤ é è¿‘ NavMesh ä¸”æœ‰æ•ˆ
             if (Vector3.Distance(hit.position, randomPoint) <= radius)
             {
                 return hit.position;
             }
         }
-        return Vector3.zero;  // Èç¹û›]ÓĞÕÒµ½ÓĞĞ§üc£¬·µ»Ø Vector3.zero
+        return Vector3.zero;  // å¦‚æœæ²’æœ‰æ‰¾åˆ°æœ‰æ•ˆé»ï¼Œè¿”å› Vector3.zero
     }
 }
 
-// ®”Îï¼şµ½ß_½KücááäNš§×Ô¼º
+// ç•¶ç‰©ä»¶åˆ°é”çµ‚é»å¾ŒéŠ·æ¯€è‡ªå·±
 public class ObjectDestroyer : MonoBehaviour
 {
     private NavMeshAgent agent;
@@ -102,7 +102,7 @@ public class ObjectDestroyer : MonoBehaviour
 
     void Update()
     {
-        // ®”Îï¼şµ½ß_½KücÇÒÍæ¼Ò¾àëx³¬ß^ 20 •räNš§
+        // ç•¶ç‰©ä»¶åˆ°é”çµ‚é»ä¸”ç©å®¶è·é›¢è¶…é 20 æ™‚éŠ·æ¯€
         if (agent != null && agent.isOnNavMesh && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             Destroy(gameObject);

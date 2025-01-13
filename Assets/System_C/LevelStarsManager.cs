@@ -4,18 +4,18 @@ using UnityEngine.UI;
 
 public class LevelStarsManager : MonoBehaviour
 {
-    public List<Image> levelUIElements; // ¸÷êP¿¨ UI ˆDÆ¬
-    public Sprite unlockedSprite;       // ½âæiµÄˆDÆ¬
-    public Sprite lockedSprite;         // æi¶¨µÄˆDÆ¬
+    public List<Image> levelUIElements; // å„é—œå¡ UI åœ–ç‰‡
+    public Sprite unlockedSprite;       // è§£éŽ–çš„åœ–ç‰‡
+    public Sprite lockedSprite;         // éŽ–å®šçš„åœ–ç‰‡
 
     private PlayerManager playerManager;
 
     private void Start()
     {
-        playerManager = PlayerManager.instance;  // «@È¡ PlayerManager µÄŒÀý
+        playerManager = PlayerManager.instance;  // ç²å– PlayerManager çš„å¯¦ä¾‹
         if (playerManager != null)
         {
-            UpdateLevelUI();  // ¸üÐÂ UI ÒÔ·´Ó³Íæ¼ÒµÄêP¿¨ßM¶È
+            UpdateLevelUI();  // æ›´æ–° UI ä»¥åæ˜ çŽ©å®¶çš„é—œå¡é€²åº¦
         }
         else
         {
@@ -32,7 +32,7 @@ public class LevelStarsManager : MonoBehaviour
                         ? playerManager.playerData.levelStars[previousLevelName]
                         : 0;
 
-            // ¸ù“þÐÇÐÇ”µÁ¿ÔO¶¨ˆDÆ¬
+            // æ ¹æ“šæ˜Ÿæ˜Ÿæ•¸é‡è¨­å®šåœ–ç‰‡
             levelUIElements[i].sprite = stars > 0 ? unlockedSprite : lockedSprite;
         }
     }

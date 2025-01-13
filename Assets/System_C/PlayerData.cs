@@ -9,13 +9,13 @@ using UnityEngine;
 //    playerManager = playerSys.GetComponent<PlayerManager>();
 //    if (playerManager == null)
 //    {
-//        Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+//        Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
 //        return;
 //    }
 //}
 //else
 //{
-//    Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+//    Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
 //    return;
 //}
 
@@ -24,37 +24,37 @@ using UnityEngine;
 public class PlayerData 
 {
     public int coins=1000;
-    public Dictionary<string, bool> achievements; // ³É¾ÍÃû·QºÍ½âæi î‘B
+    public Dictionary<string, bool> achievements; // æˆå°±åç¨±å’Œè§£é–ç‹€æ…‹
 
-    // ·şÑbÙYÁÏ
-    public Dictionary<string, bool> outfits; // ·şÑbÃû·QºÍ“íÓĞ î‘B
-    public List<string> unlockedClothings; // ÒÑ½âæi·şÑbÃû·Q
-
-
-    // ±íÇéÙYÁÏ
-    public Dictionary<string, bool> expressions; // ±íÇéÃû·QºÍ½âæi î‘B
-    public List<string> unlockedExpressions; // ÒÑ½âæi±íÇéÃû·Q
+    // æœè£è³‡æ–™
+    public Dictionary<string, bool> outfits; // æœè£åç¨±å’Œæ“æœ‰ç‹€æ…‹
+    public List<string> unlockedClothings; // å·²è§£é–æœè£åç¨±
 
 
-    public Dictionary<string, int> levelStars; // êP¿¨Ãû·QºÍĞÇĞÇ”µÁ¿
-    public Dictionary<string, int> itemLevels; // ÉÌÆ·Ãû·QºÍµÈ¼‰
+    // è¡¨æƒ…è³‡æ–™
+    public Dictionary<string, bool> expressions; // è¡¨æƒ…åç¨±å’Œè§£é–ç‹€æ…‹
+    public List<string> unlockedExpressions; // å·²è§£é–è¡¨æƒ…åç¨±
+
+
+    public Dictionary<string, int> levelStars; // é—œå¡åç¨±å’Œæ˜Ÿæ˜Ÿæ•¸é‡
+    public Dictionary<string, int> itemLevels; // å•†å“åç¨±å’Œç­‰ç´š
 
     public bool isCharacterCreated = false;
     public string Playermodle,PlayerName;
 
-    //public Dictionary<string, string> vehicleStatus = new Dictionary<string, string>(); // Ü‡İv î‘B
+    //public Dictionary<string, string> vehicleStatus = new Dictionary<string, string>(); // è»Šè¼›ç‹€æ…‹
 
     public Dictionary<string, bool> vehicleStates = new Dictionary<string, bool>(); 
-    public string currentVehicle; //Ê¹ÓÃÖĞµÄÜ‡İv
-    public List<int> unlockedVehicles;         // ÒÑ½âæiÜ‡İvË÷Òı
+    public string currentVehicle; //ä½¿ç”¨ä¸­çš„è»Šè¼›
+    public List<int> unlockedVehicles;         // å·²è§£é–è»Šè¼›ç´¢å¼•
     public List<int> unlockedTextures;         
 
 
 
-    public string currentClothing; // ®”Ç°Ê¹ÓÃÖĞµÄ·şÑbÃû·Q
-    //È±ÉÙÒÑ½âæi±íÇéË÷Òı
-    //È±ÉÙÒÑ½âæi·şÑbË÷Òı
-    public string currentExpression; // ®”Ç°Ê¹ÓÃÖĞµÄ±íÇéÃû·Q
+    public string currentClothing; // ç•¶å‰ä½¿ç”¨ä¸­çš„æœè£åç¨±
+    //ç¼ºå°‘å·²è§£é–è¡¨æƒ…ç´¢å¼•
+    //ç¼ºå°‘å·²è§£é–æœè£ç´¢å¼•
+    public string currentExpression; // ç•¶å‰ä½¿ç”¨ä¸­çš„è¡¨æƒ…åç¨±
 
     public float Volume;
     public float MusicVolume;
@@ -71,18 +71,18 @@ public class PlayerData
             { "Achievement3", false },
             { "Achievement4", false },
             { "Achievement5", false },
-            // ¿ÉÒÔÀ^ÀmÌí¼ÓÆäËû³É¾Í...
+            // å¯ä»¥ç¹¼çºŒæ·»åŠ å…¶ä»–æˆå°±...
         };
 
         outfits = new Dictionary<string, bool>
         {
             { "a", false },
             { "b", false },
-            // ¿ÉÒÔÀ^ÀmÌí¼ÓÆäËû·şÑb...
+            // å¯ä»¥ç¹¼çºŒæ·»åŠ å…¶ä»–æœè£...
         };
         unlockedClothings = new List<string>();
         currentClothing = null;
-        // ³õÊ¼»¯±íÇé
+        // åˆå§‹åŒ–è¡¨æƒ…
         expressions = new Dictionary<string, bool>
         {
             { "Expression1", false },
@@ -113,7 +113,7 @@ public class PlayerData
         Debug.Log("PlayerData initialized with default values.");
         itemLevels = new Dictionary<string, int>();
         unlockedVehicles = new List<int>();
-        //currentVehicle = -1; // îAÔOéŸoÜ‡İv
+        //currentVehicle = -1; // é è¨­ç‚ºç„¡è»Šè¼›
     }
 
 }

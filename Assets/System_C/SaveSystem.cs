@@ -5,31 +5,31 @@ using System.IO;
 
 public static class SaveSystem
 {
-    // ÔO¶¨´æ™nÂ·½£ºˆÌĞĞ™nËùÔÚÄ¿ä›ÏÂµÄ "test_Data" ÙYÁÏŠA
+    // è¨­å®šå­˜æª”è·¯å¾‘ï¼šåŸ·è¡Œæª”æ‰€åœ¨ç›®éŒ„ä¸‹çš„ "test_Data" è³‡æ–™å¤¾
     private static string folderPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "test_Data");
     private static string filePath = Path.Combine(folderPath, "playerData.json");
 
-    // ±£´æÍæ¼ÒÙYÁÏ
+    // ä¿å­˜ç©å®¶è³‡æ–™
     public static void SavePlayerData(PlayerData data)
     {
-        // ´_±£ÙYÁÏŠA´æÔÚ
+        // ç¢ºä¿è³‡æ–™å¤¾å­˜åœ¨
         if (!Directory.Exists(folderPath))
         {
             Directory.CreateDirectory(folderPath);
             Debug.Log("SaveSystem: Created folder at " + folderPath);
         }
 
-        // ±£´æÙYÁÏµ½ JSON ÎÄ¼ş
+        // ä¿å­˜è³‡æ–™åˆ° JSON æ–‡ä»¶
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(filePath, json);
         Debug.Log("SaveSystem: Player data saved to " + filePath);
        
     }
 
-    // ¼ÓİdÍæ¼ÒÙYÁÏ
+    // åŠ è¼‰ç©å®¶è³‡æ–™
     public static PlayerData LoadPlayerData()
     {
-        // Èç¹û™n°¸´æÔÚ£¬×xÈ¡ÙYÁÏ
+        // å¦‚æœæª”æ¡ˆå­˜åœ¨ï¼Œè®€å–è³‡æ–™
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
@@ -38,9 +38,9 @@ public static class SaveSystem
         }
         else
         {
-            // ™n°¸²»´æÔÚ•r£¬½¨Á¢ĞÂµÄÍæ¼ÒÙYÁÏ
+            // æª”æ¡ˆä¸å­˜åœ¨æ™‚ï¼Œå»ºç«‹æ–°çš„ç©å®¶è³‡æ–™
             Debug.LogWarning("SaveSystem: No save file found. Creating new PlayerData.");
-            return new PlayerData(); // ·µ»ØĞÂµÄÍæ¼ÒÙYÁÏ
+            return new PlayerData(); // è¿”å›æ–°çš„ç©å®¶è³‡æ–™
         }
     }
 }

@@ -5,29 +5,29 @@ using UnityEngine.UI;
 
 public class MoneyManager : MonoBehaviour
 {
-    public int totalCompleted; // Íê³É¿‚”µ
-    public int totalErrors;    // åeÕ`¿‚”µ
-    public int totalTimeouts;  // ³¬•r¿‚”µ
+    public int totalCompleted; // å®Œæˆç¸½æ•¸
+    public int totalErrors;    // éŒ¯èª¤ç¸½æ•¸
+    public int totalTimeouts;  // è¶…æ™‚ç¸½æ•¸
     public int total;
 
     public CanvasGroup canvasGroup;
     public Text coin;
-    public int totalEarnings;  // ¿‚ÊÕÈë
+    public int totalEarnings;  // ç¸½æ”¶å…¥
 
-    // Ã¿¹PÓ††ÎµÄÊÕÒæÅc¿Û·Ö
+    // æ¯ç­†è¨‚å–®çš„æ”¶ç›Šèˆ‡æ‰£åˆ†
     private const int completionReward = 100;
     private const int errorPenalty = 30;
     private const int timeoutPenalty = 50;
 
-    public float fadeDuration = 1f; // µ­Èë/µ­³öµÄ³ÖÀm•rég
-    public float moveSpeed = 50f; // ÒÆ„ÓµÄËÙ¶È
-    public float moveDistance = 100f; // ÒÆ„ÓµÄ¾àëx
-    public float delayBeforeFadeOut = 1f; // µ­ÈëááµÈ´ıµÄ•rég
+    public float fadeDuration = 1f; // æ·¡å…¥/æ·¡å‡ºçš„æŒçºŒæ™‚é–“
+    public float moveSpeed = 50f; // ç§»å‹•çš„é€Ÿåº¦
+    public float moveDistance = 100f; // ç§»å‹•çš„è·é›¢
+    public float delayBeforeFadeOut = 1f; // æ·¡å…¥å¾Œç­‰å¾…çš„æ™‚é–“
 
-    private bool isFadingIn = true; // ¿ØÖÆµ­Èë/µ­³ö
-    private bool isMoving = false; // ÊÇ·ñé_Ê¼ÒÆ„Ó
-    private Vector3 initialPosition; // ³õÊ¼Î»ÖÃ
-    private Vector3 targetPosition; // Ä¿˜ËÎ»ÖÃ
+    private bool isFadingIn = true; // æ§åˆ¶æ·¡å…¥/æ·¡å‡º
+    private bool isMoving = false; // æ˜¯å¦é–‹å§‹ç§»å‹•
+    private Vector3 initialPosition; // åˆå§‹ä½ç½®
+    private Vector3 targetPosition; // ç›®æ¨™ä½ç½®
     private float timer = 0f;
     private StarRatingManager starRatingManager;
 
@@ -56,7 +56,7 @@ public class MoneyManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// Íê³É¿‚”µ¼ÓÒ»£¬KÔö¼ÓÊÕÈë¡£
+    /// å®Œæˆç¸½æ•¸åŠ ä¸€ï¼Œä¸¦å¢åŠ æ”¶å…¥ã€‚
     /// </summary>
     public void AddCompletion()
     {
@@ -66,11 +66,11 @@ public class MoneyManager : MonoBehaviour
         total++;
         totalCompleted++;
         totalEarnings += completionReward;
-        Debug.Log($"Íê³É¿‚”µ: {totalCompleted}, ¿‚ÊÕÈë: {totalEarnings}");
+        Debug.Log($"å®Œæˆç¸½æ•¸: {totalCompleted}, ç¸½æ”¶å…¥: {totalEarnings}");
     }
 
     /// <summary>
-    /// åeÕ`¿‚”µ¼ÓÒ»£¬K¿Û³ıÏà‘ª½ğî~¡£
+    /// éŒ¯èª¤ç¸½æ•¸åŠ ä¸€ï¼Œä¸¦æ‰£é™¤ç›¸æ‡‰é‡‘é¡ã€‚
     /// </summary>
     public void AddError()
 
@@ -82,11 +82,11 @@ public class MoneyManager : MonoBehaviour
 
         totalErrors++;
         totalEarnings += errorPenalty;
-        Debug.Log($"åeÕ`¿‚”µ: {totalErrors}, ¿‚ÊÕÈë: {totalEarnings}");
+        Debug.Log($"éŒ¯èª¤ç¸½æ•¸: {totalErrors}, ç¸½æ”¶å…¥: {totalEarnings}");
     }
 
     /// <summary>
-    /// ³¬•r¿‚”µ¼ÓÒ»£¬K¿Û³ıÏà‘ª½ğî~¡£
+    /// è¶…æ™‚ç¸½æ•¸åŠ ä¸€ï¼Œä¸¦æ‰£é™¤ç›¸æ‡‰é‡‘é¡ã€‚
     /// </summary>
     public void AddTimeout()
     {
@@ -97,23 +97,23 @@ public class MoneyManager : MonoBehaviour
 
         totalTimeouts++;
         totalEarnings += timeoutPenalty;
-        Debug.Log($"³¬•r¿‚”µ: {totalTimeouts}, ¿‚ÊÕÈë: {totalEarnings}");
+        Debug.Log($"è¶…æ™‚ç¸½æ•¸: {totalTimeouts}, ç¸½æ”¶å…¥: {totalEarnings}");
     }
 
     /// <summary>
-    /// ½YËã¿‚ÊÕÈë£¬Ó‹ËãK·µ»Ø×î½K½ğî~¡£
+    /// çµç®—ç¸½æ”¶å…¥ï¼Œè¨ˆç®—ä¸¦è¿”å›æœ€çµ‚é‡‘é¡ã€‚
     /// </summary>
-    /// <returns>×î½KÊÕÈë½ğî~</returns>
+    /// <returns>æœ€çµ‚æ”¶å…¥é‡‘é¡</returns>
     public int CalculateFinalEarnings()
     {
         //(int totalOrders, int correctOrders, int errorOrders, int timeoutOrders, int income)
-        Debug.Log($"½YËã¿‚½ğî~: {totalEarnings} (¿‚”µ: {total},(Íê³É: {totalCompleted}, åeÕ`: {totalErrors}, ³¬•r: {totalTimeouts})");
+        Debug.Log($"çµç®—ç¸½é‡‘é¡: {totalEarnings} (ç¸½æ•¸: {total},(å®Œæˆ: {totalCompleted}, éŒ¯èª¤: {totalErrors}, è¶…æ™‚: {totalTimeouts})");
         starRatingManager.SetStarRating(total, totalCompleted, totalErrors, totalTimeouts, totalEarnings);
         return totalEarnings;
     }
     private System.Collections.IEnumerator FadeInAndMove()
     {
-        // µ­Èë
+        // æ·¡å…¥
         while (canvasGroup.alpha < 1f)
         {
             canvasGroup.alpha += Time.deltaTime / fadeDuration;
@@ -122,10 +122,10 @@ public class MoneyManager : MonoBehaviour
         AudioManager.Instance.PlaySound("coin");
 
         canvasGroup.alpha = 1f;
-        isMoving = true; // é_Ê¼ÒÆ„Ó
+        isMoving = true; // é–‹å§‹ç§»å‹•
         yield return new WaitForSeconds(delayBeforeFadeOut);
 
-        // µ­³ö
+        // æ·¡å‡º
         while (canvasGroup.alpha > 0f)
         {
             canvasGroup.alpha -= Time.deltaTime / fadeDuration;

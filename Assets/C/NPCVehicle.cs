@@ -9,37 +9,37 @@ public class NPCVehicle : MonoBehaviour
     private float patrolTime;
     private float patrolTimer;
 
-    private float rotationSpeed = 200f; // ĞıŞDËÙ¶È
-    private float moveSpeed = 3f; // ÒÆ„ÓËÙ¶È
-    private int roadAreaMask; // Ö¸¶¨µÄ NavMesh ˆDŒÓ
+    private float rotationSpeed = 200f; // æ—‹è½‰é€Ÿåº¦
+    private float moveSpeed = 3f; // ç§»å‹•é€Ÿåº¦
+    private int roadAreaMask; // æŒ‡å®šçš„ NavMesh åœ–å±¤
 
     public void Initialize(Transform playerTransform, int areaMask, float distance)
     {
         player = playerTransform;
         maxDistanceFromPlayer = distance;
-        roadAreaMask = areaMask; // ÔO¶¨Â·½ˆDŒÓÕÚÕÖ
+        roadAreaMask = areaMask; // è¨­å®šè·¯å¾‘åœ–å±¤é®ç½©
 
         navAgent = GetComponent<NavMeshAgent>();
         if (navAgent == null)
         {
-            Debug.LogError("NavMeshAgent Î´ÅäÖÃì¶Ü‡İvÎï¼şÉÏ£¡");
+            Debug.LogError("NavMeshAgent æœªé…ç½®æ–¼è»Šè¼›ç‰©ä»¶ä¸Šï¼");
             return;
         }
 
-        // ÔO¶¨ NavMeshAgent µÄÏàêP…¢”µ
+        // è¨­å®š NavMeshAgent çš„ç›¸é—œåƒæ•¸
         navAgent.enabled = true;
-        navAgent.areaMask = roadAreaMask; // Ö¸¶¨ NavMesh ˆDŒÓ
+        navAgent.areaMask = roadAreaMask; // æŒ‡å®š NavMesh åœ–å±¤
         navAgent.speed = moveSpeed;
         navAgent.angularSpeed = rotationSpeed;
 
-        // ëS™CÑ²ß‰•rég¹ ‡ú
+        // éš¨æ©Ÿå·¡é‚æ™‚é–“ç¯„åœ
         patrolTime = Random.Range(5f, 10f);
         patrolTimer = 0f;
 
-        // ·ÅÖÃÜ‡İvÔÚÓĞĞ§µÄ NavMesh ÉÏ
+        // æ”¾ç½®è»Šè¼›åœ¨æœ‰æ•ˆçš„ NavMesh ä¸Š
         PlaceOnNavMesh();
 
-        // ÔO¶¨³õÊ¼Ñ²ß‰Ä¿µÄµØ
+        // è¨­å®šåˆå§‹å·¡é‚ç›®çš„åœ°
         SetNewDestination();
     }
 
@@ -47,51 +47,51 @@ public class NPCVehicle : MonoBehaviour
     {
         if (!navAgent.isOnNavMesh)
         {
-            Debug.LogWarning("Ü‡İvß€Î´·ÅÖÃµ½ NavMesh ÉÏ£¬Ÿo·¨é_Ê¼Ñ²ß‰£¡");
+            Debug.LogWarning("è»Šè¼›é‚„æœªæ”¾ç½®åˆ° NavMesh ä¸Šï¼Œç„¡æ³•é–‹å§‹å·¡é‚ï¼");
             return;
         }
 
         patrolTimer += Time.deltaTime;
 
-        // Èç¹ûÑ²ß‰•régÒÑß^£¬ÔOÖÃĞÂµÄÑ²ß‰Ä¿µÄµØ
+        // å¦‚æœå·¡é‚æ™‚é–“å·²éï¼Œè¨­ç½®æ–°çš„å·¡é‚ç›®çš„åœ°
         if (patrolTimer >= patrolTime)
         {
             patrolTimer = 0f;
             SetNewDestination();
         }
 
-        // ™z²éÊÇ·ñ³¬ß^×î´ó¾àëx£¬³¬ß^„täNš§Ü‡İv
+        // æª¢æŸ¥æ˜¯å¦è¶…éæœ€å¤§è·é›¢ï¼Œè¶…éå‰‡éŠ·æ¯€è»Šè¼›
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         if (distanceToPlayer > maxDistanceFromPlayer)
         {
             Destroy(gameObject);
         }
 
-        // ´_±£Ü‡İv³¯ÏòĞĞñ‚·½Ïò
+        // ç¢ºä¿è»Šè¼›æœå‘è¡Œé§›æ–¹å‘
         MoveAndRotate();
     }
 
     private void SetNewDestination()
     {
-        // ™z²éÊÇ·ñÔÚÓĞĞ§µÄ NavMesh ÉÏ
+        // æª¢æŸ¥æ˜¯å¦åœ¨æœ‰æ•ˆçš„ NavMesh ä¸Š
         if (!navAgent.isOnNavMesh)
         {
-            //Debug.LogWarning("Ü‡İvÎ´ÔÚÓĞĞ§µÄ NavMesh ÉÏ£¬Ÿo·¨ÔOÖÃÄ¿µÄµØ£¡");
+            //Debug.LogWarning("è»Šè¼›æœªåœ¨æœ‰æ•ˆçš„ NavMesh ä¸Šï¼Œç„¡æ³•è¨­ç½®ç›®çš„åœ°ï¼");
             return;
         }
 
-        // ÔOÖÃĞÂÄ¿µÄµØ
+        // è¨­ç½®æ–°ç›®çš„åœ°
         NavMeshHit hit;
         Vector3 randomDirection = Random.insideUnitSphere * 10f + transform.position;
 
         if (NavMesh.SamplePosition(randomDirection, out hit, 10f, roadAreaMask))
         {
             navAgent.SetDestination(hit.position);
-            //Debug.Log($"ÔOÖÃĞÂµÄÄ¿µÄµØ£º{hit.position}");
+            //Debug.Log($"è¨­ç½®æ–°çš„ç›®çš„åœ°ï¼š{hit.position}");
         }
         else
         {
-            Debug.LogWarning("Î´ÕÒµ½ÓĞĞ§µÄ NavMesh Î»ÖÃ£¡");
+            Debug.LogWarning("æœªæ‰¾åˆ°æœ‰æ•ˆçš„ NavMesh ä½ç½®ï¼");
         }
     }
 
@@ -100,34 +100,34 @@ public class NPCVehicle : MonoBehaviour
         NavMeshHit hit;
         Vector3 spawnPosition = transform.position;
 
-        // ‡LÔ‡×î¶à 10 ´ÎíÕÒµ½ÓĞĞ§µÄ NavMesh Î»ÖÃ
+        // å˜—è©¦æœ€å¤š 10 æ¬¡ä¾†æ‰¾åˆ°æœ‰æ•ˆçš„ NavMesh ä½ç½®
         int attempts = 0;
         while (attempts < 10)
         {
             if (NavMesh.SamplePosition(spawnPosition, out hit, 10f, roadAreaMask))
             {
-                transform.position = hit.position; // Œ¢Ü‡İv·ÅÖÃµ½×î½üµÄÓĞĞ§ NavMesh üc
-                navAgent.Warp(hit.position); // ´_±£ agent Á¢¼´¸üĞÂÎ»ÖÃ
+                transform.position = hit.position; // å°‡è»Šè¼›æ”¾ç½®åˆ°æœ€è¿‘çš„æœ‰æ•ˆ NavMesh é»
+                navAgent.Warp(hit.position); // ç¢ºä¿ agent ç«‹å³æ›´æ–°ä½ç½®
                 return;
             }
             else
             {
-                // ëS™C¸Ä×ƒÉú³ÉÎ»ÖÃ£¬Ö±µ½ÕÒµ½ÓĞĞ§Î»ÖÃ
+                // éš¨æ©Ÿæ”¹è®Šç”Ÿæˆä½ç½®ï¼Œç›´åˆ°æ‰¾åˆ°æœ‰æ•ˆä½ç½®
                 spawnPosition = Random.insideUnitSphere * 10f + transform.position;
             }
             attempts++;
         }
 
-        // Èç¹û 10 ´Î‡LÔ‡¶¼›]ÕÒµ½ÓĞĞ§Î»ÖÃ£¬ˆóåe
-        Debug.LogError("Î´ÄÜÕÒµ½Ü‡İvµÄÓĞĞ§ NavMesh üc£¬Õˆ™z²éÉú³ÉÎ»ÖÃ£¡");
+        // å¦‚æœ 10 æ¬¡å˜—è©¦éƒ½æ²’æ‰¾åˆ°æœ‰æ•ˆä½ç½®ï¼Œå ±éŒ¯
+        Debug.LogError("æœªèƒ½æ‰¾åˆ°è»Šè¼›çš„æœ‰æ•ˆ NavMesh é»ï¼Œè«‹æª¢æŸ¥ç”Ÿæˆä½ç½®ï¼");
     }
 
     private void MoveAndRotate()
     {
-        // ×ŒÜ‡İv³¯ÖøÆäÄ¿µÄµØ·½ÏòÒÆ„Ó
+        // è®“è»Šè¼›æœè‘—å…¶ç›®çš„åœ°æ–¹å‘ç§»å‹•
         if (navAgent.velocity.sqrMagnitude > 0.1f)
         {
-            // Ó‹ËãÜ‡İv‘ªÔ“ÃæŒ¦µÄ·½Ïò
+            // è¨ˆç®—è»Šè¼›æ‡‰è©²é¢å°çš„æ–¹å‘
             Quaternion targetRotation = Quaternion.LookRotation(navAgent.velocity.normalized);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }

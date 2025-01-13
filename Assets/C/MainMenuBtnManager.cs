@@ -8,7 +8,7 @@ public class MainMenuBtnManager : MonoBehaviour
     public GameObject tipCanvas;
     private PlayerManager playerManager;
 
-    // ÔO¶¨´æ™nÂ·½£ºˆÌĞĞ™nËùÔÚÄ¿ä›ÏÂµÄ "test_Data" ÙYÁÏŠA
+    // è¨­å®šå­˜æª”è·¯å¾‘ï¼šåŸ·è¡Œæª”æ‰€åœ¨ç›®éŒ„ä¸‹çš„ "test_Data" è³‡æ–™å¤¾
     private static string folderPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "test_Data");
     private static string filePath = Path.Combine(folderPath, "playerData.json");
     private void Start()
@@ -19,13 +19,13 @@ public class MainMenuBtnManager : MonoBehaviour
             playerManager = playerSys.GetComponent<PlayerManager>();
             if (playerManager == null)
             {
-                Debug.LogError("ÔÚ 'PlayerSys' ÉÏÎ´ÕÒµ½ PlayerManager ½M¼ş£¡");
+                Debug.LogError("åœ¨ 'PlayerSys' ä¸Šæœªæ‰¾åˆ° PlayerManager çµ„ä»¶ï¼");
                 return;
             }
         }
         else
         {
-            Debug.LogError("Î´ÕÒµ½Ãû·Qé 'PlayerSys' µÄÎï¼ş£¡");
+            Debug.LogError("æœªæ‰¾åˆ°åç¨±ç‚º 'PlayerSys' çš„ç‰©ä»¶ï¼");
             return;
         }
     }
@@ -33,22 +33,22 @@ public class MainMenuBtnManager : MonoBehaviour
     public void OnStartButtonClick()
     {
         AudioManager.Instance.PlaySound("tap2");
-        // ™z²éÍæ¼ÒÊÇ·ñÒÑÍê³É½ÇÉ«„“½¨
+        // æª¢æŸ¥ç©å®¶æ˜¯å¦å·²å®Œæˆè§’è‰²å‰µå»º
         if (PlayerManager.instance.playerData.isCharacterCreated)
         {
-            // Èç¹ûÒÑ„“½¨½ÇÉ«£¬İdÈëêP¿¨ßx“ñˆö¾°
+            // å¦‚æœå·²å‰µå»ºè§’è‰²ï¼Œè¼‰å…¥é—œå¡é¸æ“‡å ´æ™¯
             SceneManager.LoadScene("fristscenes");
         }
         else
         {
-            // Èç¹ûÎ´„“½¨½ÇÉ«£¬İdÈë½ÇÉ«„“½¨ˆö¾°
+            // å¦‚æœæœªå‰µå»ºè§’è‰²ï¼Œè¼‰å…¥è§’è‰²å‰µå»ºå ´æ™¯
             SceneManager.LoadScene("CharacterCreationScene");
         }
     }
     public void OnNewButtonClick()
     {
         AudioManager.Instance.PlaySound("tap2");
-        // „h³ıÅfµÄÍæ¼ÒÙYÁÏ
+        // åˆªé™¤èˆŠçš„ç©å®¶è³‡æ–™
         DeletePlayerData();
 
         SceneManager.LoadScene("CharacterCreationScene");
@@ -58,38 +58,38 @@ public class MainMenuBtnManager : MonoBehaviour
     public void OnTIPButtonClick()
     {
         AudioManager.Instance.PlaySound("tap2");
-        // ï@Ê¾ÔO¶¨®‹²¼
+        // é¡¯ç¤ºè¨­å®šç•«å¸ƒ
         tipCanvas.SetActive(true);
     }
 
     public void OnCloseTIPButtonClick()
     {
         AudioManager.Instance.PlaySound("tap2");
-        // êPé]ÔO¶¨®‹²¼
+        // é—œé–‰è¨­å®šç•«å¸ƒ
         tipCanvas.SetActive(false);
     }
 
     public void OnExitButtonClick()
     {
         AudioManager.Instance.PlaySound("tap2");
-        // ±£´æÍæ¼ÒÙYÁÏ
+        // ä¿å­˜ç©å®¶è³‡æ–™
         SaveSystem.SavePlayerData(PlayerManager.instance.playerData);
         Debug.Log("Player data saved.");
 
-        // ÍË³öß[‘ò
+        // é€€å‡ºéŠæˆ²
         Application.Quit();
     }
     public void SettingsBtnClick()
     {
         AudioManager.Instance.PlaySound("tap2");
-        // ï@Ê¾ÔO¶¨®‹²¼
+        // é¡¯ç¤ºè¨­å®šç•«å¸ƒ
         settingsCanvas.SetActive(true);
     }
 
     public void CloseSettingsBtnClick()
     {
         AudioManager.Instance.PlaySound("tap2");
-        // êPé]ÔO¶¨®‹²¼
+        // é—œé–‰è¨­å®šç•«å¸ƒ
         settingsCanvas.SetActive(false);
     }
 

@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    public GameObject targetObject; // »İ­n±±¨îªºª«¥ó
+    public GameObject targetObject; // éœ€è¦æ§åˆ¶çš„ç‰©ä»¶
 
     void Start()
     {
-        // Àò¨ú targetObject ¤Wªº TargetScript ¨Ã±N¨ä¸T¥Î
+        // ç²å– targetObject ä¸Šçš„ TargetScript ä¸¦å°‡å…¶ç¦ç”¨
         targetObject.GetComponent<BIKE>().enabled = false;
     }
 
     void Update()
     {
-        // «ö¤UªÅ¥ÕÁä±Ò¥Î TargetScript
+        // æŒ‰ä¸‹ç©ºç™½éµå•Ÿç”¨ TargetScript
         if (Input.GetKeyDown(KeyCode.Space))
         {
             targetObject.GetComponent<BIKE>().enabled = true;
-            Debug.Log("TargetScript ¤w±Ò¥Î");
+            Debug.Log("TargetScript å·²å•Ÿç”¨");
         }
 
-        // «ö¤U F Áä¸T¥Î TargetScript
+        // æŒ‰ä¸‹ F éµç¦ç”¨ TargetScript
         if (Input.GetKeyDown(KeyCode.F))
         {
             targetObject.GetComponent<BIKE>().enabled = false;
-            Debug.Log("TargetScript ¤w¸T¥Î");
+            Debug.Log("TargetScript å·²ç¦ç”¨");
         }
     }
 }

@@ -5,89 +5,89 @@ using UnityEngine.UI;
 
 public class AchievementUIManager : MonoBehaviour
 {
-    // †ÎÀıÄ£Ê½
+    // å–®ä¾‹æ¨¡å¼
     public static AchievementUIManager Instance { get; private set; }
 
     [System.Serializable]
     public class AchievementData
     {
-        public string achievementName;  // ³É¾ÍÃû·Q
+        public string achievementName;  // æˆå°±åç¨±
         public string achtitle;
-        public Sprite achievementUI;   // ³É¾ÍŒ¦‘ªµÄˆDÆ¬
-        public string achievementText; // ³É¾ÍÃèÊöÎÄ±¾
+        public Sprite achievementUI;   // æˆå°±å°æ‡‰çš„åœ–ç‰‡
+        public string achievementText; // æˆå°±æè¿°æ–‡æœ¬
     }
 
-    public List<AchievementData> achievements; // ³É¾Í”µ“şÁĞ±í
+    public List<AchievementData> achievements; // æˆå°±æ•¸æ“šåˆ—è¡¨
 
-    public Canvas achievementCanvas; // ³É¾Í®‹²¼
-    public Image achievementImage;   // ˆDÆ¬½M¼ş
-    public Text achievementTitle;    // ³É¾ÍÃû·QÎÄ±¾
-    public Text achievementDescription; // ³É¾ÍÃèÊöÎÄ±¾
+    public Canvas achievementCanvas; // æˆå°±ç•«å¸ƒ
+    public Image achievementImage;   // åœ–ç‰‡çµ„ä»¶
+    public Text achievementTitle;    // æˆå°±åç¨±æ–‡æœ¬
+    public Text achievementDescription; // æˆå°±æè¿°æ–‡æœ¬
 
-    public float displayTime = 2f; // ï@Ê¾•réL
+    public float displayTime = 2f; // é¡¯ç¤ºæ™‚é•·
 
     private Coroutine currentDisplayRoutine;
 
     private void Awake()
     {
-        // ´_±£Ö»ÓĞÒ»‚€ŒÀı´æÔÚ
+        // ç¢ºä¿åªæœ‰ä¸€å€‹å¯¦ä¾‹å­˜åœ¨
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Destroy(gameObject); // Èç¹ûÒÑ½›ÓĞŒÀı´æÔÚ£¬äNš§ÖØÑ}µÄÎï¼ş
+            Destroy(gameObject); // å¦‚æœå·²ç¶“æœ‰å¯¦ä¾‹å­˜åœ¨ï¼ŒéŠ·æ¯€é‡è¤‡çš„ç‰©ä»¶
             return;
         }
 
-        DontDestroyOnLoad(gameObject); // ¿çˆö¾°±£Áô
+        DontDestroyOnLoad(gameObject); // è·¨å ´æ™¯ä¿ç•™
     }
 
     private void Start()
     {
-        achievementCanvas.gameObject.SetActive(false); // ³õÊ¼»¯ë[²Ø®‹²¼
+        achievementCanvas.gameObject.SetActive(false); // åˆå§‹åŒ–éš±è—ç•«å¸ƒ
     }
 
     /// <summary>
-    /// ï@Ê¾³É¾Í UI
+    /// é¡¯ç¤ºæˆå°± UI
     /// </summary>
-    /// <param name="achievementKey">³É¾ÍæIÖµ</param>
+    /// <param name="achievementKey">æˆå°±éµå€¼</param>
     public void ShowAchievement(string achievementKey)
     {
-        // ¸ù“ş³É¾ÍæIÖµÕÒµ½Œ¦‘ªµÄ”µ“ş
+        // æ ¹æ“šæˆå°±éµå€¼æ‰¾åˆ°å°æ‡‰çš„æ•¸æ“š
         AchievementData data = achievements.Find(a => a.achievementName == achievementKey);
 
         if (data != null)
         {
-            // ¸üĞÂ UI ÔªËØ
+            // æ›´æ–° UI å…ƒç´ 
             achievementTitle.text = data.achtitle;
             achievementDescription.text = data.achievementText;
             achievementImage.sprite = data.achievementUI;
 
-            // Èç¹ûÒÑÓĞï@Ê¾£¬È¡ÏûKÖØ†¢
+            // å¦‚æœå·²æœ‰é¡¯ç¤ºï¼Œå–æ¶ˆä¸¦é‡å•Ÿ
             if (currentDisplayRoutine != null)
             {
                 StopCoroutine(currentDisplayRoutine);
             }
 
-            // ï@Ê¾³É¾ÍK×Ô„Óë[²Ø
+            // é¡¯ç¤ºæˆå°±ä¸¦è‡ªå‹•éš±è—
             currentDisplayRoutine = StartCoroutine(DisplayAchievementUI());
         }
         else
         {
-            Debug.LogWarning($"Î´ÕÒµ½³É¾Í”µ“ş: {achievementKey}");
+            Debug.LogWarning($"æœªæ‰¾åˆ°æˆå°±æ•¸æ“š: {achievementKey}");
         }
     }
 
     /// <summary>
-    /// ï@Ê¾³É¾Í®‹²¼KÔÚÔO¶¨•régááë[²Ø
+    /// é¡¯ç¤ºæˆå°±ç•«å¸ƒä¸¦åœ¨è¨­å®šæ™‚é–“å¾Œéš±è—
     /// </summary>
     private IEnumerator DisplayAchievementUI()
     {
-        achievementCanvas.gameObject.SetActive(true); // ï@Ê¾®‹²¼
-        yield return new WaitForSeconds(displayTime); // µÈ´ı
-        achievementCanvas.gameObject.SetActive(false); // ë[²Ø®‹²¼
-        currentDisplayRoutine = null; // Çå¿Õ®”Ç°…f³Ì
+        achievementCanvas.gameObject.SetActive(true); // é¡¯ç¤ºç•«å¸ƒ
+        yield return new WaitForSeconds(displayTime); // ç­‰å¾…
+        achievementCanvas.gameObject.SetActive(false); // éš±è—ç•«å¸ƒ
+        currentDisplayRoutine = null; // æ¸…ç©ºç•¶å‰å”ç¨‹
     }
 }

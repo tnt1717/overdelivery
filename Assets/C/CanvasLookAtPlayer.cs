@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CanvasLookAtPlayer : MonoBehaviour
 {
-    public Transform player; // Íæ¼ÒµÄÎ»ÖÃ
+    public Transform player; // ç©å®¶çš„ä½ç½®
 
     void Update()
     {
         if (player != null)
         {
-            // Ê¹®‹²¼ÃæÏòÍæ¼Ò
+            // ä½¿ç•«å¸ƒé¢å‘ç©å®¶
             transform.LookAt(player);
         }
     }

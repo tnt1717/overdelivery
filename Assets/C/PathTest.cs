@@ -9,28 +9,28 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PathTest : MonoBehaviour
 {
-    public Transform player;               // Íæ¼ÒµÄÎ»ÖÃ
-    private Transform target;              // Ä¿˜ËÎï¼ş
-    private LineRenderer lineRenderer;     // ÓÃì¶äÖÈ¾ÒıŒ§¾€
-    private NavMeshPath navPath;           // NavMesh Â·½
+    public Transform player;               // ç©å®¶çš„ä½ç½®
+    private Transform target;              // ç›®æ¨™ç‰©ä»¶
+    private LineRenderer lineRenderer;     // ç”¨æ–¼æ¸²æŸ“å¼•å°ç·š
+    private NavMeshPath navPath;           // NavMesh è·¯å¾‘
 
-    public float updateFrequency = 0.5f;   // ¸üĞÂÂ·½µÄîlÂÊ (Ãë)
+    public float updateFrequency = 0.5f;   // æ›´æ–°è·¯å¾‘çš„é »ç‡ (ç§’)
 
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         navPath = new NavMeshPath();
 
-        // ÔOÖÃ LineRenderer µÄŒÙĞÔ
+        // è¨­ç½® LineRenderer çš„å±¬æ€§
         lineRenderer.startWidth = 0.2f;
         lineRenderer.endWidth = 0.2f;
         lineRenderer.positionCount = 0;
 
-        // †¢„Ó…f³ÌµÈ´ıÄ¿˜ËÎï¼şÉú³É
+        // å•Ÿå‹•å”ç¨‹ç­‰å¾…ç›®æ¨™ç‰©ä»¶ç”Ÿæˆ
         StartCoroutine(WaitForTarget());
     }
 
-    // …f³Ì£ºµÈ´ıÄ¿˜ËÎï¼şÉú³ÉKé_Ê¼¸üĞÂÂ·½
+    // å”ç¨‹ï¼šç­‰å¾…ç›®æ¨™ç‰©ä»¶ç”Ÿæˆä¸¦é–‹å§‹æ›´æ–°è·¯å¾‘
     private IEnumerator WaitForTarget()
     {
         while (target == null)
@@ -41,17 +41,17 @@ public class PathTest : MonoBehaviour
             if (targetObject != null)
             {
                 target = targetObject.transform;
-                StartCoroutine(UpdatePathRoutine()); // é_Ê¼¸üĞÂÂ·½
+                StartCoroutine(UpdatePathRoutine()); // é–‹å§‹æ›´æ–°è·¯å¾‘
             }
             else
             {
 
-                yield return new WaitForSeconds(0.3f); // Ã¿0.5ÃëÖØÑ}™zœy
+                yield return new WaitForSeconds(0.3f); // æ¯0.5ç§’é‡è¤‡æª¢æ¸¬
             }
         }
     }
 
-    // Ê¹ÓÃ…f³Ì¶¨ÆÚ¸üĞÂÂ·½
+    // ä½¿ç”¨å”ç¨‹å®šæœŸæ›´æ–°è·¯å¾‘
     private IEnumerator UpdatePathRoutine()
     {
         while (true)
@@ -61,15 +61,15 @@ public class PathTest : MonoBehaviour
         }
     }
 
-    // Ó‹ËãÂ·½K¸üĞÂ LineRenderer
+    // è¨ˆç®—è·¯å¾‘ä¸¦æ›´æ–° LineRenderer
     private void UpdatePath()
     {
         if (target != null && NavMesh.CalculatePath(player.position, target.position, NavMesh.AllAreas, navPath))
         {
-            // ÔOÖÃ LineRenderer µÄüc”µ
+            // è¨­ç½® LineRenderer çš„é»æ•¸
             lineRenderer.positionCount = navPath.corners.Length;
 
-            // Œ¢Ã¿‚€Â·½ücÔOÖÃµ½ LineRenderer
+            // å°‡æ¯å€‹è·¯å¾‘é»è¨­ç½®åˆ° LineRenderer
             for (int i = 0; i < navPath.corners.Length; i++)
             {
                 lineRenderer.SetPosition(i, navPath.corners[i]);
@@ -77,7 +77,7 @@ public class PathTest : MonoBehaviour
         }
         else
         {
-            // Èç¹ûŸo·¨Ó‹ËãÂ·½£¬„të[²ØÒıŒ§¾€
+            // å¦‚æœç„¡æ³•è¨ˆç®—è·¯å¾‘ï¼Œå‰‡éš±è—å¼•å°ç·š
             lineRenderer.positionCount = 0;
         }
     }
