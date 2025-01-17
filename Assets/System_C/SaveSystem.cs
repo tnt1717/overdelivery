@@ -5,8 +5,8 @@ using System.IO;
 
 public static class SaveSystem
 {
-    // 設定存檔路徑：執行檔所在目錄下的 "test_Data" 資料夾
-    private static string folderPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "test_Data");
+    // 使用 Application.dataPath 指向遊戲根目錄（在編輯器中是 Assets 目錄，在構建版本中是遊戲根目錄）
+    private static string folderPath = Path.Combine(Application.dataPath, "../test_Data");
     private static string filePath = Path.Combine(folderPath, "playerData.json");
 
     // 保存玩家資料
@@ -23,7 +23,6 @@ public static class SaveSystem
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(filePath, json);
         Debug.Log("SaveSystem: Player data saved to " + filePath);
-       
     }
 
     // 加載玩家資料
