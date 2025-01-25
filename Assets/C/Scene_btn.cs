@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 using System.Collections.Generic;
@@ -51,12 +52,11 @@ public class Scene_btn : MonoBehaviour
     {
         SceneTransitionManager transitionManager = FindObjectOfType<SceneTransitionManager>();
         transitionManager.StartSceneTransition();
-
+   
         GameObject coinSysObject = GameObject.Find("coin_Sys");
         if (coinSysObject != null && coinSysObject.activeInHierarchy) coinSysObject.SetActive(false);
 
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         AudioManager.Instance.PlaySound("tap");
 
     }

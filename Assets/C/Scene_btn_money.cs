@@ -28,6 +28,7 @@ public class Scene_btn_money : MonoBehaviour
             return;
         }
         ui.gameObject.SetActive(false);
+        //Debug.LogWarning(SceneManager.GetActiveScene());
     }
 
     // Update is called once per frame
@@ -41,6 +42,8 @@ public class Scene_btn_money : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) { 
             AudioManager.Instance.PlaySound("tap2");
             ui.gameObject.active = !ui.active;
+            if (ui.gameObject.active == true) Time.timeScale = 0f;
+            if (ui.gameObject.active != true) Time.timeScale = 1f;
 
         }
     }
@@ -71,12 +74,14 @@ public class Scene_btn_money : MonoBehaviour
     }
     public void restart()
     {
+        string scene = SceneManager.GetActiveScene().ToString();
+
         AudioManager.Instance.PlaySound("tap2");
 
         SceneTransitionManager transitionManager = FindObjectOfType<SceneTransitionManager>();
         transitionManager.StartSceneTransition();
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
     public void backtofrist()

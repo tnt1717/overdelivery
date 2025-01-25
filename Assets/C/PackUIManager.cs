@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -20,12 +21,15 @@ public class PackUIManager : MonoBehaviour
 
     private void Update()
     {
+        //Debug.LogWarning("進入狀態:"+isPlayerInZone);
+
         if (isPlayerInZone && Input.GetKey(KeyCode.F))
         {
             OpenUIPackCanvas();
         }
-        else {
-            //tipui.gameObject.SetActive(false);
+        else
+        {
+            tipui.gameObject.SetActive(false);
             uiPackCanvas.SetActive(false);
 
         }
@@ -50,6 +54,7 @@ public class PackUIManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.LogWarning(other.gameObject.tag);
         // 如果離開觸發區的物件是 "Player"
         if (other.CompareTag("cus"))
         {
