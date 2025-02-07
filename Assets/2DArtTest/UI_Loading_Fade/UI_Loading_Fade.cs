@@ -45,7 +45,7 @@ public class UI_Loading_Fade : MonoBehaviour
             loading_0.transform.localScale = Vector3.Lerp(loading_0.transform.localScale, targetScale_0, scaleSpeed_0 * Time.deltaTime);
 
             // 判斷是否接近目標比例，防止不斷計算
-            if (Vector3.Distance(loading_0.transform.localScale, targetScale_0) < 12f)
+            if (Vector3.Distance(loading_0.transform.localScale, targetScale_0) < 0.1f)
             {
                 loading_0.transform.localScale = targetScale_0;
                 loading_0.SetActive(false);
