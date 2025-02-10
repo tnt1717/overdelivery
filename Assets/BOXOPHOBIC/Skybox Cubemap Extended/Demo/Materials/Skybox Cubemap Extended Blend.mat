@@ -90,7 +90,11 @@ Material:
     - _BumpScale: 1
     - _CUBEMAPP: 1
     - _CubemapPosition: 0
+<<<<<<< HEAD
     - _CubemapTransition: 0.093522914
+=======
+    - _CubemapTransition: 0.03302975
+>>>>>>> origin/Art_2D
     - _Cubemapp: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
