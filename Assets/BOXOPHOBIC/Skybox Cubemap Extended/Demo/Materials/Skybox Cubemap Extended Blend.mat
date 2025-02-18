@@ -90,7 +90,11 @@ Material:
     - _BumpScale: 1
     - _CUBEMAPP: 1
     - _CubemapPosition: 0
+<<<<<<< HEAD
     - _CubemapTransition: 0
+=======
+    - _CubemapTransition: 0.5925854
+>>>>>>> origin/main
     - _Cubemapp: 1
     - _EnableFog: 0
     - _EnableRotation: 0
