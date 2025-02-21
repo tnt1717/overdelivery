@@ -5,129 +5,37 @@ using UnityEngine;
 public class ScreenTapFX : MonoBehaviour
 {
 
-    public GameObject effectPrefab; // 拖入要顯示的特效預製件
+    public GameObject effectPrefab; // 拖入要顯示的特效預製件                                 
+    public Texture2D customCursorA;  // 用來存放自定義的滑鼠圖片
+    public Texture2D customCursorB;
+    public Vector2 hotspot = Vector2.zero;  // 定義滑鼠圖片熱點位置（相對於圖片左上角的偏移）
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // 檢測滑鼠左鍵點擊
         {
-            SpawnEffect();
+            //SpawnEffect();        // 設定自定義滑鼠圖片
+            Cursor.SetCursor(customCursorA, hotspot, CursorMode.Auto);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            OnApplicationQuit();
         }
     }
 
-    void SpawnEffect()
+    /*void SpawnEffect()
     {
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = 10f; // 設定 z 軸，確保特效可見（視場深度）
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
         GameObject effectInstance = Instantiate(effectPrefab, worldPosition, Quaternion.identity);
-        Destroy(effectInstance, 2f); // 2秒後銷毀特效
+        Destroy(effectInstance, 0.5f); // 2秒後銷毀特效
+    }*/
+
+    void OnApplicationQuit()
+    {
+        // 程式結束時恢復預設滑鼠圖片
+        Cursor.SetCursor(customCursorB, Vector2.zero, CursorMode.Auto);
     }
-
-    /*
-     * /// <summary>
-     /// 屏幕特效原始资源
-     /// </summary>
-     public GameObject fxSample;
-
-     /// <summary>
-     /// 屏幕特效的生命时长，超过后会进行缓存
-     /// </summary>
-     public float fxLifeTime = 1.0f;
-
-     /// <summary>
-     /// 屏幕特效的容器（父对象）
-     /// </summary>
-     public RectTransform fxContainer;
-
-     /// <summary>
-     /// 屏幕特效渲染使用的相机
-     /// </summary>
-     public Camera fxRenderCamera;
-
-     private Queue<GameObject> pool = new Queue<GameObject>(20);
-     private List<GameObject> activatedFXList = new List<GameObject>();
-
-     private void Awake()
-     {
-         if (fxSample == null)
-         {
-             Debug.LogErrorFormat("没有找到屏幕特效");
-             this.enabled = false;
-         }
-         else
-         {
-             fxSample.SetActive(false);
-         }
-     }
-
-     private void Update()
-     {
-         for (int i = activatedFXList.Count - 1; i >= 0; --i)
-         {
-             GameObject fx = activatedFXList[i];
-             float fxTime = float.Parse(fx.name);
-             if (Time.time - fxTime > fxLifeTime)
-             {
-                 RecycleFX(fx);
-                 activatedFXList.RemoveAt(i);
-             }
-         }
-
-         if (Application.isMobilePlatform)
-         {
-             for (int i = 0; i < Input.touchCount; ++i)
-             {
-                 Touch touch = Input.GetTouch(i);
-                 if (touch.phase == TouchPhase.Began)
-                 {
-                     PlayFX(touch.position);
-                 }
-             }
-         }
-         else
-         {
-             if (Input.GetMouseButtonDown(0))
-             {
-                 PlayFX(Input.mousePosition);
-             }
-         }
-     }
-
-
-     private void PlayFX(Vector2 tapPos)
-     {
-         GameObject fx = CreateFX();
-         fx.name = Time.time.ToString();
-         activatedFXList.Add(fx);
-
-         RectTransform fxRectTrans = fx.GetComponent<RectTransform>();
-         Vector2 fxLocalPos;
-         RectTransformUtility.ScreenPointToLocalPointInRectangle(fxContainer, tapPos, fxRenderCamera, out fxLocalPos);
-         fxRectTrans.SetParent(fxContainer);
-         fxRectTrans.anchoredPosition3D = fxLocalPos;
-         fx.SetActive(true);
-     }
-
-
-     private GameObject CreateFX()
-     {
-         GameObject newFX = null;
-         if (pool.Count > 0)
-         {
-             newFX = pool.Dequeue();
-         }
-         else
-         {
-             newFX = Instantiate(fxSample);
-         }
-         return newFX;
-     }
-
-     private void RecycleFX(GameObject fx)
-     {
-         fx.SetActive(false);
-         pool.Enqueue(fx);
-     }*/
 }

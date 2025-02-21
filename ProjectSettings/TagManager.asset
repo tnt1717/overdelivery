@@ -22,7 +22,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Effect
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 1070902291
+    locked: 0
+  - name: Effect
+    uniqueID: 4261512951
     locked: 0
