@@ -103,15 +103,26 @@ public class PlayerController : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-        Vector3 moveDirection = new Vector3(moveX, 0f, moveZ).normalized;
+
+        Transform cameraTransform = Camera.main.transform; // 取得攝影機 Transform
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+
+        forward.y = 0; // 忽略 Y 軸，避免玩家受攝影機俯仰影響
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 moveDirection = (forward * moveZ + right * moveX).normalized;
 
         if (moveDirection.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
             float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, 0.1f);
             transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
+
+            transform.position += moveDirection * moveSpeed * Time.deltaTime;
             playerAnimator.SetBool("isMoved", true);
         }
         else
