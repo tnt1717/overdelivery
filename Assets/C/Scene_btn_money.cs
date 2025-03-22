@@ -46,7 +46,11 @@ public class Scene_btn_money : MonoBehaviour
             if (ui.gameObject.active != true) Time.timeScale = 1f;
 
         }
-    }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            backtofrist();
+        }
+        }
     public void leve()
     {
         SceneTransitionManager transitionManager = FindObjectOfType<SceneTransitionManager>();

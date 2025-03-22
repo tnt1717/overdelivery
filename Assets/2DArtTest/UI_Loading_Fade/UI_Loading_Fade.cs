@@ -15,6 +15,26 @@ public class UI_Loading_Fade : MonoBehaviour
 
     bool testQ = false;
     bool testW = false;
+    public void StartScalingUp()
+    {
+        testQ = true;
+        testW = false;
+        loading_0.SetActive(true);
+        loading_1.SetActive(true);
+    }
+
+    public void StartScalingDown()
+    {
+        testQ = false;
+        testW = true;
+        loading_0.SetActive(true);
+        loading_1.SetActive(true);
+    }
+
+    public void End() {
+        loading_0.SetActive(false);
+        loading_1.SetActive(false);
+    }
 
     private void Start()
     {
@@ -23,20 +43,20 @@ public class UI_Loading_Fade : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Q))
-        {
-            testQ = true;
-            testW = false;
-            loading_0.SetActive(true);
-            loading_1.SetActive(true);
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            testQ = false;
-            testW = true;
-            loading_0.SetActive(true);
-            loading_1.SetActive(true);
-        }
+        //if (Input.GetKey(KeyCode.Q))
+        //{
+        //    testQ = true;
+        //    testW = false;
+        //    loading_0.SetActive(true);
+        //    loading_1.SetActive(true);
+        //}
+        //else if (Input.GetKey(KeyCode.W))
+        //{
+        //    testQ = false;
+        //    testW = true;
+        //    loading_0.SetActive(true);
+        //    loading_1.SetActive(true);
+        //}
 
         //放大
         if (testQ == true && testW == false)

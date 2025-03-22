@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
         BIKEObject.GetComponent<BIKE>().enabled = false;
         rb = GetComponent<Rigidbody>();
         bikeRigidbody.isKinematic = true;
+        bikeCamera.gameObject.SetActive(false);
+
         Cursor.lockState = CursorLockMode.Locked; // 鎖定滑鼠在畫面中央
         Cursor.visible = false; // 隱藏滑鼠指標
     }

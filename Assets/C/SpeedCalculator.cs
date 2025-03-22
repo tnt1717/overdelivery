@@ -82,7 +82,7 @@ public class SpeedCalculator : MonoBehaviour
         distanceTraveled += speed * Time.deltaTime;
 
         // 每行駛 100 公里（100,000 米），消耗 fuelConsumptionRate 的油量
-        if (distanceTraveled >= 100f)
+        if (distanceTraveled >= 10f)
         {
             fuelPercentage -= fuelConsumptionRate; // 減少油量
             distanceTraveled = 0f;                 // 重置累計距離
@@ -95,6 +95,15 @@ public class SpeedCalculator : MonoBehaviour
         if (fuelBar != null)
         {
             fuelBar.fillAmount = fuelPercentage;
+        }
+        // 當油量低於 20% 時，顏色逐漸變紅
+        if (fuelPercentage <= 0.2f)
+        {
+            fuelBar.color = Color.Lerp(Color.white, Color.red, fuelPercentage / 0.2f);
+        }
+        else
+        {
+            fuelBar.color = Color.white; // 保持綠色
         }
 
         // 如果油量歸零，觸發額外行為（如停止移動或重新加油）
