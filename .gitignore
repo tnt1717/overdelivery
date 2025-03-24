@@ -14,6 +14,20 @@
 Library/
 Packages/
 
+# 忽略大型檔案
+*.dylib
+*.so
+*.dll
+
+# 忽略編譯輸出的檔案
+*.exe
+*.app
+*.apk
+
+# 忽略其他常見的 IDE 配置
+.vscode/
+.idea/
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
