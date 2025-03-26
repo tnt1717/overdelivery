@@ -13,6 +13,7 @@
 /URP_project/project/Packages/
 Library/
 Packages/
+Temp/
 
 # 忽略大型檔案
 *.dylib
