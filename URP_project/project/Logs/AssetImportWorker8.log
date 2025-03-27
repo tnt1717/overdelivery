@@ -386,3 +386,11 @@ Received Import Request.
 Start importing Assets/Japan_Map/Invisible wall/UI_Fog/Prefab/invisible1~2.prefab using Guid(a68f8796ce100af4799de829e0ad1ffb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '54bb9e0f35e1c2d9ed175442a316a8c9') in 0.0356588 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 231
 
+========================================================================
+Received Import Request.
+  Time since last request: 2247.429774 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(99c9720ab356a0642a771bea13969a05) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/SampleScene.unity using Guid(99c9720ab356a0642a771bea13969a05) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '092f7974db3fb175701bdf9959c1e23b') in 0.0010762 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
