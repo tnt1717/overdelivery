@@ -326,8 +326,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 346.4
-    y: 79.200005
+    x: 347.4
+    y: 24
     width: 1116.4
     height: 471.6
   m_SerializedDataModeController:
@@ -838,7 +838,7 @@ MonoBehaviour:
       m_Fade:
         m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -854,7 +854,7 @@ MonoBehaviour:
       m_Fade:
         m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -864,11 +864,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.17724314, y: 0.82218117, z: -0.4008356, w: 0.36366996}
     speed: 2
-    m_Value: {x: 0.17528889, y: 0.8237847, z: -0.4016171, w: 0.35966143}
+    m_Value: {x: 0.17724313, y: 0.82218117, z: -0.40083557, w: 0.36366996}
   m_Size:
     m_Target: 56.759552
     speed: 2
-    m_Value: 54.31536
+    m_Value: 56.759552
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -924,7 +924,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79.200005
+    y: 24
     width: 345.4
     height: 471.6
   m_SerializedDataModeController:
@@ -940,7 +940,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 333.4}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 8e2df4ff4637f4ff323ff4ff647cf4ff667cf4ff9086f4ff8099f4ff8e99f4ff56a3f4fffea7f4ff20bef4ffa0d9f4ff2a28f5ff3828f5ffde40f5ff2044f5ff0e5cf5ff625cf5ffb65cf5ff1a5df5fffe5df5ffd25ef5ffd65ef5ff0e74f5ff2674f5ff3489f5ff089bf5ffeeb4f5fff0b4f5ffc6c6f5fff860f6ff1261f6ff18fdf6fff40ef7ffc820f7ff9a32f7ff6444f7ff3856f7ff6a69f7fffa87f7fffc87f7ffd09bf7ffdc9bf7ff90aff7ff92aff7ff16c3f7ff24c3f7ff4ef1f7ffecf1f7ffb223f8ff3436f8ff4236f8ff46b0f8ff4884f9fff484f9ff0299f9ff98acf9ffcabff9ff6ad3f9ff9ce6f9ff38faf9ff740dfaff6a31faff6c31faffd246faff2c5cfaff4470fafff284faff1899faffdcadfaff72c2faff74c2fafffad6faff7cf0faff7ef0faff42fefaff44fefaff5e12fbff6012fbff1a2ffbff1c2ffbfff445fbfff645fbffe069fcff3c6bfcff147ffcffb07ffcffec8cfdff18d2fdffeed2fdffc645ffff9e52ffff20fbffff
@@ -989,8 +989,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1464.8
-    y: 79.200005
+    x: 1465.8
+    y: 24
     width: 98
     height: 471.6
   m_SerializedDataModeController:
@@ -1091,9 +1091,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 576.8
+    y: 521.6
     width: 1563.8
-    height: 201.19998
+    height: 201.20001
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1135,21 +1135,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 74.80002}
     m_SelectedIDs: 9ea60000
     m_LastClickedID: 42654
-    m_ExpandedIDs: 000000009ca60000c644010048510100541704009817040000ca9a3b
+    m_ExpandedIDs: 000000005cba0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Scenes
-      m_OriginalName: Scenes
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 268176
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}
@@ -1164,7 +1164,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000009ca6000000ca9a3b
+    m_ExpandedIDs: 000000005cba0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1279,8 +1279,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1564.8
-    y: 79.200005
+    x: 1565.8
+    y: 24
     width: 482.19995
     height: 698.8
   m_SerializedDataModeController:
