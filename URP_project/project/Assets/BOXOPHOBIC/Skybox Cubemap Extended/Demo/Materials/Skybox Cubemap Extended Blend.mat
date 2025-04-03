@@ -90,7 +90,7 @@ Material:
     - _BumpScale: 1
     - _CUBEMAPP: 1
     - _CubemapPosition: 0
-    - _CubemapTransition: 0.11573038
+    - _CubemapTransition: 0.0882561
     - _Cubemapp: 1
     - _EnableFog: 0
     - _EnableRotation: 0
@@ -109,3 +109,4 @@ Material:
     m_Colors:
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
