@@ -5,9 +5,42 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/useing/MainMenu.unity
+    guid: 92abad76dbff6ab4c9817f33c246ae52
+  - enabled: 1
+    path: Assets/Scenes/useing/CharacterCreationScene.unity
+    guid: 614aa0f68df69c742871a13bd89b0896
+  - enabled: 1
+    path: Assets/Scenes/useing/fristscenes.unity
+    guid: 7091d030fcc1dda45a78115adf2f4c6f
+  - enabled: 1
+    path: Assets/Scenes/useing/motoshop.unity
+    guid: ec6bb1877485a5f4591f885ae1b12b6e
+  - enabled: 1
+    path: Assets/Scenes/useing/clothshop.unity
+    guid: 53622abecd30933419d0e31528c3ad34
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: cdfaa04ab5231e948a5bb967b7350bdc
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: a7186d96a71ea8c4ca04440b6eff08ba
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: 6965d277b784f8f479199fe29d785eb2
+  - enabled: 1
+    path: Assets/Scenes/Level4.unity
+    guid: 8aba88c4694f8a54fbbf609cd946c0f7
+  - enabled: 1
+    path: Assets/Scenes/Level5.unity
+    guid: 90aceca50b780d447946e415ad73c280
+  - enabled: 1
+    path: Assets/Scenes/Level6.unity
+    guid: 521c4849147ff394bbdd9b721097309c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
